@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.10.0/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.10.0/js/mui.min.js"></script>
+    <style>
+	/**
+	 * Sidebar CSS
+	 */
+	#sidebar {
+		background-color: rgb(0, 0, 0);
+		padding: 15px;
+	}
+
+	@media (min-width: 768px) {
+		#sidebar {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			width: 140px;
+			height: 100%;
+			padding-top: 30px;
+		}
+	}
+
+	/**
+	 * Content CSS
+	 */
+	@media (min-width: 768px) {
+		#content {
+			margin-left: 180px;
+		}
+	}
+    </style>
+  </head>
+  <body>
+	<div id="sidebar">
+		<div class="mui--text-light mui--text-display1 mui--align-vertical">5/3/1 Log</div>
+		<div class="mui--divider-top">
+			<button class="mui-btn mui-btn--raised"><a href="/index">Home</a></button>
+		</div>
+		<div class="mui--divider-top">
+			<button class="mui-btn mui-btn--raised"><a href="/log">Log</a></button>
+		</div>
+	</div>
+	{% block content %}{% endblock %}
+  </body>
+</html>
