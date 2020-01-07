@@ -1,5 +1,74 @@
 {% extends "base.html" %}
 
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.10.0/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.10.0/js/mui.min.js"></script>
+    <style>
+	/**
+	 * Body CSS
+	 */
+	html,
+	body {
+	height: 100%;
+	}
+
+	html,
+	body,
+	input,
+	textarea,
+	button {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	}
+
+	/**
+	 * Content CSS
+	 */
+	@media (min-width: 768px) {
+		#content {
+			margin-left: 180px;
+		}
+	}
+    </style>
+  </head>
 {% block content %}
-<h1>This is where user will log their training session.</h1>
+<div id="content" class="mui-container">
+    <form class="mui-form">
+        <div class="mui--text-display3">Log Training Sessions</div>
+        <br>
+        <div class="mui-divider"></div>
+        <br>
+        <div class="mui--text-display2">Main Lift</div>
+        <div class="mui-checkbox">
+            <label>
+                <input type="checkbox" value="" checked>
+                Squat
+            </label>
+        </div>
+        <div class="mui-checkbox">
+            <label>
+                <input type="checkbox" value="">
+                Bench
+            </label>
+        </div>
+        <div class="mui-checkbox">
+            <label>
+                <input type="checkbox" value="">
+                Deadlift
+            </label>
+        </div>
+        <div class="mui-checkbox">
+            <label>
+                <input type="checkbox" value="">
+                Press
+            </label>
+        </div>
+    </form>
+</div>
 {% endblock %}
