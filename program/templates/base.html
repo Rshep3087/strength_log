@@ -21,10 +21,28 @@
 			position: fixed;
 			top: 0;
 			bottom: 0;
-			width: 140px;
+			width: 155px;
 			height: 100%;
 			padding-top: 30px;
 		}
+	}
+
+	/**
+	 * Body CSS
+	 */
+	 html,
+	body {
+	height: 100%;
+	}
+
+	html,
+	body,
+	input,
+	textarea,
+	button {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 	}
 
 	/**
@@ -45,9 +63,11 @@
 			<button class="mui-btn mui-btn--raised"><a href="/index">Home</a></button>
 		</div>
 		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="/log">Log</a></button>
+			<button class="mui-btn mui-btn--raised"><a href="/log_workout">Log Workout</a></button>
 		</div>
 	</div>
+	<div id="content" class="mui-container">
 	{% block content %}{% endblock %}
+	</div>
   </body>
 </html>
