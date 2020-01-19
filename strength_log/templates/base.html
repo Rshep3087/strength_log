@@ -8,54 +8,14 @@
 	<!-- load MUI -->
 	<link href="//cdn.muicss.com/mui-0.10.0/css/mui.min.css" rel="stylesheet" type="text/css" />
 	<script src="//cdn.muicss.com/mui-0.10.0/js/mui.min.js"></script>
-	<style>
-		/**
-	 * Sidebar CSS
-	 */
-		#sidebar {
-			background-color: black;
-			padding: 15px;
-		}
 
-		@media (min-width: 768px) {
-			#sidebar {
-				position: fixed;
-				top: 0;
-				bottom: 0;
-				width: 155px;
-				height: 100%;
-				padding-top: 30px;
-			}
-		}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
-		/**
-	 * Body CSS
-	 */
-		html,
-		body {
-			height: 100%;
-		}
-
-		html,
-		body,
-		input,
-		textarea,
-		button {
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-		}
-
-		/**
-	 * Content CSS
-	 */
-		@media (min-width: 768px) {
-			#content {
-				margin-left: 180px;
-			}
-		}
-	</style>
-
+	{% if title %}
+	<title>Strength Log - {{ title }}</title>
+	{% else %}
+	<title>Strength Log</title>
+	{% endif %}
 </head>
 
 <body>
@@ -64,9 +24,21 @@
 		<div class="mui--divider-top">
 			<button class="mui-btn mui-btn--raised"><a href="/index">Home</a></button>
 		</div>
+		{% if current_user.is_authenticated %}
 		<div class="mui--divider-top">
 			<button class="mui-btn mui-btn--raised"><a href="/post/new">Log Workout</a></button>
 		</div>
+		<div class="mui--divider-top">
+			<button class="mui-btn mui-btn--raised"><a href="/logout">Log Out</a></button>
+		</div>
+		{% else %}
+		<div class="mui--divider-top">
+			<button class="mui-btn mui-btn--raised"><a href="/login">Log In</a></button>
+		</div>
+		<div class="mui--divider-top">
+			<button class="mui-btn mui-btn--raised"><a href="/register">Register</a></button>
+		</div>
+		{% endif %}
 		<div class="mui--divider-top">
 			<button class="mui-btn mui-btn--raised"><a href="/about">About</a></button>
 		</div>
