@@ -60,7 +60,7 @@ def logout():
 @app.route("/post/new", methods=["GET", "POST"])
 def log_workout():
     form = PostForm()
-    if request.method == "POST" and form.validate_on_submit():
-        return redirect("/success")
+    if form.validate_on_submit():
+        post = Post()
 
     return render_template("create_post.html", form=form)
