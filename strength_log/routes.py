@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect, url_for
 from strength_log import app, db, bcrypt
-from strength_log.forms import PostForm, RegistrationForm, LoginForm
-from strength_log.models import User, Post
+from strength_log.forms import PostForm, RegistrationForm, LoginForm, MaxesForm
+from strength_log.models import User, Post, Max
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -58,9 +58,18 @@ def logout():
 
 
 @app.route("/post/new", methods=["GET", "POST"])
+# @login_required()
 def log_workout():
     form = PostForm()
     if form.validate_on_submit():
         post = Post()
 
     return render_template("create_post.html", form=form)
+
+
+@app.route("/maxes", methods=["GET", "POST"])
+# @login_required()
+def maxes():
+    form = MaxesForm()
+
+    return render_template("maxes.html", form=form)
