@@ -70,6 +70,33 @@ def log_workout():
 @app.route("/maxes", methods=["GET", "POST"])
 # @login_required()
 def maxes():
-    form = MaxesForm()
+    if request.method == "POST":
+        form = MaxesForm()
+        if form.validate_on_submit():
+            max = Max.query.filter_by(user_id=current_user.id).first()
+            if not max:
+                max = Max(
+                    squat=form.squat.data,
+                    bench=form.bench.data,
+                    deadlift=form.deadlift.data,
+                    press=form.press.data,
+                    user=current_user,
+                )
+                db.session.add(max)
+                db.session.commit()
+            else:
+                max.squat = form.squat.data
+                max.bench = form.bench.data
+                max.deadlift = form.deadlift.data
+                max.press = form.press.data
+                db.session.commit()
+
+            return redirect(url_for("index"))
+    else:
+        max = Max.query.filter_by(user_id=current_user.id).first()
+        if not max:
+            form = MaxesForm()
+        else:
+            form = MaxesForm(obj=max)
 
     return render_template("maxes.html", form=form)
