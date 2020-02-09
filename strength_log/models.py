@@ -9,13 +9,18 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20))
     email = db.Column(db.String(120))
     password = db.Column(db.String(60))
 
-    max = db.relationship("Max", backref="user", uselist=False)
-    posts = db.relationship("Post", backref="author")
+    # max = db.relationship("Max", backref="user", uselist=False)
+    # posts = db.relationship("Post", backref="author")
+
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+        self.authenticated = False
 
 
 class Max(db.Model):
