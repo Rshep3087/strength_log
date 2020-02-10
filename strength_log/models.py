@@ -1,9 +1,9 @@
 from datetime import datetime
-from strength_log import db, login_manager
+from strength_log import db, login
 from flask_login import UserMixin
 
 
-@login_manager.user_loader
+@login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
