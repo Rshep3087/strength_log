@@ -12,7 +12,6 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 login = LoginManager()
 login.login_view = "user.login"
-login.login_message_category = "info"
 
 #################
 #### Logging ####

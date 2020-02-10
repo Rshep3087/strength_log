@@ -1,5 +1,5 @@
 from datetime import datetime
-from strength_log import db, login
+from strength_log import db, login, bcrypt
 from flask_login import UserMixin
 
 
@@ -10,17 +10,22 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120))
-    password = db.Column(db.String(60))
+    email = db.Column(db.String(120), nullable=False)
+    hashed_password = db.Column(db.Binary(60), nullable=False)
+    authenticated = db.Column(db.Boolean, default=False)
 
     # max = db.relationship("Max", backref="user", uselist=False)
     # posts = db.relationship("Post", backref="author")
 
     def __init__(self, email, password):
         self.email = email
-        self.password = password
+        self.hashed_password = bcrypt.generate_password_hash(password)
         self.authenticated = False
+
+    def is_correct_password(self, password):
+        return bcrypt.check_password_hash(self.hashed_password, password)
 
 
 class Max(db.Model):
@@ -29,7 +34,7 @@ class Max(db.Model):
     bench = db.Column(db.Float)
     deadlift = db.Column(db.Float)
     press = db.Column(db.Float)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=True)
 
 
 class Post(db.Model):
@@ -39,4 +44,4 @@ class Post(db.Model):
     main_lift = db.PickleType()
     accessories = db.Column(db.String(80))
     conditioning = db.Column(db.String(80))
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

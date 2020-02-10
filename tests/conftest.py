@@ -1,5 +1,5 @@
 import pytest
-from strength_log.models import User
+from strength_log.models import User, Post
 from strength_log import create_app, db
 
 
@@ -8,6 +8,17 @@ def new_user():
     user = User("ryan.sheppard@gmail.com", "strengthlog")
     return user
 
+
+"""
+@pytest.fixture(scope="module")
+def new_post():
+    post = Post(title = ,
+    warm_up = ,
+    main_lift = ,
+    accessories = ,
+    conditioning = )
+    return post
+"""
 
 """
 Create new Flask application
