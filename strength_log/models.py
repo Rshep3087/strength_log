@@ -32,6 +32,8 @@ class User(db.Model, UserMixin):
 
 
 class Max(db.Model):
+    __tablename__ = "maxes"
+
     id = db.Column(db.Integer, primary_key=True)
     squat = db.Column(db.Float)
     bench = db.Column(db.Float)
@@ -42,6 +44,8 @@ class Max(db.Model):
 
 
 class Post(db.Model):
+    __tablename__ = "posts"
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
     warm_up = db.Column(db.String(80))
