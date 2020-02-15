@@ -2,47 +2,40 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_migrate import Migrate
+from strength_log.config import Config
+from loguru import logger
 
-# from flask_migrate import Migrate
 
-######################
-### Configuration ####
-######################
+# configuration
+
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login = LoginManager()
-login.login_view = "user.login"
-
-#################
-#### Logging ####
-#################
-
-from loguru import logger
-
-#####################
-#### App Factory ####
-#####################
+login.login_view = "users.login"
+login.login_message_category = "info"
+migrate = Migrate()
 
 
-def create_app(config_filename=None):
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_pyfile(config_filename)
-    initialize_extensions(app)
-    register_blueprints(app)
+# app factory
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
     logger.info("App init")
-    return app
 
-
-def initialize_extensions(app: Flask):
     db.init_app(app)
     bcrypt.init_app(app)
     login.init_app(app)
+    migrate.init_app(app, db=db)
 
+    from strength_log.users.routes import users
+    from strength_log.posts.routes import posts
+    from strength_log.main.routes import main
+    from strength_log.maxes.routes import maxes
 
-def register_blueprints(app: Flask):
-    from strength_log.users import users_blueprint
+    app.register_blueprint(users)
+    app.register_blueprint(posts)
+    app.register_blueprint(main)
+    app.register_blueprint(maxes)
 
-    app.register_blueprint(users_blueprint)
-
-
-# from strength_log import routes
+    return app

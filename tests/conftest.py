@@ -1,5 +1,5 @@
 import pytest
-from strength_log.models import User, Post
+from strength_log.models import User
 from strength_log import create_app, db
 
 
@@ -9,38 +9,10 @@ def new_user():
     return user
 
 
-"""
 @pytest.fixture(scope="module")
-def new_post():
-    post = Post(title = ,
-    warm_up = ,
-    main_lift = ,
-    accessories = ,
-    conditioning = )
-    return post
-"""
-
-"""
-Create new Flask application
-Init a db
-Run func test
-Destroy db
-Stop the Flask App
-"""
-
-
-@pytest.fixture(scope="module")
-def test_client():
-    flask_app = create_app("flask_test.cfg")
-
-    testing_client = flask_app.test_client()
-
-    ctx = flask_app.app_context()
-    ctx.push()
-
-    yield testing_client
-
-    ctx.pop()
+def app():
+    app = create_app()
+    return app
 
 
 @pytest.fixture(scope="module")

@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.Binary(60), nullable=False)
     authenticated = db.Column(db.Boolean, default=False)
 
-    # max = db.relationship("Max", backref="user", uselist=False)
-    # posts = db.relationship("Post", backref="author")
+    max = db.relationship("Max", backref="user")
+    posts = db.relationship("Post", backref="author")
 
     def __init__(self, email, password):
         self.email = email
@@ -27,6 +27,9 @@ class User(db.Model, UserMixin):
     def is_correct_password(self, password):
         return bcrypt.check_password_hash(self.hashed_password, password)
 
+    def __repr__(self):
+        return f"User('{self.email}')"
+
 
 class Max(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +37,8 @@ class Max(db.Model):
     bench = db.Column(db.Float)
     deadlift = db.Column(db.Float)
     press = db.Column(db.Float)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=True)
+    date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
 class Post(db.Model):
