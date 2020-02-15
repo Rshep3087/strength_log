@@ -11,8 +11,8 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    email = db.Column(db.String(120), nullable=False, index=True)
     hashed_password = db.Column(db.Binary(60), nullable=False)
     authenticated = db.Column(db.Boolean, default=False)
 
@@ -47,7 +47,7 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80))
+    title = db.Column(db.String(80), index=True)
     warm_up = db.Column(db.String(80))
     main_lift = db.PickleType()
     accessories = db.Column(db.String(80))
