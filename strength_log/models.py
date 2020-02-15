@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.Binary(60), nullable=False)
     authenticated = db.Column(db.Boolean, default=False)
 
-    max = db.relationship("Max", backref="user")
-    posts = db.relationship("Post", backref="author")
+    max = db.relationship("Max", backref="user", lazy="dynamic")
+    posts = db.relationship("Post", backref="author", lazy="dynamic")
 
     def __init__(self, email, password):
         self.email = email
@@ -39,7 +39,7 @@ class Max(db.Model):
     bench = db.Column(db.Float)
     deadlift = db.Column(db.Float)
     press = db.Column(db.Float)
-    date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
@@ -52,4 +52,8 @@ class Post(db.Model):
     main_lift = db.PickleType()
     accessories = db.Column(db.String(80))
     conditioning = db.Column(db.String(80))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    def __repr__(self):
+        return f"Post('{self.title}')"
