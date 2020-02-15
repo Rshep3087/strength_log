@@ -22,9 +22,13 @@ def new_max():
             db.session.add(max)
             db.session.commit()
 
-            return redirect(url_for("home"))
+            return redirect(url_for("main.home"))
     else:
-        max = Max.query.filter_by(user_id=current_user.id).first()
+        max = (
+            Max.query.filter_by(user_id=current_user.id)
+            .order_by(Max.timestamp.desc())
+            .first()
+        )
         if not max:
             form = MaxesForm()
         else:

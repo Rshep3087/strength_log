@@ -1,8 +1,8 @@
-"""adds all tables to sqlite, lazy loading and relationships
+"""all tables in correct loacation
 
-Revision ID: f360c8268011
+Revision ID: 2ec2c5f24938
 Revises: 
-Create Date: 2020-02-15 11:18:51.311310
+Create Date: 2020-02-15 11:36:29.361095
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f360c8268011'
+revision = '2ec2c5f24938'
 down_revision = None
 branch_labels = None
 depends_on = None
