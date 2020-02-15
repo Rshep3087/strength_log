@@ -1,66 +1,248 @@
 {% extends "base.html" %}
 {% block content %}
+
+<head>
+    <script src='static\node_modules\chart.js\dist\Chart.min.js'></script>
+</head>
+<h1>Maxes</h1>
 <div class="mui-container">
-    <form method="POST" action="">
+    <form class="mui-form--inline" method="POST" action="">
         {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ form.squat.label(class="form-control-label") }}
+            <div class="mui-textfield">
                 {% if form.squat.errors %}
-                {{ form.squat(class="form-control form-control-lg is-invalid") }}
+                {{ form.squat(class= "is-invalid mui-textfield") }}
                 <div class="invalid-feedback">
                     {% for error in form.squat.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.squat(class="form-control form-control-lg") }}
+                {{ form.squat(class= "mui-textfield") }}
                 {% endif %}
+                <label>{{ form.squat.label }}</label>
             </div>
-            <div class="form-group">
-                {{ form.bench.label(class="form-control-label") }}
+            <div class="mui-textfield">
                 {% if form.bench.errors %}
-                {{ form.bench(class="form-control form-control-lg is-invalid") }}
+                {{ form.bench(class= "form-control form-control-lg is-invalid mui-textfield") }}
                 <div class="invalid-feedback">
                     {% for error in form.bench.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.bench(class="form-control form-control-lg") }}
+                {{ form.bench(class= "form-control form-control-lg mui-textfield") }}
                 {% endif %}
+                <label>{{ form.bench.label }}</label>
             </div>
-            <div class="form-group">
-                {{ form.deadlift.label(class="form-control-label") }}
+            <div class="mui-textfield">
                 {% if form.deadlift.errors %}
-                {{ form.deadlift(class="form-control form-control-lg is-invalid") }}
+                {{ form.deadlift(class= "form-control form-control-lg is-invalid mui-textfield") }}
                 <div class="invalid-feedback">
                     {% for error in form.deadlift.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.deadlift(class="form-control form-control-lg") }}
+                {{ form.deadlift(class= "form-control form-control-lg mui-textfield") }}
                 {% endif %}
+                <label>{{ form.deadlift.label }}</label>
             </div>
-            <div class="form-group">
-                {{ form.press.label(class="form-control-label") }}
+            <div class="mui-textfield">
                 {% if form.press.errors %}
-                {{ form.press(class="form-control form-control-lg is-invalid") }}
+                {{ form.press(class= "form-control form-control-lg is-invalid mui-textfield") }}
                 <div class="invalid-feedback">
                     {% for error in form.press.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.press(class="form-control form-control-lg") }}
+                {{ form.press(class= "form-control form-control-lg mui-textfield") }}
                 {% endif %}
+                <label>{{ form.press.label }}</label>
             </div>
-        </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class= "mui-btn mui-btn--raised") }}
         </div>
     </form>
+    <h1>Max Charts</h1>
+    <!-- bar chart canvas element -->
+    <div class="mui-panel">
+        <!-- content -->
+        <canvas id="squatChart" width="1050" height="400"></canvas>
+    </div>
+    <div class="mui-panel">
+        <canvas id="benchChart" width="1050" height="400"></canvas>
+    </div>
+    <div class="mui-panel">
+        <canvas id="deadliftChart" width="1050" height="400"></canvas>
+    </div>
+    <div class="mui-panel">
+        <canvas id="pressChart" width="1050" height="400"></canvas>
+    </div>
+
+    <script>
+        // define global variables
+        Chart.defaults.global.responsive = false;
+        Chart.defaults.global.layout.padding.top = 15;
+        Chart.defaults.global.elements.point.radius = 5;
+        Chart.defaults.global.elements.point.hoverRadius = 10;
+        Chart.defaults.global.elements.point.borderWidth = 1;
+        Chart.defaults.global.elements.point.hitRadius = 10;
+        Chart.defaults.global.elements.point.hoverBorderWidth = 2;
+        Chart.defaults.global.spanGaps = false;
+
+        // define the squat data
+        var squatData = { 
+            labels: [{% for item in labels %}
+                        "{{ item }}",
+                        {% endfor %}],
+            datasets: [{
+                label: 'Squat',
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "#0509E4",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBackgroundColor: "#fff",
+                pointHoverBackgroundColor: "#0509E4",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                data:
+                    [{% for item in squat_values %}
+                        {{ item }},
+                    {% endfor %}],
+            }]
+        };
+        var benchData = {
+            labels:
+                [{% for item in labels %}
+                    "{{ item }}",
+                {% endfor %}],
+            datasets: [{
+                label: 'Bench',
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "#04BA04",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBackgroundColor: "#fff",
+                pointHoverBackgroundColor: "#04BA04",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                data:
+                    [{% for item in bench_values %}
+                        {{ item }},
+                    {% endfor %}],
+            }]
+        };
+        var deadliftData = {
+            labels:
+                [{% for item in labels %}
+                    "{{ item }}",
+                {% endfor %}],
+            datasets: [{
+                label: 'Deadlift',
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "#E45502",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBackgroundColor: "#fff",
+                pointHoverBackgroundColor: "#E45502",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                data:
+                    [{% for item in deadlift_values %}
+                        {{ item }},
+                    {% endfor %}],
+            }]
+        };
+        var pressData = {
+            labels: [{% for item in labels %}
+            "{{ item }}",
+            {% endfor %}],
+            datasets: [{
+                label: 'Press',
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "#F60505",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBackgroundColor: "#fff",
+                pointHoverBackgroundColor: "#F60505",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                data:[{% for item in press_values %}
+                {{ item }},
+                {% endfor %}],
+            }]
+        };
+
+        // get squat canvas
+        var ctxSquat = document.getElementById("squatChart").getContext("2d");
+        var ctxBench = document.getElementById("benchChart").getContext("2d");
+        var ctxDeadlift = document.getElementById("deadliftChart").getContext("2d");
+        var ctxPress = document.getElementById("pressChart").getContext("2d");
+
+        // create the chart using the chart canvas
+        var squatChart = new Chart(ctxSquat, {
+            type: 'line',
+            data: squatData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        var benchChart = new Chart(ctxBench, {
+            type: 'line',
+            data: benchData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        var deadliftChart = new Chart(ctxDeadlift, {
+            type: 'line',
+            data: deadliftData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        var pressChart = new Chart(ctxPress, {
+            type: 'line',
+            data: pressData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
 </div>
 
 {% endblock %}
