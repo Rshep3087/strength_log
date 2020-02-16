@@ -4,24 +4,23 @@
 
 {% block content %}
 <div class="mui-container">
-    <form method="POST" action="">
+    <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ form.email.label(class="form-control-label") }}
+        <fieldset>
+            <div class="mui-textfield">
                 {% if form.email.errors %}
-                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                {{ form.email(class="mui-textfield is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.email.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.email(class="form-control form-control-lg") }}
+                {{ form.email(class="mui-textfield") }}
                 {% endif %}
+                <label>{{ form.email.label }}</label>
             </div>
-            <div class="form-group">
-                {{ form.password.label(class="form-control-label") }}
+            <div class="mui-textfield">
                 {% if form.password.errors %}
                 {{ form.password(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
@@ -30,12 +29,13 @@
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.password(class="form-control form-control-lg") }}
+                {{ form.password(class="mui-textfield") }}
                 {% endif %}
+                <label>{{ form.password.label }}</label>
             </div>
         </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="mui-btn mui-btn--raised submit-btn") }}
         </div>
     </form>
 </div>
