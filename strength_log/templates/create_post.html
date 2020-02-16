@@ -1,48 +1,65 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="content-section">
-    <form class="mui-form" method="POST" action="" style="text-align: center;">
+    <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
-        <div class="mui--text-display2" style="text-align: center; margin-top: 40px;">Log Training Sessions</div>
-        <br>
-        <div class="mui-divider"></div>
-        <br>
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ form.title.label(class="form-control-label") }}
-                {% if form.title.errors %}
-                {{ form.title(class="form-control form-control-lg is-invalid")}}
-                <div class="invalid-feedback">
-                    {% for error in errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.title(class="form-control form-control-lg") }}
-                {% endif %}
+        <div class="mui-textfield">
+            {% if form.title.errors %}
+            {{ form.title(class= "is-invalid mui-textfield") }}
+            <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
             </div>
-            <div class="mui--text-display1">Main Lifts</div>
-            <div class="form-group" style="text-align: center;">
-                <label>
-                    {{ form.squat(class="form-control") }}
-                    {{ form.squat.label() }}
-                </label>
-                <label>
-                    {{ form.bench(class="form-control") }}
-                    {{ form.bench.label() }}
-                </label>
-                <label>
-                    {{ form.deadlift(class="form-control") }}
-                    {{ form.deadlift.label() }}
-                </label>
-                <label>
-                    {{ form.press(class="form-control") }}
-                    {{ form.press.label() }}
-                </label>
+            {% else %}
+            {{ form.title(class= "mui-textfield") }}
+            {% endif %}
+            <label>{{ form.title.label }}</label>
+        </div>
+        <div class="mui-textfield">
+            {% if form.warm_up.errors %}
+            {{ form.warm_up(class= "is-invalid mui-textfield") }}
+            <div class="invalid-feedback">
+                {% for error in form.warm_up.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
             </div>
-        </fieldset>
+            {% else %}
+            {{ form.warm_up(class= "mui-textfield") }}
+            {% endif %}
+            <label>{{ form.warm_up.label }}</label>
+        </div>
+        <div>
+            {{ form.main_lift.label }}{{ form.main_lift }}
+        </div>
+        <div class="mui-textfield">
+            {% if form.accessories.errors %}
+            {{ form.accessories(class= "is-invalid mui-textfield") }}
+            <div class="invalid-feedback">
+                {% for error in form.accessories.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.accessories(class= "mui-textfield") }}
+            {% endif %}
+            <label>{{ form.accessories.label }}</label>
+        </div>
+        <div class="mui-textfield">
+            {% if form.conditioning.errors %}
+            {{ form.conditioning(class= "is-invalid mui-textfield") }}
+            <div class="invalid-feedback">
+                {% for error in form.conditioning.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.conditioning(class= "mui-textfield") }}
+            {% endif %}
+            <label>{{ form.conditioning.label }}</label>
+        </div>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info submit-btn") }}
+            {{ form.submit(class= "mui-btn mui-btn--raised submit-btn") }}
         </div>
     </form>
 </div>

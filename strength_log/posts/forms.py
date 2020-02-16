@@ -1,25 +1,28 @@
 from flask_wtf import FlaskForm
 from wtforms import (
+    BooleanField,
     StringField,
     SubmitField,
-    BooleanField,
-    TextAreaField,
-    DecimalField,
+    SelectField,
 )
 from wtforms.validators import DataRequired, Length, Optional
 
 
 class PostForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()], default="Today's Lift")
-    warm_up = TextAreaField("Warm Up", validators=[Optional(), Length(max=200)])
-    squat = BooleanField("Squat", default="checked")
-    bench = BooleanField("Bench")
-    deadlift = BooleanField("Deadlift")
-    press = BooleanField(label="Press")
-    accessories = TextAreaField("Accessories", validators=[Optional(), Length(max=200)])
-    conditioning = TextAreaField(
-        "Conditioning", validators=[Optional(), Length(max=200)]
+    title = StringField("Title", default="Today's Lift")
+    warm_up = StringField("Warm Up", default="No warm up")
+
+    main_lift = SelectField(
+        u"Main Lift",
+        choices=[
+            ("squat", "Squat"),
+            ("bench", "Bench"),
+            ("deadlift", "Deadlift"),
+            ("press", "Press"),
+        ],
     )
 
-    submit = SubmitField("Submit")
+    accessories = StringField("Accessories")
+    conditioning = StringField("Conditioning")
 
+    submit = SubmitField("Submit")

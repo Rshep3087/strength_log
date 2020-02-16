@@ -12,4 +12,4 @@ class MaxesForm(FlaskForm):
     deadlift = DecimalField("Deadlift Max", validators=[DataRequired()], default=405.0)
     press = DecimalField("Press Max", validators=[DataRequired()], default=135.0)
 
-    submit = SubmitField("Save")
+    submit = SubmitField("Submit")

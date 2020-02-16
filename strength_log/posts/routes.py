@@ -1,17 +1,37 @@
-from flask import render_template, redirect, url_for, Blueprint
+from flask import render_template, redirect, url_for, Blueprint, flash, request
 from strength_log import db
 from strength_log.posts.forms import PostForm
 from strength_log.models import Post
 from flask_login import current_user, login_required
+from loguru import logger
 
 posts = Blueprint("posts", __name__)
 
 
 @posts.route("/post/new", methods=["GET", "POST"])
+@login_required
 def new_post():
     form = PostForm()
-    if form.validate_on_submit():
-        pass
+
+    if request.method == "POST":
+        logger.debug(request.method)
+        logger.debug(form.validate())
+        if form.validate_on_submit():
+            main_lift = {"squat": {1: (5, 225), 2: (5, 235), 3: (5, 245)}}
+
+            post = Post(
+                title=form.title.data,
+                warm_up=form.warm_up.data,
+                main_lift=main_lift,
+                accessories=form.accessories.data,
+                conditioning=form.conditioning.data,
+                author=current_user,
+            )
+            db.session.add(post)
+            db.session.commit()
+
+            flash("Your session has been logged!", "success")
+            return redirect(url_for("main.home"))
 
     return render_template("create_post.html", form=form)
 
