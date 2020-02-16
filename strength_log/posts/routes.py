@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, Blueprint, flash, request
+from flask import render_template, redirect, url_for, Blueprint, flash, request, abort
 from strength_log import db
 from strength_log.posts.forms import PostForm
 from strength_log.models import Post
@@ -41,3 +41,15 @@ def new_post():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template("post.html", title=post.title, post=post)
+
+
+@posts.route("/post/<int:post_id>/delete", methods=["POST"])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash("Your post has been deleted!", "success")
+    return redirect(url_for("main.home"))
