@@ -6,7 +6,9 @@ from strength_log.config import Config
 
 class TestConfig(Config):
     TESTING = True
+    BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = "sqlite://"
+    WTF_CSRF_ENABLED = False
 
 
 @pytest.fixture(scope="module")
@@ -31,16 +33,18 @@ def test_client():
 
 @pytest.fixture(scope="module")
 def init_database():
+    # Create the database and tables
     db.create_all()
 
-    user1 = User(email="user1@gmail.com", password="user1")
+    # Insert user data
+    user1 = User(email="ryan.sheppard@gmail.com", password="strengthlog")
     user2 = User(email="user2@gmail.com", password="user2")
-
     db.session.add(user1)
     db.session.add(user2)
 
+    # Commit changes
     db.session.commit()
 
-    yield db
+    yield db  # Testing happpens here
 
     db.drop_all()
