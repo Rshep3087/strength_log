@@ -1,6 +1,12 @@
 import pytest
 from strength_log.models import User
 from strength_log import create_app, db
+from strength_log.config import Config
+
+
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = "sqlite://"
 
 
 @pytest.fixture(scope="module")
@@ -10,9 +16,17 @@ def new_user():
 
 
 @pytest.fixture(scope="module")
-def app():
-    app = create_app()
-    return app
+def test_client():
+    app = create_app(config_class=TestConfig)
+
+    test_client = app.test_client()
+
+    ctx = app.app_context()
+    ctx.push()
+
+    yield test_client
+
+    ctx.pop()
 
 
 @pytest.fixture(scope="module")

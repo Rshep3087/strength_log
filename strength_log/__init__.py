@@ -10,17 +10,17 @@ from loguru import logger
 # configuration
 
 db = SQLAlchemy()
+migrate = Migrate()
 bcrypt = Bcrypt()
 login = LoginManager()
 login.login_view = "users.login"
 login.login_message_category = "info"
-migrate = Migrate()
 
 
 # app factory
 def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config_class)
     logger.info("App init")
 
     db.init_app(app)

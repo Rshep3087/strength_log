@@ -11,13 +11,15 @@ main = Blueprint("main", __name__)
 @main.route("/")
 @main.route("/home")
 def home():
+    """
     posts = (
         Post.query.filter_by(author=current_user).order_by(Post.timestamp.desc()).all()
     )
     # squat_maxes = [squat_max.squat for squat_max in user_maxes]
     main_lift = [main_lift.main_lift for main_lift in posts]
     logger.debug(type(main_lift))
-    return render_template("home.html", posts=posts)
+    """
+    return render_template("home.html")
 
 
 @main.route("/about")
