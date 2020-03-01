@@ -34,6 +34,7 @@ def register():
     return render_template("register.html", form=form)
 
 
+@logger.catch
 @users.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -41,9 +42,15 @@ def login():
         return redirect(url_for("main.home"))
 
     form = LoginForm()
+
     if request.method == "POST":
+        logger.debug(f"Form validated on submit? {form.validate_on_submit()}")
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
+            if user:
+                logger.debug("User found!")
+            else:
+                logger.debug("User not found")
             if user and user.is_correct_password(form.password.data):
                 login_user(user)
                 return redirect(url_for("main.home"))

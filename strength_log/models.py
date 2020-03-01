@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True, index=True)
     email = db.Column(db.String(120), nullable=False, index=True)
-    hashed_password = db.Column(db.Binary(60), nullable=False)
+    hashed_password = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, nullable=True)
     authenticated = db.Column(db.Boolean, default=False)
 
@@ -29,6 +29,9 @@ class User(db.Model, UserMixin):
         self.created_at = dt.datetime.utcnow()
         self.authenticated = False
 
+    def __repr__(self):
+        return f"User('{self.email}')"
+
     def is_correct_password(self, password):
         return bcrypt.check_password_hash(self.hashed_password, password)
 
@@ -37,9 +40,6 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return str(self.id)
-
-    def __repr__(self):
-        return f"User('{self.email}')"
 
 
 class Max(db.Model):
@@ -60,8 +60,8 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), index=True)
     warm_up = db.Column(db.String(80))
-    main_lift = db.Column(db.String)
-    sets = db.Column(db.JSON)
+    main_lift = db.Column(db.String(20))
+    sets = db.Column(db.PickleType)
     accessories = db.Column(db.String(80))
     conditioning = db.Column(db.String(80))
     timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)

@@ -1,8 +1,8 @@
-"""all tables in correct loacation
+"""password change column type
 
-Revision ID: 2ec2c5f24938
+Revision ID: ddedbfd2765a
 Revises: 
-Create Date: 2020-02-15 11:36:29.361095
+Create Date: 2020-03-01 20:00:24.652345
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2ec2c5f24938'
+revision = 'ddedbfd2765a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,8 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('hashed_password', sa.Binary(), nullable=False),
+    sa.Column('hashed_password', sa.String(length=128), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('authenticated', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -43,6 +44,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=80), nullable=True),
     sa.Column('warm_up', sa.String(length=80), nullable=True),
+    sa.Column('main_lift', sa.String(length=20), nullable=True),
+    sa.Column('sets', sa.PickleType(), nullable=True),
     sa.Column('accessories', sa.String(length=80), nullable=True),
     sa.Column('conditioning', sa.String(length=80), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
