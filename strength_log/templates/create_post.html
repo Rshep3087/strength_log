@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+<script type="text/javascript" src="{{url_for('static', filename='posts.js')}}"></script>
+
 <div class="content-section">
     <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
@@ -30,7 +32,32 @@
             <label>{{ form.warm_up.label }}</label>
         </div>
         <div>
-            {{ form.main_lift.label }}{{ form.main_lift }}
+            {{ form.main_lift.label }}
+            {{ form.main_lift }}
+        </div>
+        <div>
+            <button class= "mui-btn mui-btn--raised submit-btn" type="button" value="Add" onclick="add();">Add Set</button>
+            <button class= "mui-btn mui-btn--raised submit-btn" type="button" value="Remove" onclick="remove();">Remove Set</button>
+        </div>
+        <div id="subform-container">
+            {% for subform in form.sets %}
+                <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                    {{ subform.reps.label }}
+                    {{ subform.reps }}
+
+                    {{ subform.weight.label }}
+                    {{ subform.weight }}
+                </div>
+            {% endfor %}
+        </div>
+        {# Form template #}
+        <div id="set-_-form" class="is-hidden" data-index="_">
+            <label for="sets-_-reps">Reps</label>
+            <input id="sets-_-reps" name="sets-_-reps" type="text" value="1">
+
+            <label for="sets-_-weight">Weight</label>
+            <input id="sets-_-weight" name="sets-_-weight" type="text" value="45">
+
         </div>
         <div class="mui-textfield">
             {% if form.accessories.errors %}

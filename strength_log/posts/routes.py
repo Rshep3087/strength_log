@@ -14,8 +14,7 @@ def new_post():
     form = PostForm()
 
     if request.method == "POST":
-        logger.debug(request.method)
-        logger.debug(form.validate())
+        logger.debug(type(form.main_lift.data))
         if form.validate_on_submit():
             main_lift = {"squat": {1: (5, 225), 2: (5, 235), 3: (5, 245)}}
 

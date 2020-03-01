@@ -48,3 +48,13 @@ button {
 .max-header {
     padding-left: 20px;
 }
+
+.post-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+}
+
+.is-hidden {
+    display: none;
+}

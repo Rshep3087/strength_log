@@ -46,6 +46,7 @@ def login():
             user = User.query.filter_by(email=form.email.data).first()
             if user and user.is_correct_password(form.password.data):
                 login_user(user)
+                return redirect(url_for("main.home"))
             else:
                 flash("Login unsuccessful. Please double check credentials.", "danger")
 

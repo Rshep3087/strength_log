@@ -59,7 +59,8 @@ def test_valid_login_logout(test_client, init_database):
         follow_redirects=True,
     )
     assert r.status_code == 200
-    # assert b"Recent Logs" in r.data
+    assert b"Recent Logs" in r.data
+    assert b"Log In" not in r.data
     """
     GIVEN a Flask application
     WHEN the '/logout' page is requested (GET)
@@ -67,6 +68,8 @@ def test_valid_login_logout(test_client, init_database):
     """
     r = test_client.get("/logout", follow_redirects=True)
     assert r.status_code == 200
+    assert b"Log Out" not in r.data
+    assert b"Log In" in r.data
 
 
 def test_invalid_login(test_client, init_database):
