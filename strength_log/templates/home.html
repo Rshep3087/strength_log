@@ -19,6 +19,24 @@
 			  <p class="article-content">{{ post.warm_up }}</p>
 			  <div class="mui--text-headline">Main Lift</div>
 			  <p class="article-content">{{ post.main_lift }}</p>
+			  <p class="article-content">
+				  <table class="mui-table">
+					  <thead>
+						<tr>
+							<th>Reps</th>
+							<th>Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+					  {% for set in post.sets %}
+						<tr>
+							<td>{{ set["reps"] }}</td>
+							<td>{{ set["weight"] }}</td>
+						</tr>
+					  {% endfor %}
+					</tbody>
+				  </table>
+			  </p>
 			  <div class="mui--text-headline">Accessories</div>
 			  <p class="article-content">{{ post.accessories }}</p>
 			  <div class="mui--text-headline">Conditioning</div>

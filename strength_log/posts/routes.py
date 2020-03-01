@@ -16,12 +16,11 @@ def new_post():
     if request.method == "POST":
         logger.debug(type(form.main_lift.data))
         if form.validate_on_submit():
-            main_lift = {"squat": {1: (5, 225), 2: (5, 235), 3: (5, 245)}}
-
             post = Post(
                 title=form.title.data,
                 warm_up=form.warm_up.data,
-                main_lift=main_lift,
+                main_lift=form.main_lift.data,
+                sets=form.sets.data,
                 accessories=form.accessories.data,
                 conditioning=form.conditioning.data,
                 author=current_user,

@@ -61,7 +61,7 @@ class Post(db.Model):
     title = db.Column(db.String(80), index=True)
     warm_up = db.Column(db.String(80))
     main_lift = db.Column(db.String)
-    sets = db.Column(db.PickleType)
+    sets = db.Column(db.JSON)
     accessories = db.Column(db.String(80))
     conditioning = db.Column(db.String(80))
     timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
