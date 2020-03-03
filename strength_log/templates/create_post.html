@@ -5,6 +5,7 @@
 <div class="content-section">
     <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
+        <legend class="border-bottom mb-4">{{ legend }}</legend>
         <div class="mui-textfield">
             {% if form.title.errors %}
             {{ form.title(class= "is-invalid mui-textfield") }}
@@ -57,7 +58,6 @@
 
             <label for="sets-_-weight">Weight</label>
             <input id="sets-_-weight" name="sets-_-weight" type="text" value="45">
-
         </div>
         <div class="mui-textfield">
             {% if form.accessories.errors %}

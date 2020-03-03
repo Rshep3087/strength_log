@@ -31,15 +31,43 @@ def new_post():
             flash("Your session has been logged!", "success")
             return redirect(url_for("main.home"))
 
-    return render_template("create_post.html", form=form)
+    return render_template("create_post.html", form=form, legend="New Post")
 
 
 # create post.html template
-@posts.route("/posts/<int:post_id>")
+@posts.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     logger.info(post)
     return render_template("post.html", post=post)
+
+
+@posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.warm_up = form.warm_up.data
+        post.main_lift = form.main_lift.data
+        post.sets = form.sets.data
+        post.accessories = form.accessories.data
+        post.conditioning = form.conditioning.data
+        db.session.commit()
+        flash("Updated!", "success")
+        return redirect(url_for("posts.post", post_id=post.id))
+    elif request.method == "GET":
+        form.title.data = post.title
+        form.warm_up.data = post.warm_up
+        form.main_lift.data = post.main_lift
+        form.sets.data = post.sets
+        form.accessories = post.accessories
+        form.conditioning = post.conditioning
+
+    return render_template("create_post.html", form=form, legend="Update Post")
 
 
 @posts.route("/post/<int:post_id>/delete", methods=["POST"])
