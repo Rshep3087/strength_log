@@ -3,14 +3,12 @@
 <div class="mui-row">
 	<div class="mui-col-sm-10 mui-col-sm-offset-1">
 		<br>
-		<div class="mui--text-dark-secondary mui--text-body2">Recent Logs</div>
-		<div class="mui-divider"></div>
 		<article class="media content-section">
 			<div class="media-body">
 			  <div class="article-metadata">
 				<small class="text-muted">{{ post.timestamp.strftime('%Y-%m-%d') }}</small>
 			  </div>
-			  <h2><a class="article-title">{{ post.title }}</a></h2>
+			  <h2 class="article-title">{{ post.title }}</h2>
 			  <div class="mui--text-headline">Warm Up</div>
 			  <p class="article-content">{{ post.warm_up }}</p>
 			  <div class="mui--text-headline">Main Lift</div>
