@@ -63,7 +63,7 @@ def update_post(post_id):
         form.title.data = post.title
         form.warm_up.data = post.warm_up
         form.main_lift.data = post.main_lift
-        form.sets.data = post.sets
+        # form.sets.data = post.sets
         form.accessories = post.accessories
         form.conditioning = post.conditioning
 
