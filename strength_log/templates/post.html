@@ -7,6 +7,11 @@
 			<div class="media-body">
 			  <div class="article-metadata">
 				<small class="text-muted">{{ post.timestamp.strftime('%Y-%m-%d') }}</small>
+				{% if post.author == current_user %}
+				    <div>
+				        <a class="mui-btn mui-btn--raised m-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+				    </div>
+				{% endif %}
 			  </div>
 			  <h2 class="article-title">{{ post.title }}</h2>
 			  <div class="mui--text-headline">Warm Up</div>

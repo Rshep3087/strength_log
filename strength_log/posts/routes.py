@@ -64,8 +64,8 @@ def update_post(post_id):
         form.warm_up.data = post.warm_up
         form.main_lift.data = post.main_lift
         # form.sets.data = post.sets
-        form.accessories = post.accessories
-        form.conditioning = post.conditioning
+        # form.accessories = post.accessories
+        # form.conditioning = post.conditioning
 
     return render_template("create_post.html", form=form, legend="Update Post")
 
