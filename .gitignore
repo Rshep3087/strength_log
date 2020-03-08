@@ -271,3 +271,4 @@ tmp/
 temp/
 
 # End of https://www.gitignore.io/api/node
+strength_log/app.db
