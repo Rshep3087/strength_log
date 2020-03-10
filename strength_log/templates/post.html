@@ -9,7 +9,8 @@
 				<small class="text-muted">{{ post.timestamp.strftime('%Y-%m-%d') }}</small>
 				{% if post.author == current_user %}
 				    <div>
-				        <a class="mui-btn mui-btn--raised m-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+						<a class="mui-btn mui-btn--raised m-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+						<button class="mui-btn mui-btn--danger" onclick="activateModal()">Delete</button>
 				    </div>
 				{% endif %}
 			  </div>
@@ -44,4 +45,32 @@
 		  </article>
 	</div>
 </div>
+<script>
+	function activateModal() {
+	  // initialize modal element
+	  var modalEl = document.createElement('div');
+	  modalEl.style.width = '400px';
+	  modalEl.style.height = '150px';
+	  modalEl.style.margin = '100px auto';
+	  modalEl.style.backgroundColor = '#fff';
+
+	  let deletePost = document.createElement("div");
+	  deletePost.className = "mui--text-headline";
+	  deletePost.innerHTML = "Delete Post?";
+
+	  let yesBtn = document.createElement("BUTTON");
+	  yesBtn.className = "mui-btn mui-btn--danger yes-btn";
+	  yesBtn.innerHTML = "Delete Post";
+
+	  let noBtn = document.createElement("BUTTON");
+	  noBtn.className = "mui-btn mui-btn--raised submit-btn no-btn";
+	  noBtn.innerHTML = "Close";
+
+	  modalEl.appendChild(deletePost)
+	  modalEl.appendChild(noBtn)
+	  modalEl.appendChild(yesBtn)
+	  // show modal
+	  mui.overlay('on', modalEl);
+	}
+</script>
 {% endblock %}
