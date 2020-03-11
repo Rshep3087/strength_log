@@ -1,4 +1,28 @@
 /**
+* Header CSS
+*/
+
+header {
+position: fixed;
+top: 0;
+right: 0;
+left: 0;
+z-index: 2;
+}
+
+header ul.mui-list--inline {
+margin-bottom: 0;
+}
+
+header a {
+color: white;
+}
+
+header table {
+width: 100%;
+}
+
+/**
 * Body CSS
 */
 html,
@@ -45,6 +69,31 @@ button {
     }
 }
 
+#content-wrapper {
+    min-height: 100%;
+  
+    /* sticky footer */
+    box-sizing: border-box;
+    margin-bottom: -100px;
+    padding-bottom: 100px;
+}
+
+.mui-appbar {
+    background-color: gray !important;
+}
+
+/**
+ * Footer CSS
+ */
+
+ footer {
+    box-sizing: border-box;
+    height: 100px;
+    background-color: #eee;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 35px;
+  }
+
 .max-header {
     padding-left: 20px;
 }
@@ -58,6 +107,7 @@ button {
 .is-hidden {
     display: none;
 }
+
 .no-btn {
     position: relative;
     top: 65px; left: 125px;

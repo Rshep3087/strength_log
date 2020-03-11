@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strength Log</title>
+	<link href="static/main.css" rel="stylesheet" type="text/css" />
+	<link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+  </head>
+  <body>
+    <header class="mui-appbar mui--z1">
+      <div class="mui-container">
+        <table>
+          <tr class="mui--appbar-height">
+            <td class="mui--text-title">Strength Log</td>
+            <td align="mui--text-right">
+              <ul class="mui-list--inline mui--text-body2">
+                <li><a href="/about">About</a></li>
+                <li><a href="{{ url_for('users.login') }}">Login</a></li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </header>
+    <div id="content-wrapper" class="mui--text-center">
+      <div class="mui--appbar-height"></div>
+      <br>
+      <br>
+      <div class="mui--text-display3">Strength Log</div>
+      <br>
+      <br>
+      <button class="mui-btn mui-btn--raised"><a href="/register">Get started</a></button>
+    </div>
+    <footer>
+      <div class="mui-container mui--text-center">
+        Ryan Sheppard
+      </div>
+    </footer>
+  </body>
+</html>

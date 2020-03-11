@@ -81,6 +81,7 @@
         Chart.defaults.global.elements.point.hitRadius = 10;
         Chart.defaults.global.elements.point.hoverBorderWidth = 2;
         Chart.defaults.global.spanGaps = false;
+        Chart.defaults.global.legend.display = false;
 
         // define the squat data
         var squatData = { 
@@ -181,9 +182,17 @@
 
         // create the chart using the chart canvas
         var squatChart = new Chart(ctxSquat, {
+            // The type of chart to create
             type: 'line',
+            // Data for the chart
             data: squatData,
+            // Configuraition options
             options: {
+                title: {
+                    display: true,
+                    fontSize: 24,
+                    text: "Squat"
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -197,6 +206,11 @@
             type: 'line',
             data: benchData,
             options: {
+                title: {
+                    display: true,
+                    fontSize: 24,
+                    text: "Bench"
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -210,6 +224,11 @@
             type: 'line',
             data: deadliftData,
             options: {
+                title: {
+                    display: true,
+                    fontSize: 24,
+                    text: "Deadlift"
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -223,10 +242,27 @@
             type: 'line',
             data: pressData,
             options: {
+                title: {
+                    display: true,
+                    fontSize: 24,
+                    text: "Press"
+                },
                 scales: {
                     yAxes: [{
+                        scaleLabel: {
+                        display: true,
+                        labelString: "LBS",
+                        fontSize: 18
+                    },
                         ticks: {
                             beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "DATE",
+                            fontSize: 18
                         }
                     }]
                 }
