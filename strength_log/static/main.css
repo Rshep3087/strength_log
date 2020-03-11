@@ -71,7 +71,7 @@ button {
 
 #content-wrapper {
     min-height: 100%;
-  
+
     /* sticky footer */
     box-sizing: border-box;
     margin-bottom: -100px;
@@ -80,6 +80,11 @@ button {
 
 .mui-appbar {
     background-color: gray !important;
+}
+
+.landing-image {
+    border-style: solid;
+    border-width: 5px;
 }
 
 /**
