@@ -20,6 +20,19 @@ class SetForm(Form):
     weight = FloatField("Weight", default=45)
 
 
+class AccessoriesForm(Form):
+    """Subform for accessories"""
+
+    lift = SelectField(
+        "Lift",
+        choices=[
+            ("Front Squat", "Front Squat"),
+            ("Close Grip Bench Press", "Close Grip Bench Press"),
+        ],
+    )
+    sets = FieldList(FormField(SetForm), min_entries=1, max_entries=20)
+
+
 class PostForm(FlaskForm):
     title = StringField(
         "Title",
