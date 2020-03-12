@@ -99,9 +99,9 @@ button {
     padding-top: 35px;
   }
 
-.max-header {
-    padding-left: 20px;
-}
+/**
+ * Misc CSS
+ */
 
 .post-btn {
     background-color: #4CAF50; /* Green */
@@ -121,4 +121,16 @@ button {
 .yes-btn {
     position: relative;
     top: 65px; left: 125px;
+}
+/**
+ * Charts CSS
+ */
+#squatChart,
+#benchChart,
+#deadliftChart,
+#pressChart {
+    border-style: solid;
+    border-color: gray;
+    border-width: 3px;
+    margin: 5px;
 }
