@@ -34,7 +34,7 @@
                 <label>{{ form.password.label }}</label>
             </div>
         </fieldset>
-        <a href="{{ url_for('reset_password_request') }}"> Trouble Signing In?</a>
+        <a href="{{ url_for('users.reset_password_request') }}"> Trouble Signing In?</a>
         <div class="form-group">
             {{ form.submit(class="mui-btn mui-btn--raised submit-btn") }}
         </div>

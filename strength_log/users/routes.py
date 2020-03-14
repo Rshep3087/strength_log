@@ -1,4 +1,12 @@
-from flask import render_template, request, flash, redirect, url_for, Blueprint
+from flask import (
+    render_template,
+    request,
+    flash,
+    redirect,
+    url_for,
+    Blueprint,
+    current_app,
+)
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
@@ -80,9 +88,10 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
+    logger.debug(current_app.config["ADMINS"])
     send_email(
         "[Strength Log] Reset Your Password",
-        sender=app.config["ADMINS"][0],
+        sender=current_app.config["ADMINS"][0],
         recipients=[user.email],
         text_body=render_template("email/reset_password.txt", user=user, token=token),
         html_body=render_template("email/reset_password.html", user=user, token=token),
@@ -91,12 +100,15 @@ def send_password_reset_email(user):
 
 @users.route("/reset_password_request", methods=["GET", "POST"])
 def reset_password_request():
-    if current_user.is_authenticated():
-        return redirect(url_for("main.home"))
+    # if current_user.is_authenticated():
+    #    return redirect(url_for("main.home"))
     form = ResetPasswordRequestForm()
+    logger.debug(form.validate_on_submit())
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        logger.debug(user)
         if user:
+
             send_password_reset_email(user)
         flash("Check your email for the instructions to reset your password")
         return redirect(url_for("users.login"))
