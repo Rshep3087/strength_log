@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, index=True)
-    email = db.Column(db.String(120), nullable=False, index=True)
+    email = db.Column(db.String(120), nullable=False, unique=True)
     hashed_password = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, nullable=True)
     authenticated = db.Column(db.Boolean, default=False)
