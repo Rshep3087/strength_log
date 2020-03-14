@@ -11,3 +11,5 @@ Strength Log is a web application for logging workouts.
 - [ ] Pagination
 - [ ] Do not show form data if empty on post
 - [ ] Delete max
+- [ ] Email confirmation
+- [ ] Password Change
