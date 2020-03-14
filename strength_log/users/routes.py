@@ -21,6 +21,8 @@ from strength_log.users.forms import (
 from strength_log.models import User
 from strength_log import db, mail
 
+from threading import Thread
+
 users = Blueprint("users", __name__)
 
 
@@ -81,9 +83,16 @@ def logout():
     return redirect(url_for("main.index"))
 
 
+def send_async_email(current_app, msg):
+    with current_app.app_context():
+        mail.send(msg)
+
+
 def send_email(subject, sender, recipients, text_body, html_body):
-    msg = Message(subject, recipients, text_body, html_body, sender)
-    mail.send(msg)
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.body = text_body
+    msg.html = html_body
+    Thread(target=send_async_email, args=(current_app, msg)).start()
 
 
 def send_password_reset_email(user):
@@ -100,15 +109,14 @@ def send_password_reset_email(user):
 
 @users.route("/reset_password_request", methods=["GET", "POST"])
 def reset_password_request():
-    # if current_user.is_authenticated():
-    #    return redirect(url_for("main.home"))
+    if current_user.is_authenticated:
+        return redirect(url_for("main.home"))
     form = ResetPasswordRequestForm()
     logger.debug(form.validate_on_submit())
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         logger.debug(user)
         if user:
-
             send_password_reset_email(user)
         flash("Check your email for the instructions to reset your password")
         return redirect(url_for("users.login"))
