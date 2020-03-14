@@ -1,48 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="mui-row">
-	<div class="mui-col-sm-10 mui-col-sm-offset-1">
-		<br>
-		<article class="media content-section">
-			<div class="media-body">
-			  <div class="article-metadata">
-				<small class="text-muted">{{ post.timestamp.strftime('%Y-%m-%d') }}</small>
-				{% if post.author == current_user %}
-				    <div>
-						<a class="mui-btn mui-btn--raised m-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
-						<button class="mui-btn mui-btn--danger" onclick="activateModal()">Delete</button>
-				    </div>
-				{% endif %}
-			  </div>
-			  <h2 class="article-title">{{ post.title }}</h2>
-			  <div class="mui--text-headline">Warm Up</div>
-			  <p class="article-content">{{ post.warm_up }}</p>
-			  <div class="mui--text-headline">Main Lift</div>
-			  <p class="article-content">{{ post.main_lift }}</p>
-			  <p class="article-content">
-				  <table class="mui-table">
-					  <thead>
-						<tr>
-							<th>Reps</th>
-							<th>Weight</th>
-						</tr>
-					</thead>
-					<tbody>
-					  {% for set in post.sets %}
-						<tr>
-							<td>{{ set["reps"] }}</td>
-							<td>{{ set["weight"] }}</td>
-						</tr>
-					  {% endfor %}
-					</tbody>
-				  </table>
-			  </p>
-			  <div class="mui--text-headline">Accessories</div>
-			  <p class="article-content">{{ post.accessories }}</p>
-			  <div class="mui--text-headline">Conditioning</div>
-			  <p class="article-content">{{ post.conditioning }}</p>
+<div class="mui-container">
+    <div class="mui--text-dark-secondary mui--text-display1">Single Log</div>
+    <div class="mui-divider"></div>
+    <br>
+	<br>
+	<article class="media content-section">
+		<div class="media-body">
+			<div class="article-metadata">
+			{% if post.author == current_user %}
+				<div>
+					<a class="mui-btn mui-btn--raised m-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+					<button class="mui-btn mui-btn--danger" onclick="activateModal()">Delete</button>
+				</div>
+			{% endif %}
 			</div>
-		  </article>
+			<br>
+			<br>
+			<div class="mui-panel">
+			<h2 class="article-title">{{ post.title }}</h2>
+			<div class="mui--text-headline">Warm Up</div>
+			<p class="article-content">{{ post.warm_up }}</p>
+			<div class="mui--text-headline">Main Lift</div>
+			<p class="article-content">{{ post.main_lift }}</p>
+			<p class="article-content">
+				<table class="mui-table">
+					<thead>
+					<tr>
+						<th>Reps</th>
+						<th>Weight</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for set in post.sets %}
+					<tr>
+						<td>{{ set["reps"] }}</td>
+						<td>{{ set["weight"] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</p>
+			<div class="mui--text-headline">Accessories</div>
+			<p class="article-content">{{ post.accessories }}</p>
+			<div class="mui--text-headline">Conditioning</div>
+			<p class="article-content">{{ post.conditioning }}</p>
+		</div>
+	</div>
+		</article>
 	</div>
 </div>
 <script>

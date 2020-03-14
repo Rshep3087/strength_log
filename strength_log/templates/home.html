@@ -3,47 +3,45 @@
 {% set title = "5/3/1 Log" %}
 
 {% block content %}
-<div class="mui-row">
-	<div class="mui-col-sm-10 mui-col-sm-offset-1">
-		<br>
-		<div class="mui--text-dark-secondary mui--text-display1">Recent Logs</div>
-		<div class="mui-divider"></div>
-		{% for post in posts %}
-		<article class="media content-section">
-			<div class="media-body">
-			  <div class="article-metadata">
-				<small class="text-muted">{{ post.timestamp.strftime('%Y-%m-%d') }}</small>
-			  </div>
-			  <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-			  <div class="mui--text-headline">Warm Up</div>
-			  <p class="article-content">{{ post.warm_up }}</p>
-			  <div class="mui--text-headline">Main Lift</div>
-			  <p class="article-content">{{ post.main_lift.capitalize() }}</p>
-			  <p class="article-content">
-				  <table class="mui-table">
-					  <thead>
-						<tr>
-							<th>Reps</th>
-							<th>Weight</th>
-						</tr>
-					</thead>
-					<tbody>
-					  {% for set in post.sets %}
-						<tr>
-							<td>{{ set["reps"] }}</td>
-							<td>{{ set["weight"] }}</td>
-						</tr>
-					  {% endfor %}
-					</tbody>
-				  </table>
-			  </p>
-			  <div class="mui--text-headline">Accessories</div>
-			  <p class="article-content">{{ post.accessories }}</p>
-			  <div class="mui--text-headline">Conditioning</div>
-			  <p class="article-content">{{ post.conditioning }}</p>
-			</div>
-		  </article>
-		{% endfor %}
+<div class="mui-container">
+	<div class="mui--text-dark-secondary mui--text-display1">Logs</div>
+	<div class="mui-divider"></div>
+    <br>
+    <br>
+	{% for post in posts %}
+	<div class="mui-panel">
+	<article class="media content-section">
+		<div class="media-body">
+			<h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+			<div class="mui--text-headline">Warm Up</div>
+			<p class="article-content">{{ post.warm_up }}</p>
+			<div class="mui--text-headline">Main Lift</div>
+			<p class="article-content">{{ post.main_lift.capitalize() }}</p>
+			<p class="article-content">
+				<table class="mui-table">
+					<thead>
+					<tr>
+						<th>Reps</th>
+						<th>Weight</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for set in post.sets %}
+					<tr>
+						<td>{{ set["reps"] }}</td>
+						<td>{{ set["weight"] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</p>
+			<div class="mui--text-headline">Accessories</div>
+			<p class="article-content">{{ post.accessories }}</p>
+			<div class="mui--text-headline">Conditioning</div>
+			<p class="article-content">{{ post.conditioning }}</p>
+		</div>
+		</article>
 	</div>
+	{% endfor %}
 </div>
 {% endblock %}

@@ -4,8 +4,12 @@
 <head>
     <script src='static\Chart.min.js'></script>
 </head>
+
 <div class="mui-container">
-    <h1 class="mui--text-dark-secondary mui--text-display1">Maxes</h1>
+    <div class="mui--text-dark-secondary mui--text-display1">Maxes</div>
+    <div class="mui-divider"></div>
+    <br>
+    <br>
     <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
             <div class="mui-textfield">
@@ -64,8 +68,13 @@
             {{ form.submit(class= "mui-btn mui-btn--raised submit-btn") }}
         </div>
     </form>
+    <br>
+    <br>
 
     <div class="mui--text-dark-secondary mui--text-display1">Max Charts</div>
+    <div class="mui-divider"></div>
+    <br>
+    <br>
     <!-- bar chart canvas element -->
     <canvas id="squatChart" width="800" height="400"></canvas>
     <canvas id="benchChart" width="800" height="400"></canvas>
