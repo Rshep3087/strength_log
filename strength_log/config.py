@@ -10,3 +10,4 @@ class Config:
     ) or "sqlite:///" + os.path.join(basedir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_POOL_RECYCLE = 299
+    ADMINS = os.environ.get("ADMINS")

@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from strength_log.config import Config
+from flask_mail import Mail
 from loguru import logger
+
+from strength_log.config import Config
 
 
 # configuration
@@ -12,6 +14,7 @@ from loguru import logger
 db = SQLAlchemy()
 migrate = Migrate()
 bcrypt = Bcrypt()
+mail = Mail()
 login = LoginManager()
 login.login_view = "users.login"
 login.login_message_category = "info"
@@ -26,6 +29,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     bcrypt.init_app(app)
     login.init_app(app)
+    mail.init_app(app)
     migrate.init_app(app, db=db)
 
     from strength_log.users.routes import users
@@ -39,5 +43,6 @@ def create_app(config_class=Config):
     app.register_blueprint(maxes)
 
     return app
+
 
 app = create_app()
