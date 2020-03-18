@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="mui-container">
+    <div class="mui--text-dark-secondary mui--text-display1">{{ title }}</div>
+    <div class="mui-divider"></div>
+    <br>
+    <br>
+    <form class="mui-form" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <table class="mui-table">
+                <thead>
+                    <tr>
+                        <th>Reps</th>
+                        <th>Squat</th>
+                        <th>Bench</th>
+                        <th>Deadlift</th>
+                        <th>Ohp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subfield in form %}
+                    {% if loop.index0 < 5 %}
+                        <tr>
+                            <td><div>{{ subfield.label }}</div></td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ subfield.squat(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ subfield.bench(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ subfield.deadlift(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ subfield.press(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="mui-btn mui-btn--raised submit-btn") }}
+            <button class="mui-btn mui-btn--primary">View Charts</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

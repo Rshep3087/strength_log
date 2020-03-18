@@ -21,12 +21,12 @@ def new_user():
 def test_client():
     app = create_app(config_class=TestConfig)
 
-    test_client = app.test_client()
+    testing_client = app.test_client()
 
     ctx = app.app_context()
     ctx.push()
 
-    yield test_client
+    yield testing_client
 
     ctx.pop()
 

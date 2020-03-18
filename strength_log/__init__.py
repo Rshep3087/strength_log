@@ -39,12 +39,14 @@ def create_app(config_class=Config):
     from strength_log.posts.routes import posts
     from strength_log.main.routes import main
     from strength_log.maxes.routes import maxes
+    from strength_log.personal_records.routes import personal_records
     from strength_log.errors.routes import errors
 
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(maxes)
+    app.register_blueprint(personal_records)
     app.register_blueprint(errors)
 
     return app

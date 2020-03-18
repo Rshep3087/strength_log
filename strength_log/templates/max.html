@@ -27,14 +27,14 @@
             </div>
             <div class="mui-textfield">
                 {% if form.bench.errors %}
-                {{ form.bench(class= "form-control form-control-lg is-invalid mui-textfield") }}
-                <div class="invalid-feedback">
-                    {% for error in form.bench.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
+                    {{ form.bench(class= "form-control form-control-lg is-invalid mui-textfield") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.bench.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
                 {% else %}
-                {{ form.bench(class= "form-control form-control-lg mui-textfield") }}
+                    {{ form.bench(class="form-control form-control-lg mui-textfield") }}
                 {% endif %}
                 <label>{{ form.bench.label }}</label>
             </div>

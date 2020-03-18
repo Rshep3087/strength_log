@@ -2,7 +2,7 @@
 """Model unit tests"""
 from datetime import datetime
 
-from strength_log.models import User
+from strength_log.models import SquatPersonalRecord
 
 
 class TestUser:
@@ -46,11 +46,18 @@ class TestUser:
         assert new_user.get_id() == "17"
 
 
-"""
-def test_new_post(new_post):
-    pass
-
-
-def test_new_max(new_max):
-    pass
-"""
+class TestPersonalRecords:
+    def test_new_squat_records(self):
+        """
+        Given a SquatPersonalRecord Model
+        When a new SquatPersonalRecord is created
+        Then check one, two, three, four, five
+        """
+        squat_personal_records = SquatPersonalRecord(
+            one_rep=315, two_reps=305, three_reps=295, four_reps=285, five_reps=275,
+        )
+        assert squat_personal_records.one_rep == 315
+        assert squat_personal_records.two_reps == 305
+        assert squat_personal_records.three_reps == 295
+        assert squat_personal_records.four_reps == 285
+        assert squat_personal_records.five_reps == 275

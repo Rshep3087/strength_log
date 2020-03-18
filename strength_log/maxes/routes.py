@@ -1,10 +1,8 @@
 from flask import render_template, url_for, redirect, request, Blueprint
-from flask_login import current_user, login_required
+from flask_login import current_user
 from strength_log import db
 from strength_log.models import Max
 from strength_log.maxes.forms import MaxesForm
-from loguru import logger
-
 
 maxes = Blueprint("maxes", __name__)
 
@@ -21,7 +19,6 @@ def new_max():
     bench_maxes = [bench_max.bench for bench_max in user_maxes]
     deadlift_maxes = [deadlift_max.deadlift for deadlift_max in user_maxes]
     press_maxes = [press_max.press for press_max in user_maxes]
-    logger.debug(squat_maxes)
 
     timestamp = [single_max.timestamp.strftime("%m-%d-%y") for single_max in user_maxes]
 

@@ -26,6 +26,9 @@ class User(db.Model, UserMixin):
 
     max = db.relationship("Max", backref="user", lazy="dynamic")
     posts = db.relationship("Post", backref="author", lazy="dynamic")
+    squat_personal_records = db.relationship(
+        "SquatPersonalRecord", backref="lifter", lazy="dynamic"
+    )
 
     def __init__(self, email, password):
         """Create instance."""
@@ -91,3 +94,19 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}')"
+
+
+class SquatPersonalRecord(db.Model):
+    __tablename__ = "squat_personal_records"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    one_rep = db.Column(db.Float)
+    two_reps = db.Column(db.Float)
+    three_reps = db.Column(db.Float)
+    four_reps = db.Column(db.Float)
+    five_reps = db.Column(db.Float)
+
+    timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
