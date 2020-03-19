@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_wtf import CSRFProtect
 from loguru import logger
 
 import logging
@@ -19,6 +20,7 @@ migrate = Migrate()
 bcrypt = Bcrypt()
 mail = Mail()
 login = LoginManager()
+csrf = CSRFProtect()
 login.login_view = "users.login"
 login.login_message_category = "info"
 
@@ -33,6 +35,7 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     login.init_app(app)
     mail.init_app(app)
+    csrf.init_app(app)
     migrate.init_app(app, db=db)
 
     from strength_log.users.routes import users

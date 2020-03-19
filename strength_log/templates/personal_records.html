@@ -9,6 +9,9 @@
     <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="form-group">
+            {% if form.errors %}
+            {{ form.errors }}
+            {% endif %}
             <table class="mui-table">
                 <thead>
                     <tr>

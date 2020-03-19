@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     max = db.relationship("Max", backref="user", lazy="dynamic")
     posts = db.relationship("Post", backref="author", lazy="dynamic")
     squat_personal_records = db.relationship(
-        "SquatPersonalRecord", backref="lifter", lazy="dynamic"
+        "SquatPersonalRecord", backref="lifter", uselist=False
     )
 
     def __init__(self, email, password):
