@@ -1,4 +1,15 @@
-from helium import Button, Link, start_firefox, kill_browser, Image, click, write, Text
+from helium import (
+    Button,
+    Link,
+    start_firefox,
+    kill_browser,
+    Image,
+    click,
+    write,
+    Text,
+    find_all,
+    S,
+)
 from selenium.common.exceptions import NoSuchElementException
 import pytest
 
@@ -16,6 +27,9 @@ def driver_home():
 def driver_login():
     driver = start_firefox(HOME_PAGE)
     click(Link("Login"))
+    write("test@demo.com", into="Email")
+    write("test", into="Password")
+    click("Submit")
     yield driver
     kill_browser()
 
@@ -53,3 +67,13 @@ class TestHomePage:
         assert Button("Log Workout").exists()
         assert Button("Lift Maxes").exists()
         assert Button("Log Out").exists()
+
+
+class TestLoggedInFunctionality:
+    def test_lift_maxes(self, driver_login):
+        click(Button("Lift Maxes"))
+        assert Text("Maxes").exists()
+        assert Button("Submit").exists()
+        assert Text("Max Charts").exists
+        charts = find_all(S("canvas", below=Text("Max Charts")))
+        assert len(charts) == 4
