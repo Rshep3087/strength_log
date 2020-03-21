@@ -26,8 +26,20 @@ class User(db.Model, UserMixin):
 
     max = db.relationship("Max", backref="user", lazy="dynamic")
     posts = db.relationship("Post", backref="author", lazy="dynamic")
+
     squat_personal_records = db.relationship(
         "SquatPersonalRecord", backref="lifter", uselist=False
+    )
+
+    bench_personal_records = db.relationship(
+        "BenchPersonalRecord", backref="lifter", uselist=False
+    )
+
+    deadlift_personal_records = db.relationship(
+        "DeadliftPersonalRecord", backref="lifter", uselist=False
+    )
+    press_personal_records = db.relationship(
+        "PressPersonalRecord", backref="lifter", uselist=False
     )
 
     def __init__(self, email, password):
@@ -98,6 +110,54 @@ class Post(db.Model):
 
 class SquatPersonalRecord(db.Model):
     __tablename__ = "squat_personal_records"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    one_rep = db.Column(db.Float)
+    two_reps = db.Column(db.Float)
+    three_reps = db.Column(db.Float)
+    four_reps = db.Column(db.Float)
+    five_reps = db.Column(db.Float)
+
+    timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+
+class BenchPersonalRecord(db.Model):
+    __tablename__ = "bench_personal_records"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    one_rep = db.Column(db.Float)
+    two_reps = db.Column(db.Float)
+    three_reps = db.Column(db.Float)
+    four_reps = db.Column(db.Float)
+    five_reps = db.Column(db.Float)
+
+    timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+
+class DeadliftPersonalRecord(db.Model):
+    __tablename__ = "deadlift_personal_records"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    one_rep = db.Column(db.Float)
+    two_reps = db.Column(db.Float)
+    three_reps = db.Column(db.Float)
+    four_reps = db.Column(db.Float)
+    five_reps = db.Column(db.Float)
+
+    timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+
+class PressPersonalRecord(db.Model):
+    __tablename__ = "press_personal_records"
 
     id = db.Column(db.Integer, primary_key=True)
 

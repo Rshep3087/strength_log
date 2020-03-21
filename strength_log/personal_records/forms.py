@@ -11,6 +11,9 @@ class RepForm(FlaskForm):
 
 
 class PersonalRecordForm(FlaskForm):
-    squat = FieldList(FormField(RepForm))
+    squat = FormField(RepForm)
+    bench = FormField(RepForm)
+    deadlift = FormField(RepForm)
+    press = FormField(RepForm)
 
     submit = SubmitField("Submit")

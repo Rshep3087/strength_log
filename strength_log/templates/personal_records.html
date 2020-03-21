@@ -9,13 +9,9 @@
     <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="form-group">
-            {% if form.errors %}
-            {{ form.errors }}
-            {% endif %}
             <table class="mui-table">
                 <thead>
                     <tr>
-                        <th>Reps</th>
                         <th>Squat</th>
                         <th>Bench</th>
                         <th>Deadlift</th>
@@ -24,10 +20,24 @@
                 </thead>
                 <tbody>
                         <tr>
-                            <td><div>data</div></td>
                             <td>
                                 <div class="mui-textfield">
                                     {{ form.squat(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ form.bench(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ form.deadlift(class="form-control form-control-lg mui-textfield") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield">
+                                    {{ form.press(class="form-control form-control-lg mui-textfield") }}
                                 </div>
                             </td>
                         </tr>
