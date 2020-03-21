@@ -55,7 +55,7 @@ button {
         position: fixed;
         top: 0;
         bottom: 0;
-        width: 170px;
+        width: 200px;
         height: 100%;
         padding-top: 30px;
     }
@@ -65,7 +65,7 @@ button {
 */
 @media (min-width: 768px) {
     #content {
-        margin-left: 200px;
+        margin-left: 250px;
     }
 }
 
