@@ -16,11 +16,8 @@ personal_records = Blueprint("user_personal_records", __name__)
 
 @personal_records.route("/personal_records", methods=["GET", "POST"])
 def new_personal_records():
-    form = PersonalRecordForm()
-    logger.debug(form.validate())
-
     if request.method == "POST":
-        logger.debug(form.validate_on_submit())
+        form = PersonalRecordForm()
         if form.validate_on_submit():
             squat_record = SquatPersonalRecord(
                 one_rep=form.squat.data["one_rep"],
@@ -63,5 +60,28 @@ def new_personal_records():
             db.session.commit()
 
             return redirect(url_for("main.home"))
+    else:
+        user_squat_records = SquatPersonalRecord.query.filter_by(
+            user_id=current_user.id
+        ).first()
+
+        user_bench_records = BenchPersonalRecord.query.filter_by(
+            user_id=current_user.id
+        ).first()
+
+        user_deadlift_records = DeadliftPersonalRecord.query.filter_by(
+            user_id=current_user.id
+        ).first()
+
+        user_press_records = PressPersonalRecord.query.filter_by(
+            user_id=current_user.id
+        ).first()
+
+        form = PersonalRecordForm(
+            squat=user_squat_records,
+            bench=user_bench_records,
+            deadlift=user_deadlift_records,
+            press=user_press_records,
+        )
 
     return render_template("personal_records.html", form=form, title="Personal Records")
