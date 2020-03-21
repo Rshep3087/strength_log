@@ -23,33 +23,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for subfield in form %}
-                    {% if loop.index0 < 5 %}
                         <tr>
-                            <td><div>{{ subfield.label }}</div></td>
+                            <td><div>data</div></td>
                             <td>
                                 <div class="mui-textfield">
-                                    {{ subfield.squat(class="form-control form-control-lg mui-textfield") }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="mui-textfield">
-                                    {{ subfield.bench(class="form-control form-control-lg mui-textfield") }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="mui-textfield">
-                                    {{ subfield.deadlift(class="form-control form-control-lg mui-textfield") }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="mui-textfield">
-                                    {{ subfield.press(class="form-control form-control-lg mui-textfield") }}
+                                    {{ form.squat(class="form-control form-control-lg mui-textfield") }}
                                 </div>
                             </td>
                         </tr>
-                    {% endif %}
-                    {% endfor %}
                 </tbody>
             </table>
         </div>

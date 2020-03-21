@@ -14,7 +14,6 @@ def new_personal_records():
     if request.method == "POST":
         logger.debug(form.validate_on_submit())
         if form.validate_on_submit():
-            logger.debug(form.one_rep.data)
-            logger.debug(form.two_reps.data)
+            logger.debug(form.squat.data)
 
     return render_template("personal_records.html", form=form, title="Personal Records")

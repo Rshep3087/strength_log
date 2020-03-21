@@ -1,19 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, DecimalField, FormField
+from wtforms import SubmitField, DecimalField, FieldList, FormField
 
 
 class RepForm(FlaskForm):
-    squat = DecimalField("Squat", default=0)
-    bench = DecimalField("Bench", default=0)
-    deadlift = DecimalField("Deadlift", default=0)
-    press = DecimalField("Press", default=0)
+    one_rep = DecimalField("1", default=0)
+    two_reps = DecimalField("2", default=0)
+    three_reps = DecimalField("3", default=0)
+    four_reps = DecimalField("4", default=0)
+    five_reps = DecimalField("5", default=0)
 
 
 class PersonalRecordForm(FlaskForm):
-    one_rep = FormField(RepForm, "1")
-    two_reps = FormField(RepForm, "2")
-    three_reps = FormField(RepForm, "3")
-    four_reps = FormField(RepForm, "4")
-    five_reps = FormField(RepForm, "5")
+    squat = FieldList(FormField(RepForm))
 
     submit = SubmitField("Submit")
