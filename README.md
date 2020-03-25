@@ -15,3 +15,5 @@ Strength Log is a web application for logging workouts.
 - [ ] Password Change
 - [ ] Log Personal Records
   - [x] Add models
+  - [x] Add forms
+  - [ ] Create charts
