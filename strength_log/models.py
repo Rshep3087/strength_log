@@ -1,11 +1,10 @@
 import datetime as dt
-from time import time
 
 from strength_log import db, login, bcrypt
 
 from flask_login import UserMixin
 from flask import current_app
-import jwt
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
 @login.user_loader
@@ -58,22 +57,18 @@ class User(db.Model, UserMixin):
     def set_password(self, password):
         self.hashed_password = bcrypt.generate_password_hash(password)
 
-    def get_reset_password_token(self, expires_in=600):
-        return jwt.encode(
-            {"reset_password": self.id, "exp": time() + expires_in},
-            current_app.config["SECRET_KEY"],
-            algorithm="HS256",
-        ).decode("utf-8")
+    def get_reset_password_token(self, expires_in=1800):
+        s = Serializer(current_app.config["SECRET_KEY"], expires_in)
+        return s.dumps({"user_id": self.id}).decode("utf-8")
 
     @staticmethod
     def verify_reset_password_token(token):
+        s = Serializer(current_app.config["SECRET_KEY"])
         try:
-            id = jwt.decode(
-                token, current_app.config["SECRET_KEY"], algorithms=["HS256"]
-            )["reset_password"]
+            user_id = s.loads(token)["user_id"]
         except:
-            return
-        return User.query.get(id)
+            return None
+        return User.query.get(user_id)
 
     def get_id(self):
         return str(self.id)
