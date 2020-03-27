@@ -9,7 +9,7 @@ from wtforms import (
     IntegerField,
     FloatField,
 )
-from wtforms.validators import DataRequired, Length, Optional, NumberRange
+from wtforms.validators import DataRequired, Length, Optional
 from datetime import datetime
 
 

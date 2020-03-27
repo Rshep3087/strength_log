@@ -1,7 +1,11 @@
-import pytest
 from strength_log.models import User
 from strength_log import create_app, db
 from strength_log.config import Config
+
+from helium import start_firefox, kill_browser, click, Link, write
+import pytest
+
+HOME_PAGE = "http://rshep3087.pythonanywhere.com/"
 
 
 class TestConfig(Config):
@@ -9,6 +13,24 @@ class TestConfig(Config):
     BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = "sqlite://"
     WTF_CSRF_ENABLED = False
+
+
+@pytest.fixture
+def driver_home():
+    driver = start_firefox(HOME_PAGE, headless=True)
+    yield driver
+    kill_browser()
+
+
+@pytest.fixture
+def driver_login():
+    driver = start_firefox(HOME_PAGE, headless=True)
+    click(Link("Login"))
+    write("test@demo.com", into="Email")
+    write("test", into="Password")
+    click("Submit")
+    yield driver
+    kill_browser()
 
 
 @pytest.fixture(scope="module")

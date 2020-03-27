@@ -56,7 +56,7 @@ class TestUsers:
             follow_redirects=True,
         )
         assert r.status_code == 200
-        assert b"Logs" in r.data
+        assert b"Posts" in r.data
         assert b"Login" not in r.data
         """
         GIVEN a Flask application
