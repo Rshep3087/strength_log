@@ -57,3 +57,7 @@ class PostForm(FlaskForm):
     conditioning = StringField("Conditioning", validators=[Optional()])
 
     submit = SubmitField("Submit")
+
+
+class DeleteForm(FlaskForm):
+    delete = SubmitField(label="Delete")

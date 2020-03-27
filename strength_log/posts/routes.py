@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, Blueprint, flash, request, abort
 from strength_log import db
-from strength_log.posts.forms import PostForm
+from strength_log.posts.forms import PostForm, DeleteForm
 from strength_log.models import Post
 from flask_login import current_user, login_required
 from loguru import logger
@@ -35,11 +35,12 @@ def new_post():
 
 
 # create post.html template
-@posts.route("/post/<int:post_id>")
+@posts.route("/post/<int:post_id>", methods=["GET", "POST"])
 def post(post_id):
+    form = DeleteForm()
     post = Post.query.get_or_404(post_id)
     logger.info(post)
-    return render_template("post.html", post=post)
+    return render_template("post.html", post=post, form=form)
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
