@@ -16,8 +16,8 @@ from datetime import datetime
 class SetForm(Form):
     """Subform for each set"""
 
-    reps = IntegerField("Reps", default=1)
-    weight = FloatField("Weight", default=45)
+    reps = IntegerField("Reps")
+    weight = FloatField("Weight")
 
 
 class AccessoriesForm(Form):

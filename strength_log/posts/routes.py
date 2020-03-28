@@ -14,7 +14,7 @@ def new_post():
     form = PostForm()
 
     if request.method == "POST":
-        logger.debug(type(form.main_lift.data))
+        logger.debug(form.sets.data)
         if form.validate_on_submit():
             post = Post(
                 title=form.title.data,

@@ -1,98 +1,40 @@
 {% extends "base.html" %}
-{% block content %}
-<script type="text/javascript" src="/static/posts.js"></script>
+{% import 'bootstrap/wtf.html' as wtf %}
 
-<div class="mui-container">
-    <div class="content-section">
-        <form class="mui-form" method="POST" action="">
-            {{ form.hidden_tag() }}
-            <div class="mui--text-dark-secondary mui--text-display1">{{ legend }}</div>
-            <div class="mui-divider"></div>
-            <br>
-            <br>
-            <div class="mui-textfield">
-                {% if form.title.errors %}
-                {{ form.title(class= "is-invalid mui-textfield") }}
-                <div class="invalid-feedback">
-                    {% for error in form.title.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.title(class= "mui-textfield") }}
-                {% endif %}
-                <label>{{ form.title.label }}</label>
-            </div>
-            <div class="mui-textfield">
-                {% if form.warm_up.errors %}
-                {{ form.warm_up(class= "is-invalid mui-textfield") }}
-                <div class="invalid-feedback">
-                    {% for error in form.warm_up.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.warm_up(class= "mui-textfield") }}
-                {% endif %}
-                <label>{{ form.warm_up.label }}</label>
-            </div>
-            <div>
-                {{ form.main_lift.label }}
-                {{ form.main_lift }}
-            </div>
-            <div>
-                <button class= "mui-btn mui-btn--raised submit-btn" type="button" value="Add" onclick="add();">Add Set</button>
-                <button class= "mui-btn mui-btn--raised submit-btn" type="button" value="Remove" onclick="remove();">Remove Set</button>
-            </div>
-            <div id="subform-container">
-                {% for subform in form.sets %}
-                    <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-                        {{ subform.reps.label }}
-                        {{ subform.reps }}
+{% block scripts %}
+<script src="{{url_for('static', filename='posts.js')}}"></script>
+{{super()}}
+{% endblock %}
 
-                        {{ subform.weight.label }}
-                        {{ subform.weight }}
-                    </div>
-                {% endfor %}
-            </div>
-            {# Form template #}
-            <div id="set-_-form" class="is-hidden" data-index="_">
-                <label for="sets-_-reps">Reps</label>
-                <input id="sets-_-reps" name="sets-_-reps" type="text" value="1">
 
-                <label for="sets-_-weight">Weight</label>
-                <input id="sets-_-weight" name="sets-_-weight" type="text" value="45">
-            </div>
-            <div class="mui-textfield">
-                {% if form.accessories.errors %}
-                {{ form.accessories(class= "is-invalid mui-textfield") }}
-                <div class="invalid-feedback">
-                    {% for error in form.accessories.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
+{% block app_content %}
+    <form class="form" method="POST" action="">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_errors(form, hiddens="only") }}
+
+        {{ wtf.form_field(form.title) }}
+        {{ wtf.form_field(form.warm_up) }}
+        {{ wtf.form_field(form.main_lift) }}
+        
+        <div>
+            <button type="button" class="btn btn-primary" value="Add" onclick="add();">Add Set</button>
+            <button type="button" class="btn btn-secondary" value="Remove" onclick="remove();">Remove Set</button>
+        </div>
+        <br>
+        <div id="subform-container" class="form-inline">
+            {% for subform in form.sets %}
+                <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                    {{ subform.reps(class="form-control", placeholder="Reps") }}
+                    {{ subform.weight(class="form-control", placeholder="Weight") }}
                 </div>
-                {% else %}
-                {{ form.accessories(class= "mui-textfield") }}
-                {% endif %}
-                <label>{{ form.accessories.label }}</label>
-            </div>
-            <div class="mui-textfield">
-                {% if form.conditioning.errors %}
-                {{ form.conditioning(class= "is-invalid mui-textfield") }}
-                <div class="invalid-feedback">
-                    {% for error in form.conditioning.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.conditioning(class= "mui-textfield") }}
-                {% endif %}
-                <label>{{ form.conditioning.label }}</label>
-            </div>
-            <div class="form-group">
-                {{ form.submit(class="mui-btn mui-btn--raised submit-btn") }}
-            </div>
-        </form>
-    </div>
-</div>
+            {% endfor %}
+        </div>
+        <div id="set-_-form" class="invisible" data-index="_">
+            <input class="form-control" id="sets-_-reps" name="sets-_-reps" type="text" placeholder="Reps">
+            <input class="form-control" id="sets-_-weight" name="sets-_-weight" type="text" placeholder="Weight">
+        </div>
+        {{ wtf.form_field(form.accessories) }}
+        {{ wtf.form_field(form.conditioning) }}
+        {{ wtf.form_field(form.submit) }}
+    </form>
 {% endblock %}
