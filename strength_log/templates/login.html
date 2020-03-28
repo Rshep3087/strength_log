@@ -1,48 +1,13 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% set title = "User Login" %}
-
-{% block content %}
-<div class="mui-container">
-    <div class="mui--text-dark-secondary mui--text-display1">{{ title }}</div>
-    <div class="mui-divider"></div>
-    <br>
-    <br>
-    <form class="mui-form" method="POST" action="">
-        {{ form.hidden_tag() }}
-        <fieldset>
-            <div class="mui-textfield">
-                {% if form.email.errors %}
-                {{ form.email(class="mui-textfield is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.email(class="mui-textfield") }}
-                {% endif %}
-                <label>{{ form.email.label }}</label>
-            </div>
-            <div class="mui-textfield">
-                {% if form.password.errors %}
-                {{ form.password(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.password.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.password(class="mui-textfield") }}
-                {% endif %}
-                <label>{{ form.password.label }}</label>
-            </div>
-        </fieldset>
-        <a href="{{ url_for('users.reset_password_request') }}"> Trouble Signing In?</a>
-        <div class="form-group">
-            {{ form.submit(class="mui-btn mui-btn--raised submit-btn") }}
+{% block app_content %}
+    <h1>Login</h1>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
         </div>
-    </form>
-</div>
-
+    </div>
+    <br>
+    <a href="{{ url_for('users.reset_password_request') }}"> Trouble Signing In?</a>
 {% endblock %}

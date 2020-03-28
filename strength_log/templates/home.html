@@ -1,47 +1,44 @@
 {% extends "base.html" %}
 
-{% set title = "5/3/1 Log" %}
-
-{% block content %}
+{% block app_content %}
 <div class="mui-container">
-	<div class="mui--text-dark-secondary mui--text-display1">Posts</div>
-	<div class="mui-divider"></div>
-    <br>
-    <br>
+	<h1>Posts</h1>
 	{% for post in posts %}
-	<div class="mui-panel">
-	<article class="media content-section">
-		<div class="media-body">
-			<h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-			<div class="mui--text-headline">Warm Up</div>
-			<p class="article-content">{{ post.warm_up }}</p>
-			<div class="mui--text-headline">Main Lift</div>
-			<p class="article-content">{{ post.main_lift.capitalize() }}</p>
-			<p class="article-content">
-				<table class="mui-table">
+		<div class="card" style="width: 36rem;">
+			<div class="card-body">
+				<h2 class="card-title"><a class="card-link" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+				<h3>Warm Up</h3>
+				<h5>{{ post.warm_up }}</h5>
+				<h3>Main Lift</h3>
+				<h5>{{ post.main_lift.capitalize() }}</h5>
+				<table class="table">
 					<thead>
-					<tr>
-						<th>Reps</th>
-						<th>Weight</th>
-					</tr>
-				</thead>
+						<tr>
+							<th scope="col">Set</th>
+							<th scope="col">Reps</th>
+							<th scope="col">Weight</th>
+						</tr>
+					</thead>
 				<tbody>
 					{% for set in post.sets %}
 					<tr>
+						<td>{{ loop.index }}</td>
 						<td>{{ set["reps"] }}</td>
 						<td>{{ set["weight"] }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
 				</table>
-			</p>
-			<div class="mui--text-headline">Accessories</div>
-			<p class="article-content">{{ post.accessories }}</p>
-			<div class="mui--text-headline">Conditioning</div>
-			<p class="article-content">{{ post.conditioning }}</p>
+				{% if post.accessories %}
+					<h3>Accessories</h3>
+					<h5>{{ post.accessories }}</h5>
+				{% endif %}
+				{% if post.conditioning %}
+					<h3>Conditioning</h3>
+					<h5>{{ post.conditioning }}</h5>
+				{% endif %}
+			</div>
 		</div>
-		</article>
-	</div>
 	{% endfor %}
 </div>
 {% endblock %}

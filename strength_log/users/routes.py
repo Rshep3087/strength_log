@@ -44,7 +44,7 @@ def register():
         db.session.commit()
         flash("Your account has been created!", "success")
         return redirect(url_for("users.login"))
-    return render_template("register.html", form=form)
+    return render_template("register.html", form=form, title="Register")
 
 
 @logger.catch
@@ -70,7 +70,7 @@ def login():
             else:
                 flash("Login unsuccessful. Please double check credentials.", "danger")
 
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, title="Login")
 
 
 @users.route("/logout")

@@ -1,74 +1,49 @@
-<!doctype html>
-<html>
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% extends 'bootstrap/base.html' %}
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- load MUI -->
-	<link href="//cdn.muicss.com/mui-0.10.0/css/mui.min.css" rel="stylesheet" type="text/css" />
-	<script src="//cdn.muicss.com/mui-0.10.0/js/mui.min.js"></script>
+{% block title %}
+  {% if title %}{{ title }} - Strength Log{% else %}Welcome to Strength Log{% endif %}
+{% endblock %}
 
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+{% block navbar %}
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="{{ url_for('main.index') }}" class="navbar-brand">Strength Log</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('main.index') }}">Home</a></li>
+          <li><a href="{{ url_for('main.about') }}">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_anonymous %}
+          <li><a href="{{ url_for('users.login') }}">Login</a></li>
+          <li><a href="{{ url_for('users.register') }}">Register</a></li>
+          {% else %}
+          <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+          {% endif %}
+      </ul>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
 
-	{% if title %}
-	<title>Strength Log - {{ title }}</title>
-	{% else %}
-	<title>Strength Log</title>
-	{% endif %}
-</head>
+{% block content %}
+  <div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-<body>
-	<div id="sidebar">
-		<div class="mui--text-light mui--text-display1 mui--align-vertical">Strength Log</div>
-		{% if current_user.is_authenticated %}
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="/home">Home</a></button>
-		</div>
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="/post/new">Log Workout</a></button>
-		</div>
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="{{ url_for('maxes.new_max') }}">Training Max</a></button>
-		</div>
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="{{ url_for('user_personal_records.new_personal_records') }}">Personal Records</a></button>
-		</div>
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="/logout">Log Out</a></button>
-		</div>
-		{% else %}
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="{{ url_for('users.login') }}">Login</a></button>
-		</div>
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="/register">Register</a></button>
-		</div>
-		{% endif %}
-		<div class="mui--divider-top">
-			<button class="mui-btn mui-btn--raised"><a href="/about">About</a></button>
-		</div>
-	</div>
-	<div class="mui-row">
-		<br>
-		<br>
-		<div id="content" class="mui-container">
-			<div class="row">
-				<div class="col-md-8">
-				  {% with messages = get_flashed_messages(with_categories=true) %}
-					{% if messages %}
-					  {% for category, message in messages %}
-						<div class="alert alert-{{ category }}">
-						  {{ message }}
-						</div>
-					  {% endfor %}
-					{% endif %}
-				  {% endwith %}
-				  {% block content %}{% endblock %}
-				</div>
-		</div>
-	</div>
-</body>
-
-</html>
+    {% block app_content %}{% endblock %}
+  </div>
+{% endblock %}
