@@ -27,12 +27,7 @@ login.login_view = "users.login"
 login.login_message_category = "info"
 
 
-# app factory
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(config_class)
-    logger.info("App init")
-
+def initialize_extensions(app):
     db.init_app(app)
     bcrypt.init_app(app)
     login.init_app(app)
@@ -41,6 +36,8 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
     migrate.init_app(app, db=db)
 
+
+def register_blueprints(app):
     from strength_log.users.routes import users
     from strength_log.posts.routes import posts
     from strength_log.main.routes import main
@@ -54,6 +51,17 @@ def create_app(config_class=Config):
     app.register_blueprint(maxes)
     app.register_blueprint(personal_records)
     app.register_blueprint(errors)
+
+
+# app factory
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    logger.info("App init")
+
+    initialize_extensions(app)
+
+    register_blueprints(app)
 
     return app
 
