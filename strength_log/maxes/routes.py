@@ -1,10 +1,36 @@
-from flask import render_template, url_for, redirect, request, Blueprint
+from flask import render_template, url_for, redirect, request, Blueprint, jsonify
 from flask_login import current_user
 from strength_log import db
 from strength_log.models import Max
 from strength_log.maxes.forms import MaxesForm
 
 maxes = Blueprint("maxes", __name__)
+
+
+@maxes.route("/max_data")
+def max_data():
+    user_maxes = (
+        Max.query.filter_by(user_id=current_user.id)
+        .order_by(Max.timestamp.desc())
+        .limit(10)
+    )
+
+    squat_maxes = [squat_max.squat for squat_max in user_maxes]
+    bench_maxes = [bench_max.bench for bench_max in user_maxes]
+    deadlift_maxes = [deadlift_max.deadlift for deadlift_max in user_maxes]
+    press_maxes = [press_max.press for press_max in user_maxes]
+
+    timestamp = [single_max.timestamp.strftime("%m-%d-%y") for single_max in user_maxes]
+
+    max_data = {
+        "time": timestamp,
+        "squat": squat_maxes,
+        "bench": bench_maxes,
+        "deadlift": deadlift_maxes,
+        "press": press_maxes,
+    }
+
+    return jsonify(max_data)
 
 
 @maxes.route("/max", methods=["GET", "POST"])
