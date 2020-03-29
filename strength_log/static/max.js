@@ -1,35 +1,4 @@
-{% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
-
-{% block app_content %}
-    <h1>Training Max</h1>
-    <form class="form" method="POST" action="">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_errors(form, hiddens="only") }}
-
-        {{ wtf.form_field(form.squat)}}
-        {{ wtf.form_field(form.bench)}}
-        {{ wtf.form_field(form.deadlift)}}
-        {{ wtf.form_field(form.press)}}
-
-        {{ wtf.form_field(form.submit)}}
-    </form>
-    <br>
-    <h1>Charts</h1>
-    <div class="mui-divider"></div>
-    <br>
-    <br>
-    <!-- bar chart canvas element -->
-    <canvas id="squatChart" width="800" height="400"></canvas>
-    <canvas id="benchChart" width="800" height="400"></canvas>
-    <canvas id="deadliftChart" width="800" height="400"></canvas>
-    <canvas id="pressChart" width="800" height="400"></canvas>
-{% endblock %}
-
-{% block scripts %}
-<script src="{{url_for('static', filename='Chart.min.js')}}"></script>
-<script>
-    // define global variables
+// define global variables
 Chart.defaults.global.responsive = false;
 Chart.defaults.global.layout.padding.top = 15;
 Chart.defaults.global.elements.point.radius = 10;
@@ -265,6 +234,3 @@ var pressChart = new Chart(ctxPress, {
         }
     }
 });
-</script>
-{{super()}}
-{% endblock %}

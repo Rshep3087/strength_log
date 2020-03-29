@@ -12,7 +12,6 @@ posts = Blueprint("posts", __name__)
 @login_required
 def new_post():
     form = PostForm()
-
     if request.method == "POST":
         logger.debug(form.sets.data)
         if form.validate_on_submit():
