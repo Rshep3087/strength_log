@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-    <h1>Strength Log</h1>
-    <p>Welcome to Strength Log.</p>
+    <h1>Welcome to Strength Log</h1>
+    <br>
+    <p>Strength Log is a simple application to log your lifts at the gym.</p>
+    <ul>
+        <li>Track your progress over time with the training max tracker and interactive charts</li>
+            <img src="{{ url_for('static', filename='Maxes.png') }}" alt="Maxes Page" class="img-thumbnail" width="400">
+        <li>Keep note of your personal records (PR's) to keep driving progess</li>
+            <img src="{{ url_for('static', filename='prs.png') }}" alt="PR Page" class="img-thumbnail" width="400">
+        <li>Strength Log is designed to be mobile friendly!</li>
+        <img src="{{ url_for('static', filename='mobile.png') }}" alt="Mobile" class="img-thumbnail" width="200">
+
+    </ul>
 {% endblock %}
