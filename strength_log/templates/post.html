@@ -1,56 +1,59 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="mui-container">
-    <div class="mui--text-dark-secondary mui--text-display1">Single Log</div>
-    <div class="mui-divider"></div>
-    <br>
-	<br>
-	<article class="media content-section">
-		<div class="media-body">
-			<div class="article-metadata">
-			{% if post.author == current_user %}
-				<div>
-					<a class="mui-btn mui-btn--raised m-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
-					<form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
-						{{ form.hidden_tag() }}
-						{{ form.delete(class= "mui-btn mui-btn--danger") }}
-					</form>
-				</div>
-			{% endif %}
-			</div>
-			<br>
-			<br>
-			<div class="mui-panel">
-			<h2 class="article-title">{{ post.title }}</h2>
-			<div class="mui--text-headline">Warm Up</div>
-			<p class="article-content">{{ post.warm_up }}</p>
-			<div class="mui--text-headline">Main Lift</div>
-			<p class="article-content">{{ post.main_lift }}</p>
-			<p class="article-content">
-				<table class="mui-table">
-					<thead>
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='post.css')}}">
+{% endblock %}
+
+{% block app_content %}
+	{% if post.author == current_user %}
+		<div>
+			<a class="btn" id="update_post" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+		</div>
+		<br>
+		<div>
+			<form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+				{{ form.hidden_tag() }}
+				<input class="btn btn-danger" type="submit" value="Delete">
+			</form>
+		</div>
+	{% endif %}
+	<div class="card" style="width: 36rem;">
+		<div class="card-body">
+			<h2 class="card-title">{{ post.title }}</h2>
+			<h3>Warm Up</h3>
+			<h5>{{ post.warm_up }}</h5>
+			<h3>Main Lift</h3>
+			<h5>{{ post.main_lift.capitalize() }}</h5>
+			<table class="table">
+				<thead>
 					<tr>
-						<th>Reps</th>
-						<th>Weight</th>
+						<th scope="col">Set</th>
+						<th scope="col">Reps</th>
+						<th scope="col">Weight</th>
 					</tr>
 				</thead>
-				<tbody>
-					{% for set in post.sets %}
-					<tr>
-						<td>{{ set["reps"] }}</td>
-						<td>{{ set["weight"] }}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-				</table>
-			</p>
-			<div class="mui--text-headline">Accessories</div>
-			<p class="article-content">{{ post.accessories }}</p>
-			<div class="mui--text-headline">Conditioning</div>
-			<p class="article-content">{{ post.conditioning }}</p>
+			<tbody>
+				{% for set in post.sets %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>{{ set["reps"] }}</td>
+					<td>{{ set["weight"] }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>
+			{% if post.accessories %}
+				<h3>Accessories</h3>
+				<h5>{{ post.accessories }}</h5>
+			{% endif %}
+			{% if post.conditioning %}
+				<h3>Conditioning</h3>
+				<h5>{{ post.conditioning }}</h5>
+			{% endif %}
 		</div>
 	</div>
-		</article>
-	</div>
-</div>
+
 {% endblock %}

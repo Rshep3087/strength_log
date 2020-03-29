@@ -34,7 +34,6 @@ def new_post():
     return render_template("create_post.html", form=form, legend="New Post")
 
 
-# create post.html template
 @posts.route("/post/<int:post_id>", methods=["GET", "POST"])
 def post(post_id):
     form = DeleteForm()
