@@ -1,52 +1,32 @@
 {% extends "base.html" %}
-{% block content %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
+{% block app_content %}
 <div class="mui-container">
-    <div class="mui--text-dark-secondary mui--text-display1">{{ title }}</div>
-    <div class="mui-divider"></div>
-    <br>
-    <br>
+    <h1>{{title}}</h1>
     <form class="mui-form" method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="form-group">
-            <table class="mui-table">
-                <thead>
-                    <tr>
-                        <th>Squat</th>
-                        <th>Bench</th>
-                        <th>Deadlift</th>
-                        <th>Ohp</th>
-                    </tr>
-                </thead>
+            <table class="table">
                 <tbody>
                         <tr>
                             <td>
-                                <div class="mui-textfield">
-                                    {{ form.squat(class="form-control form-control-lg mui-textfield") }}
-                                </div>
+                                {{ wtf.form_field(form.squat) }}
                             </td>
                             <td>
-                                <div class="mui-textfield">
-                                    {{ form.bench(class="form-control form-control-lg mui-textfield") }}
-                                </div>
+                                {{ wtf.form_field(form.bench) }}
                             </td>
                             <td>
-                                <div class="mui-textfield">
-                                    {{ form.deadlift(class="form-control form-control-lg mui-textfield") }}
-                                </div>
+                                {{ wtf.form_field(form.deadlift) }}
                             </td>
                             <td>
-                                <div class="mui-textfield">
-                                    {{ form.press(class="form-control form-control-lg mui-textfield") }}
-                                </div>
+                                {{ wtf.form_field(form.press) }}
                             </td>
                         </tr>
                 </tbody>
             </table>
         </div>
-        <div class="form-group">
-            {{ form.submit(class="mui-btn mui-btn--raised submit-btn") }}
-        </div>
+        {{ wtf.form_field(form.submit) }}
     </form>
 </div>
 
