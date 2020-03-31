@@ -12,7 +12,7 @@ import pytest
 
 class TestHomePage:
     def test_title(self, driver_home):
-        expected = "Strength Log"
+        expected = "Welcome to Strength Log"
         assert driver_home.title == expected
 
     def test_image(self, driver_home):
@@ -39,9 +39,9 @@ class TestHomePage:
         write("test", into="Password")
         click("Submit")
 
-        assert Text("Posts").exists()
-        assert Button("Log Workout").exists()
-        assert Button("Training Max").exists()
-        assert Button("Personal Records").exists()
-        assert Button("Log Out").exists()
-        assert Button("About").exists()
+        assert Text("Home").exists()
+        assert Link("Log Workout").exists()
+        assert Link("Training Max").exists()
+        assert Link("PR's").exists()
+        assert Link("Logout").exists()
+        assert Link("About").exists()

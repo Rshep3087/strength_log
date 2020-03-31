@@ -40,9 +40,10 @@ class TestUsers:
         r = test_client.get("/login")
         logger.debug(r.data)
         assert r.status_code == 200
-        assert b"User Login" in r.data
+        assert b"Login" in r.data
         assert b"Email" in r.data
         assert b"Password" in r.data
+        assert b"Trouble Signing In?" in r.data
 
     def test_valid_login_logout(self, test_client, init_database):
         """
@@ -75,7 +76,8 @@ class TestUsers:
             follow_redirects=True,
         )
         assert r.status_code == 200
-        assert b"User Login" in r.data
+        assert b"Login" in r.data
+        assert b"Login unsuccessful. Please double check credentials." in r.data
 
     def test_valid_registration(self, test_client, init_database):
         """
