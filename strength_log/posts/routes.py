@@ -12,8 +12,12 @@ posts = Blueprint("posts", __name__)
 @login_required
 def new_post():
     form = PostForm()
+    form.accessories[0].lift.choices = [
+        ("", "Front Squat"),
+        (2, "Deficit Deadlift"),
+    ]
+
     if request.method == "POST":
-        logger.debug(form.sets.data)
         if form.validate_on_submit():
             post = Post(
                 title=form.title.data,
@@ -30,7 +34,7 @@ def new_post():
             flash("Your session has been logged!", "success")
             return redirect(url_for("main.home"))
 
-    return render_template("create_post.html", form=form, legend="New Post")
+    return render_template("create_post.html", form=form, title="New Post")
 
 
 @posts.route("/post/<int:post_id>", methods=["GET", "POST"])

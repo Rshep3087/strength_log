@@ -23,14 +23,9 @@ class SetForm(Form):
 class AccessoriesForm(Form):
     """Subform for accessories"""
 
-    lift = SelectField(
-        "Lift",
-        choices=[
-            ("Front Squat", "Front Squat"),
-            ("Close Grip Bench Press", "Close Grip Bench Press"),
-        ],
-    )
-    sets = FieldList(FormField(SetForm), min_entries=1, max_entries=20)
+    lift = SelectField("Lift")
+    reps = IntegerField("Reps")
+    weight = FloatField("Weight")
 
 
 class PostForm(FlaskForm):
@@ -53,7 +48,7 @@ class PostForm(FlaskForm):
 
     sets = FieldList(FormField(SetForm), min_entries=1, max_entries=20)
 
-    accessories = StringField("Accessories")
+    accessories = FieldList(FormField(AccessoriesForm), min_entries=1, max_entries=20)
     conditioning = StringField("Conditioning", validators=[Optional()])
 
     submit = SubmitField("Submit")

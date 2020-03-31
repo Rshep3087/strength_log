@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block scripts %}
-<script src="{{url_for('static', filename='js/posts.js')}}"></script>
+{% block styles %}
 {{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/main.css')}}">
 {% endblock %}
 
 
@@ -21,20 +22,43 @@
             <button type="button" class="btn btn-secondary" value="Remove" onclick="remove();">Remove Set</button>
         </div>
         <br>
-        <div id="subform-container" class="form-inline">
+        <div id="main-subform-container" class="form-inline">
             {% for subform in form.sets %}
                 <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                    <label id="sets-0-label" class="set-label">Set: {{loop.index}}</label>
                     {{ subform.reps(class="form-control", placeholder="Reps") }}
                     {{ subform.weight(class="form-control", placeholder="Weight") }}
                 </div>
             {% endfor %}
         </div>
-        <div id="set-_-form" class="invisible" data-index="_">
+        <div id="main-_-form" class="hidden" data-index="_">
+            <label id="sets-_-label" class="set-label"></label>
             <input class="form-control" id="sets-_-reps" name="sets-_-reps" type="text" placeholder="Reps">
             <input class="form-control" id="sets-_-weight" name="sets-_-weight" type="text" placeholder="Weight">
         </div>
-        {{ wtf.form_field(form.accessories) }}
+        <br>
+        <label class="control-label">Accessories</label>
+        <div>
+            <button type="button" class="btn btn-primary" value="Add">Add Accessory</button>
+            <button type="button" class="btn btn-secondary" value="Remove">Remove Accessory</button>
+        </div>
+        <br>
+        <div class="form-inline">
+            {% for subform in form.accessories %}
+                <div class="subform">
+                    {{ wtf.form_field(subform.lift) }}
+                    {{ subform.reps(class="form-control", placeholder="Reps") }}
+                    {{ subform.weight(class="form-control", placeholder="Weight") }}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
         {{ wtf.form_field(form.conditioning) }}
         {{ wtf.form_field(form.submit) }}
     </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{url_for('static', filename='js/posts.js')}}"></script>
+{{super()}}
 {% endblock %}
