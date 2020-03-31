@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% block app_content %}
+<div class="content-section">
+	<div class="container">
 	{% if post.author == current_user %}
 		<div>
 			<a class="btn" id="update_post" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
@@ -19,41 +21,59 @@
 				<input class="btn btn-danger" type="submit" value="Delete">
 			</form>
 		</div>
+		<br>
 	{% endif %}
-	<div class="card" style="width: 36rem;">
-		<div class="card-body">
-			<h2 class="card-title">{{ post.title }}</h2>
-			<h3>Warm Up</h3>
-			<h5>{{ post.warm_up }}</h5>
-			<h3>Main Lift</h3>
-			<h5>{{ post.main_lift.capitalize() }}</h5>
-			<table class="table">
-				<thead>
+		<div class="panel panel-default">
+			<div class="panel-heading"><a class="card-link" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></div>
+			<div class="panel-body">
+				<h3>Warm Up</h3>
+				<h5>{{ post.warm_up }}</h5>
+				<h3>Main Lift</h3>
+				<h5>{{ post.main_lift.capitalize() }}</h5>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Set</th>
+							<th scope="col">Reps</th>
+							<th scope="col">Weight</th>
+						</tr>
+					</thead>
+				<tbody>
+					{% for set in post.sets %}
 					<tr>
-						<th scope="col">Set</th>
-						<th scope="col">Reps</th>
-						<th scope="col">Weight</th>
+						<td>{{ loop.index }}</td>
+						<td>{{ set["reps"] }}</td>
+						<td>{{ set["weight"] }}</td>
 					</tr>
-				</thead>
-			<tbody>
-				{% for set in post.sets %}
-				<tr>
-					<td>{{ loop.index }}</td>
-					<td>{{ set["reps"] }}</td>
-					<td>{{ set["weight"] }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-			</table>
-			{% if post.accessories %}
-				<h3>Accessories</h3>
-				<h5>{{ post.accessories }}</h5>
-			{% endif %}
-			{% if post.conditioning %}
+					{% endfor %}
+				</tbody>
+				</table>
+				<h3>Accessory Lifts</h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Lift</th>
+							<th scope="col">Sets</th>
+							<th scope="col">Reps</th>
+							<th scope="col">Weight</th>
+						</tr>
+					</thead>
+				<tbody>
+					{% for lift in post.accessories %}
+					<tr>
+						<td>{{ lift["lift"] }}</td>
+						<td>{{ lift["sets"] }}</td>
+						<td>{{ lift["reps"] }}</td>
+						<td>{{ lift["weight"] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
 				<h3>Conditioning</h3>
 				<h5>{{ post.conditioning }}</h5>
-			{% endif %}
+			</div>
 		</div>
 	</div>
+</div>
 
 {% endblock %}

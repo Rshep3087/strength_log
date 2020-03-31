@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_wtf import FlaskForm
 from wtforms import (
     Form,
@@ -10,7 +12,6 @@ from wtforms import (
     FloatField,
 )
 from wtforms.validators import DataRequired, Length, Optional
-from datetime import datetime
 
 
 class SetForm(Form):
@@ -23,7 +24,8 @@ class SetForm(Form):
 class AccessoriesForm(Form):
     """Subform for accessories"""
 
-    lift = SelectField("Lift", coerce=int)
+    lift = StringField("Lift")
+    sets = IntegerField("Sets")
     reps = IntegerField("Reps")
     weight = FloatField("Weight")
 

@@ -68,39 +68,13 @@ function add_accessory() {
     newForm.setAttribute("data-index", accessory_sets_id);
 
     let inputElements = newForm.getElementsByTagName("input");
-    let labelElement = newForm.getElementsByTagName("label");
-    let selectElement = newForm.getElementsByTagName("select")[0];
+    let accessoryToAdd = document.getElementById("accessory-lift");
 
-    labelElement[0].setAttribute("id", labelElement[0].getAttribute("id").replace("_", accessory_sets_id));
-    labelElement[0].innerHTML = "Accessory Lift: " + (accessory_sets_id + 1).toString() + " ";
+    inputElements[0].value = accessoryToAdd.value;
 
     for (i = 0; i < inputElements.length; i++) {
         inputElements[i].setAttribute("id", inputElements[i].getAttribute("id").replace("_", accessory_sets_id));
         inputElements[i].setAttribute("name", inputElements[i].getAttribute("name").replace("_", accessory_sets_id));
-    }
-
-    selectElement.setAttribute("id", selectElement.getAttribute("id").replace("_", accessory_sets_id));
-    selectElement.setAttribute("name", selectElement.getAttribute("name").replace("_", accessory_sets_id));
-
-
-    let accessoryOptions = document.getElementById("accessories-0-lift");
-    console.log(accessoryOptions.options[0].value);
-
-    let accessoryOptionsText = [];
-    let accessoryOptionsValues = [];
-
-    for (i = 0; i < accessoryOptions.length; i++) {
-        accessoryOptionsText.push(accessoryOptions[i].text);
-        accessoryOptionsValues.push(accessoryOptions[i].value);
-    }
-
-    for (i = 0; i < accessoryOptionsText.length; i++) {
-        let optText = accessoryOptionsText[i];
-        let optValue = accessoryOptionsValues[i];
-        let el = document.createElement("option");
-        el.text = optText;
-        el.value = optValue;
-        selectElement.add(el, null);
     }
 
     newForm.setAttribute("class", "subform");

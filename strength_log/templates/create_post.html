@@ -49,27 +49,28 @@
                 <div>
                     <button type="button" class="btn btn-primary" value="Add" onclick="add_accessory();">Add Accessory</button>
                     <button type="button" class="btn btn-secondary" value="Remove" onclick="remove_accessory();">Remove Accessory</button>
+                    <div>
+                        <label id="accesory-label" class="control-label lift-label">Accessory to Add</label>
+                        <select name="accessory-lift" class="form-control" id="accessory-lift">
+                            {% for accessory_lift in accessory_lifts %}
+                            <option value="{{ accessory_lift }}">{{ accessory_lift }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 <br>
                 <div id="accessories-subform-container" class="form-inline">
                     {% for subform in form.accessories %}
                         <div id="accessories-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-                            <label class="control-label lift-label">Accessory Lift: 1 </label>
-                            <select name="accessories-{{ loop.index0 }}-lift" class="form-control" id="accessories-{{ loop.index0 }}-lift">
-                                {% for lift_option in subform.lift %}
-                                <option value="{{ lift_option.data }}">{{ lift_option.label }}</option>
-                                {% endfor %}
-                            </select>
-                            {{ subform.reps(class="form-control", placeholder="Reps") }}
-                            {{ subform.weight(class="form-control", placeholder="Weight") }}
+
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
         <div id="accessories-_-form" class="hidden" data-index="_">
-            <label id="sets-_-label" class="lift-label"></label>
-            <select class="form-control" id="accessories-_-lift" name="accessories-_-lift"></select>
+            <input id="accessories-_-lift" class="form-control" name="accessories-_-lift" readonly>
+            <input class="form-control" id="accessories-_-sets" name="accessories-_-sets" type="text" placeholder="Sets">
             <input class="form-control" id="accessories-_-reps" name="accessories-_-reps" type="text" placeholder="Reps">
             <input class="form-control" id="accessories-_-weight" name="accessories-_-weight" type="text" placeholder="Weight">
         </div>

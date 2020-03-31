@@ -94,7 +94,7 @@ class Post(db.Model):
     warm_up = db.Column(db.String(80))
     main_lift = db.Column(db.String(20))
     sets = db.Column(db.PickleType)
-    accessories = db.Column(db.String(80))
+    accessories = db.Column(db.PickleType)
     conditioning = db.Column(db.String(80))
     timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -165,3 +165,10 @@ class PressPersonalRecord(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+
+class AccessoryLift(db.Model):
+    __tablename__ = "accessory_lifts"
+
+    id = db.Column(db.Integer, primary_key=True)
+    lift = db.Column(db.String(60))

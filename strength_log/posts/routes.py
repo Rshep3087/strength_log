@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, Blueprint, flash, request, abort
 from strength_log import db
 from strength_log.posts.forms import PostForm, DeleteForm
-from strength_log.models import Post
+from strength_log.models import Post, AccessoryLift
 from flask_login import current_user, login_required
 from loguru import logger
 
@@ -12,16 +12,11 @@ posts = Blueprint("posts", __name__)
 @login_required
 def new_post():
     form = PostForm()
-
-    form.accessories[0].lift.choices = [
-        (0, "Front Squat"),
-        (1, "Deficit Deadlift"),
-    ]
-    logger.debug(form.accessories[0].lift.choices)
+    accessory_lifts = [a.lift for a in AccessoryLift.query.all()]
 
     if request.method == "POST":
         if form.validate_on_submit():
-            """
+
             post = Post(
                 title=form.title.data,
                 warm_up=form.warm_up.data,
@@ -33,12 +28,13 @@ def new_post():
             )
             db.session.add(post)
             db.session.commit()
-            """
 
             flash("Your session has been logged!", "success")
             return redirect(url_for("main.home"))
 
-    return render_template("create_post.html", form=form, title="New Post")
+    return render_template(
+        "create_post.html", form=form, title="New Post", accessory_lifts=accessory_lifts
+    )
 
 
 @posts.route("/post/<int:post_id>", methods=["GET", "POST"])

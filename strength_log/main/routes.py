@@ -21,8 +21,13 @@ def home():
             .order_by(Post.timestamp.desc())
             .all()
         )
+        if not posts:
+            posts = Post.query.order_by(Post.timestamp.desc()).all()
+
     else:
         posts = Post.query.order_by(Post.timestamp.desc()).all()
+
+    logger.debug(posts)
 
     return render_template("home.html", posts=posts)
 
