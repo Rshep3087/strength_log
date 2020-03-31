@@ -2,10 +2,15 @@ let sets_id = 0;
 
 
 function remove() {
-    let set = document.getElementById("set-" + sets_id + "-form");
-    set.remove();
+    if (sets_id < 1) {
 
-    sets_id--;
+    } else {
+        let set = document.getElementById("set-" + sets_id + "-form");
+        set.remove();
+
+        sets_id--;
+    }
+
 }
 
 
