@@ -49,6 +49,9 @@ def post(post_id):
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
+
+    accessory_lifts = [a.lift for a in AccessoryLift.query.all()]
+
     if post.author != current_user:
         abort(403)
     form = PostForm()
@@ -66,12 +69,16 @@ def update_post(post_id):
         form.title.data = post.title
         form.warm_up.data = post.warm_up
         form.main_lift.data = post.main_lift
-        logger.debug(post.sets)
         # form.sets.data = post.sets
-        form.accessories.data = post.accessories
+        # form.accessories.data = post.accessories
         form.conditioning.data = post.conditioning
 
-    return render_template("create_post.html", form=form, legend="Update Post")
+    return render_template(
+        "create_post.html",
+        form=form,
+        legend="Update Post",
+        accessory_lifts=accessory_lifts,
+    )
 
 
 @posts.route("/post/<int:post_id>/delete", methods=["POST"])
