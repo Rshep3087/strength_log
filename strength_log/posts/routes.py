@@ -12,13 +12,16 @@ posts = Blueprint("posts", __name__)
 @login_required
 def new_post():
     form = PostForm()
+
     form.accessories[0].lift.choices = [
-        ("", "Front Squat"),
-        (2, "Deficit Deadlift"),
+        (0, "Front Squat"),
+        (1, "Deficit Deadlift"),
     ]
+    logger.debug(form.accessories[0].lift.choices)
 
     if request.method == "POST":
         if form.validate_on_submit():
+            """
             post = Post(
                 title=form.title.data,
                 warm_up=form.warm_up.data,
@@ -30,6 +33,7 @@ def new_post():
             )
             db.session.add(post)
             db.session.commit()
+            """
 
             flash("Your session has been logged!", "success")
             return redirect(url_for("main.home"))

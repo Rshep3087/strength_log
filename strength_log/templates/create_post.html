@@ -15,44 +15,66 @@
 
         {{ wtf.form_field(form.title) }}
         {{ wtf.form_field(form.warm_up) }}
-        {{ wtf.form_field(form.main_lift) }}
-        
-        <div>
-            <button type="button" class="btn btn-primary" value="Add" onclick="add();">Add Set</button>
-            <button type="button" class="btn btn-secondary" value="Remove" onclick="remove();">Remove Set</button>
-        </div>
-        <br>
-        <div id="main-subform-container" class="form-inline">
-            {% for subform in form.sets %}
-                <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-                    <label id="sets-0-label" class="set-label">Set: {{loop.index}}</label>
-                    {{ subform.reps(class="form-control", placeholder="Reps") }}
-                    {{ subform.weight(class="form-control", placeholder="Weight") }}
+
+        <!-- Main Lift Subform -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {{ wtf.form_field(form.main_lift) }}            
+                <div>
+                    <button type="button" class="btn btn-primary" value="Add" onclick="add();">Add Set</button>
+                    <button type="button" class="btn btn-secondary" value="Remove" onclick="remove();">Remove Set</button>
                 </div>
-            {% endfor %}
+                <br>
+                <div id="main-subform-container" class="form-inline">
+                    {% for subform in form.sets %}
+                        <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                            <label id="sets-0-label" class="control-label lift-label">Set: {{loop.index}}</label>
+                            {{ subform.reps(class="form-control", placeholder="Reps") }}
+                            {{ subform.weight(class="form-control", placeholder="Weight") }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         <div id="main-_-form" class="hidden" data-index="_">
-            <label id="sets-_-label" class="set-label"></label>
+            <label id="sets-_-label" class="lift-label"></label>
             <input class="form-control" id="sets-_-reps" name="sets-_-reps" type="text" placeholder="Reps">
             <input class="form-control" id="sets-_-weight" name="sets-_-weight" type="text" placeholder="Weight">
         </div>
         <br>
-        <label class="control-label">Accessories</label>
-        <div>
-            <button type="button" class="btn btn-primary" value="Add">Add Accessory</button>
-            <button type="button" class="btn btn-secondary" value="Remove">Remove Accessory</button>
-        </div>
-        <br>
-        <div class="form-inline">
-            {% for subform in form.accessories %}
-                <div class="subform">
-                    {{ wtf.form_field(subform.lift) }}
-                    {{ subform.reps(class="form-control", placeholder="Reps") }}
-                    {{ subform.weight(class="form-control", placeholder="Weight") }}
+        <!-- Accessories Subform -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <label class="control-label">Accessories</label>
+                <div>
+                    <button type="button" class="btn btn-primary" value="Add" onclick="add_accessory();">Add Accessory</button>
+                    <button type="button" class="btn btn-secondary" value="Remove" onclick="remove_accessory();">Remove Accessory</button>
                 </div>
-            {% endfor %}
+                <br>
+                <div id="accessories-subform-container" class="form-inline">
+                    {% for subform in form.accessories %}
+                        <div id="accessories-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                            <label class="control-label lift-label">Accessory Lift: 1 </label>
+                            <select name="accessories-{{ loop.index0 }}-lift" class="form-control" id="accessories-{{ loop.index0 }}-lift">
+                                {% for lift_option in subform.lift %}
+                                <option value="{{ lift_option.data }}">{{ lift_option.label }}</option>
+                                {% endfor %}
+                            </select>
+                            {{ subform.reps(class="form-control", placeholder="Reps") }}
+                            {{ subform.weight(class="form-control", placeholder="Weight") }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div id="accessories-_-form" class="hidden" data-index="_">
+            <label id="sets-_-label" class="lift-label"></label>
+            <select class="form-control" id="accessories-_-lift" name="accessories-_-lift"></select>
+            <input class="form-control" id="accessories-_-reps" name="accessories-_-reps" type="text" placeholder="Reps">
+            <input class="form-control" id="accessories-_-weight" name="accessories-_-weight" type="text" placeholder="Weight">
         </div>
         <br>
+
         {{ wtf.form_field(form.conditioning) }}
         {{ wtf.form_field(form.submit) }}
     </form>

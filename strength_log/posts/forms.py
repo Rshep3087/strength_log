@@ -23,7 +23,7 @@ class SetForm(Form):
 class AccessoriesForm(Form):
     """Subform for accessories"""
 
-    lift = SelectField("Lift")
+    lift = SelectField("Lift", coerce=int)
     reps = IntegerField("Reps")
     weight = FloatField("Weight")
 
