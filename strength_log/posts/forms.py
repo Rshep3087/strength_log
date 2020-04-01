@@ -32,9 +32,7 @@ class AccessoriesForm(Form):
 
 class PostForm(FlaskForm):
     title = StringField(
-        "Title",
-        validators=[Length(max=40), DataRequired()],
-        default=f"Today's Lift - {datetime.now().strftime('%m-%d-%y')}",
+        "Title", validators=[Length(max=40), DataRequired()], default="Today's Lift",
     )
     warm_up = StringField("Warm Up", validators=[Optional()], default="No warm up")
 
