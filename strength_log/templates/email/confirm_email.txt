@@ -1,0 +1,7 @@
+Dear Strength Log User,
+
+To reset your password click on the following link:
+
+{{ url_for('users.confirm_email', token=token, _external=True) }}
+
+Strength Log

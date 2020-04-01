@@ -1,7 +1,3 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import current_user
-from loguru import logger
-
 from strength_log import db
 from strength_log.personal_records.forms import PersonalRecordForm
 from strength_log.models import (
@@ -9,13 +5,25 @@ from strength_log.models import (
     BenchPersonalRecord,
     DeadliftPersonalRecord,
     PressPersonalRecord,
+    User,
 )
+
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import current_user
+from loguru import logger
+
 
 personal_records = Blueprint("user_personal_records", __name__)
 
 
 @personal_records.route("/personal_records", methods=["GET", "POST"])
 def new_personal_records():
+    user = User.query.get(current_user.id)
+
+    if not user.authenticated:
+        flash("Account must be authenticated to access Personal Records.", "danger")
+        return redirect(url_for("main.index"))
+
     if request.method == "POST":
         form = PersonalRecordForm()
         if form.validate_on_submit():
@@ -59,29 +67,31 @@ def new_personal_records():
 
             db.session.commit()
 
+            flash("Your PR was successfully logged.", "success")
+
             return redirect(url_for("main.home"))
-    else:
-        user_squat_records = SquatPersonalRecord.query.filter_by(
-            user_id=current_user.id
-        ).first()
 
-        user_bench_records = BenchPersonalRecord.query.filter_by(
-            user_id=current_user.id
-        ).first()
+    user_squat_records = SquatPersonalRecord.query.filter_by(
+        user_id=current_user.id
+    ).first()
 
-        user_deadlift_records = DeadliftPersonalRecord.query.filter_by(
-            user_id=current_user.id
-        ).first()
+    user_bench_records = BenchPersonalRecord.query.filter_by(
+        user_id=current_user.id
+    ).first()
 
-        user_press_records = PressPersonalRecord.query.filter_by(
-            user_id=current_user.id
-        ).first()
+    user_deadlift_records = DeadliftPersonalRecord.query.filter_by(
+        user_id=current_user.id
+    ).first()
 
-        form = PersonalRecordForm(
-            squat=user_squat_records,
-            bench=user_bench_records,
-            deadlift=user_deadlift_records,
-            press=user_press_records,
-        )
+    user_press_records = PressPersonalRecord.query.filter_by(
+        user_id=current_user.id
+    ).first()
+
+    form = PersonalRecordForm(
+        squat=user_squat_records,
+        bench=user_bench_records,
+        deadlift=user_deadlift_records,
+        press=user_press_records,
+    )
 
     return render_template("personal_records.html", form=form, title="Personal Records")

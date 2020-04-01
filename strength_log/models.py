@@ -57,9 +57,19 @@ class User(db.Model, UserMixin):
     def set_password(self, password):
         self.hashed_password = bcrypt.generate_password_hash(password)
 
+    def is_authenticated(self):
+        return self.authenticated
+
+    def authenticate_user_email(self):
+        self.authenticated = True
+
     def get_reset_password_token(self, expires_in=1800):
         s = Serializer(current_app.config["SECRET_KEY"], expires_in)
         return s.dumps({"user_id": self.id}).decode("utf-8")
+
+    def get_email_confirmation_token(self, expires_in=604800):
+        s = Serializer(current_app.config["SECRET_KEY"], expires_in)
+        return s.dumps({"user_email": self.email}).decode("utf-8")
 
     @staticmethod
     def verify_reset_password_token(token):
@@ -72,6 +82,15 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return str(self.id)
+
+    @staticmethod
+    def verify_email_confirmation_token(token):
+        s = Serializer(current_app.config["SECRET_KEY"])
+        try:
+            email = s.loads(token)["user_email"]
+        except:
+            return None
+        return User.query.filter_by(email=email).first()
 
 
 class Max(db.Model):

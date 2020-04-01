@@ -1,8 +1,10 @@
-from flask import render_template, url_for, redirect, request, Blueprint, jsonify
-from flask_login import current_user
 from strength_log import db
-from strength_log.models import Max
+from strength_log.models import Max, User
 from strength_log.maxes.forms import MaxesForm
+
+from flask import render_template, url_for, redirect, request, Blueprint, jsonify, flash
+from flask_login import current_user
+from loguru import logger
 
 maxes = Blueprint("maxes", __name__)
 
@@ -35,6 +37,12 @@ def max_data():
 
 @maxes.route("/max", methods=["GET", "POST"])
 def new_max():
+    user = User.query.get(current_user.id)
+
+    if not user.authenticated:
+        flash("Account must be authenticated to access Training Max.", "danger")
+        return redirect(url_for("main.index"))
+
     user_maxes = (
         Max.query.filter_by(user_id=current_user.id)
         .order_by(Max.timestamp.desc())
