@@ -28,7 +28,7 @@ def home():
             return redirect(url_for("main.main_lift", lift=form.main_lift.data))
 
     if not posts.items:
-        flash("To view posts on your home page, log your first workout!", "info")
+        flash("To view workouts on your home page, log your first workout!", "info")
         return redirect(url_for("posts.new_post"))
 
     return render_template(
@@ -53,7 +53,7 @@ def main_lift(lift):
 
     if not posts.items:
         flash(
-            f"To view your {capital_lift} posts, log your first {capital_lift} workout!",
+            f"To view your {capital_lift} workouts, log your first {capital_lift} workout!",
             "info",
         )
         return redirect(url_for("posts.new_post"))
