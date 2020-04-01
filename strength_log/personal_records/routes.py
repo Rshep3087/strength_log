@@ -94,4 +94,10 @@ def new_personal_records():
         press=user_press_records,
     )
 
+    if not user_press_records:
+        flash(
+            "Tip: Use Personal Records to track your all-time best lifts on reps 1-5. This is usually not the values you base your programming on, track that in the training max tab.",
+            "info",
+        )
+
     return render_template("personal_records.html", form=form, title="Personal Records")

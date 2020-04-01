@@ -81,6 +81,12 @@ def new_max():
         else:
             form = MaxesForm(obj=max)
 
+    if not timestamp:
+        flash(
+            "Tip: You have no Training Max data. Submit your training maxes that your programming is currently based on to start tracking.",
+            "info",
+        )
+
     return render_template(
         "max.html",
         form=form,
