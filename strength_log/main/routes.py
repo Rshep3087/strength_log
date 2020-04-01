@@ -1,7 +1,7 @@
 from strength_log.models import Post
 from strength_log.main.forms import FilterForm
 
-from flask import render_template, Blueprint, request, redirect, url_for
+from flask import render_template, Blueprint, request, redirect, url_for, flash
 from flask_login import current_user
 from loguru import logger
 
@@ -28,6 +28,7 @@ def home():
             return redirect(url_for("main.main_lift", lift=form.main_lift.data))
 
     if not posts.items:
+        flash("To view posts on your home page, log your first workout!", "info")
         return redirect(url_for("posts.new_post"))
 
     return render_template(
@@ -44,20 +45,25 @@ def main_lift(lift):
         .paginate(page=page, per_page=5)
     )
     form = FilterForm()
+    capital_lift = lift.capitalize()
 
     if request.method == "POST":
         if form.validate_on_submit():
             return redirect(url_for("main.main_lift", lift=form.main_lift.data))
 
     if not posts.items:
+        flash(
+            f"To view your {capital_lift} posts, log your first {capital_lift} workout!",
+            "info",
+        )
         return redirect(url_for("posts.new_post"))
 
     return render_template(
         "home.html",
         posts=posts,
-        title=lift.capitalize(),
+        title=capital_lift,
         form=form,
-        filter_type=lift.capitalize(),
+        filter_type=capital_lift,
     )
 
 
