@@ -10,6 +10,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_moment import Moment
 from flask_wtf import CSRFProtect
 from loguru import logger
 
@@ -23,6 +24,7 @@ mail = Mail()
 login = LoginManager()
 csrf = CSRFProtect()
 bootstrap = Bootstrap()
+moment = Moment()
 login.login_view = "users.login"
 login.login_message_category = "info"
 
@@ -34,6 +36,7 @@ def initialize_extensions(app):
     mail.init_app(app)
     csrf.init_app(app)
     bootstrap.init_app(app)
+    moment.init_app(app)
     migrate.init_app(app, db=db)
 
 

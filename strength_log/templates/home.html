@@ -15,7 +15,10 @@
 			<br>
 			{% for post in posts.items %}
 			<div class="panel panel-default">
-				<div class="panel-heading"><a class="card-link" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></div>
+				<div class="panel-heading">
+					<a class="card-link" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+					<h5 class="pull-right">{{ moment(post.timestamp).fromNow() }}</h5>
+				</div>
 				<div class="panel-body">
 					<h3>Warm Up</h3>
 					<h5>{{ post.warm_up }}</h5>
