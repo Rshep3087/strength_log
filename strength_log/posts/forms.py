@@ -17,17 +17,17 @@ from wtforms.validators import DataRequired, Length, Optional
 class SetForm(Form):
     """Subform for each set"""
 
-    reps = IntegerField("Reps")
-    weight = FloatField("Weight")
+    reps = IntegerField("Reps", validators=[DataRequired()])
+    weight = FloatField("Weight", validators=[DataRequired()])
 
 
 class AccessoriesForm(Form):
     """Subform for accessories"""
 
     lift = StringField("Lift")
-    sets = IntegerField("Sets")
-    reps = IntegerField("Reps")
-    weight = FloatField("Weight")
+    sets = IntegerField("Sets", validators=[DataRequired()])
+    reps = IntegerField("Reps", validators=[DataRequired()])
+    weight = FloatField("Weight", validators=[DataRequired()])
 
 
 class PostForm(FlaskForm):
@@ -48,7 +48,12 @@ class PostForm(FlaskForm):
 
     sets = FieldList(FormField(SetForm), min_entries=1, max_entries=20)
 
-    accessories = FieldList(FormField(AccessoriesForm), min_entries=1, max_entries=20)
+    accessories = FieldList(
+        FormField(AccessoriesForm),
+        min_entries=1,
+        max_entries=20,
+        validators=[Optional()],
+    )
     conditioning = StringField("Conditioning", validators=[Optional()])
 
     submit = SubmitField("Submit")

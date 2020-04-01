@@ -13,7 +13,17 @@
         {{ form.hidden_tag() }}
         {{ wtf.form_errors(form, hiddens="only") }}
 
-        {{ wtf.form_field(form.title) }}
+        {% if form.title.errors %}
+            {{ wtf.form_field(form.title) }}
+            <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ wtf.form_field(form.title) }}
+        {% endif %}
+        
         {{ wtf.form_field(form.warm_up) }}
 
         <!-- Main Lift Subform -->

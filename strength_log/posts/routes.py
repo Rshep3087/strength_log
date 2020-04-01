@@ -15,8 +15,7 @@ def new_post():
     accessory_lifts = [a.lift for a in AccessoryLift.query.all()]
 
     if request.method == "POST":
-        if form.validate_on_submit():
-
+        if form.validate():
             post = Post(
                 title=form.title.data,
                 warm_up=form.warm_up.data,
@@ -29,8 +28,10 @@ def new_post():
             db.session.add(post)
             db.session.commit()
 
-            flash("Your session has been logged!", "success")
+            flash(f"Your {form.main_lift.data} workout has been logged!", "success")
             return redirect(url_for("main.home"))
+        else:
+            flash("Workout failed to submit, check fields for missing data.", "danger")
 
     return render_template(
         "create_post.html", form=form, title="New Post", accessory_lifts=accessory_lifts
