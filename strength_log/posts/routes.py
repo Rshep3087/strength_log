@@ -12,7 +12,9 @@ posts = Blueprint("posts", __name__)
 @login_required
 def new_post():
     form = PostForm()
-    accessory_lifts = [a.lift for a in AccessoryLift.query.all()]
+    accessory_lifts = [
+        a.lift for a in AccessoryLift.query.order_by(AccessoryLift.lift).all()
+    ]
 
     if request.method == "POST":
         if form.validate():
