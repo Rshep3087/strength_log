@@ -54,7 +54,7 @@ If you find a bug, open an issue [here](https://github.com/Rshep3087/strength_lo
 
 If you'd like to request a new function, feel free to do so by sending an email to contact.strength.log@gmail.com.
 
-## Built with 
+## Built Using
 
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 - [Chart.js](https://www.chartjs.org/)
