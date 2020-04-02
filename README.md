@@ -1,6 +1,8 @@
 # [Strength Log](https://www.strengthlog.app/)
 ![Landing Page](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/landing_page.png)
 # Strength Log
+
+
 <table>
 <tr>
 <td>
@@ -8,36 +10,28 @@
   Once a user has built up many pages of training sessions they can filter by the main lift of the training session, which helps users compare previous sessions.
 </td>
 </tr>
+</table>
 
 
 ## Site
 
-### Landing Page
-![]()
-
 ### Logging a Workout
-![]()
+![Logging Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/logging.gif)
 
-### View Your Workouts
-![]()
-
-### Filtering by Main Lift
-![]()
-
-### Personal Records 
-![]()
+### View Your Workouts and Filter by Main Lift
+![View Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/training_max.gif)
 
 ### Training Max Charts
-![]()
-![]()
-![]()
+![Training Max](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/prs.png)
+
+### Personal Records 
+![Personal Records](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/prs.png)
 
 
 ## Mobile Experience
 Strength Log is mobile friendly, with the same intuitive user interface.
 
-
-![]()
+![Mobile](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/mobile.png)
 
 ### Development
 Want to contribute? Great!
