@@ -19,7 +19,7 @@
 ![Logging Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/logging.gif)
 
 ### View Your Workouts and Filter by Main Lift
-![View Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/training_max.gif)
+![View Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/view_workout.gif)
 
 ### Training Max Charts
 ![Training Max](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/prs.png)
