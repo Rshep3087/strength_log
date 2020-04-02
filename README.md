@@ -8,8 +8,7 @@
   Once a user has built up many pages of training sessions they can filter by the main lift of the training session, which helps users compare previous sessions.
 </td>
 </tr>
-</table>
-https://www.strengthlog.app/  
+  <b>https://www.strengthlog.app/</b>
 
 
 ## Site
