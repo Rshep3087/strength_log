@@ -1,4 +1,5 @@
-# ![Strength Log](https://www.strengthlog.app/)
+# [Strength Log](https://www.strengthlog.app/)
+![Landing Page](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/landing_page.png)
 # Strength Log
 <table>
 <tr>
