@@ -1,4 +1,4 @@
-# ![Strength Log]()
+# ![Strength Log](https://www.strengthlog.app/)
 # Strength Log
 <table>
 <tr>
@@ -8,9 +8,7 @@
 </td>
 </tr>
 </table>
-
-
-## [Usage](https://www.strengthlog.app/)   
+https://www.strengthlog.app/  
 
 
 ## Site
@@ -19,10 +17,13 @@
 ![]()
 
 ### Logging a Workout
+![]()
 
 ### View Your Workouts
+![]()
 
 ### Filtering by Main Lift
+![]()
 
 ### Personal Records 
 ![]()
