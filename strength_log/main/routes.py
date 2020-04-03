@@ -70,3 +70,8 @@ def main_lift(lift):
 @main.route("/about")
 def about():
     return render_template("about.html", title="About")
+
+
+@main.route("/max_calculator")
+def max_calculator():
+    return render_template("max_calculator.html", title="One-Rep Max Calculator")

@@ -24,6 +24,7 @@
           <li><a href="{{ url_for('user_personal_records.new_personal_records') }}">PR's</a></li>
           <li><a href="{{ url_for('maxes.new_max') }}">Training Max</a></li>
           {% endif %}
+          <li><a href="{{ url_for('main.max_calculator') }}">One-Rep Max Calculator</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if current_user.is_anonymous %}

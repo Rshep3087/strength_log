@@ -24,6 +24,9 @@
 ### Training Max Charts
 ![Training Max](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/prs.png)
 
+### One-Rep Max Calculator
+![One-Rep Max Calculator](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/one_rep_max.png)
+
 ### Personal Records 
 ![Personal Records](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/prs.png)
 
