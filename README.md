@@ -19,10 +19,10 @@
 ![Logging Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/logging.gif)
 
 ### View Your Workouts and Filter by Main Lift
-![View Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/view_workout.gif)
+![View Workout](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/view_workouts.gif)
 
 ### Training Max Charts
-![Training Max](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/prs.png)
+![Training Max](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/training_max.gif)
 
 ### One-Rep Max Calculator
 ![One-Rep Max Calculator](https://github.com/Rshep3087/strength_log/blob/master/strength_log/static/assets/one_rep_max.png)
@@ -57,7 +57,7 @@ If you find a bug, open an issue [here](https://github.com/Rshep3087/strength_lo
 
 If you'd like to request a new function, feel free to do so by sending an email to contact.strength.log@gmail.com.
 
-## Built with 
+## Built Using
 
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 - [Chart.js](https://www.chartjs.org/)
