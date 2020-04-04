@@ -8,8 +8,6 @@
 {% endblock %}
 
 {% block app_content %}
-<div class="content-section">
-	<div class="container">
 	{% if post.author == current_user %}
 		<div>
 			<a class="btn" id="update_post" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
@@ -73,7 +71,4 @@
 				<h5>{{ post.conditioning }}</h5>
 			</div>
 		</div>
-	</div>
-</div>
-
 {% endblock %}
