@@ -16,21 +16,27 @@
     </form>
     <br>
     <h1>Charts</h1>
-    <div class="mui-divider"></div>
-    <br>
     <br>
     <!-- bar chart canvas element -->
-    <canvas id="squatChart" width="800" height="400"></canvas>
-    <canvas id="benchChart" width="800" height="400"></canvas>
-    <canvas id="deadliftChart" width="800" height="400"></canvas>
-    <canvas id="pressChart" width="800" height="400"></canvas>
+    <div class="chart-container">
+        <canvas id="squatChart" width="800" height="400"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="benchChart" width="800" height="400"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="deadliftChart" width="800" height="400"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="pressChart" width="800" height="400"></canvas>
+    </div>
 {% endblock %}
 
 {% block scripts %}
 <script src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
 <script>
     // define global variables
-    Chart.defaults.global.responsive = false;
+    Chart.defaults.global.responsive = true;
     Chart.defaults.global.layout.padding.top = 15;
     Chart.defaults.global.elements.point.radius = 10;
     Chart.defaults.global.elements.point.hoverRadius = 10;
@@ -118,13 +124,13 @@
         label: 'Press',
         fill: false,
         backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "#F60505",
+        borderColor: "rgba(145, 61, 136, 1)",
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
         pointBackgroundColor: "#fff",
-        pointHoverBackgroundColor: "#F60505",
+        pointHoverBackgroundColor: "rgba(145, 61, 136, 1)",
         pointHoverBorderColor: "rgba(220,220,220,1)",
         data: [{% for item in press_values %}
             {{ item }},

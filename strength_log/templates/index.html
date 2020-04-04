@@ -1,31 +1,27 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-    <h1>Welcome to Strength Log</h1>
+    <h1 class="text-center">Welcome to Strength Log</h1>
     <br>
     <div class="content-section">
         <div class="container">
-            <div class="row">
                 <div class="col-lg-6 col-sm-5">
                     <h2>What is Strength Log?</h2>
                     <h4>Strength log is the simple way to track your strength workouts.</h4>
                 </div>
                 <div class="col-lg-6 col-sm-5"></div>
-            </div>
         </div>
     </div>
     <br>
     <div class="content-section">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-5">
-                            <h1>View all of your workouts or quickly filter by your main lift of each individual workout.</h1>
-                        </div>
-                        <div class="col-lg-6 col-sm-5">
-                            <img src="{{ url_for('static', filename='assets/post_view.png') }}" alt="Maxes Page" class="img-thumbnail" width="600">
-                        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-5">
+                        <h1>View all of your workouts or quickly filter by your main lift of each individual workout.</h1>
+                    </div>
+                    <div class="col-lg-6 col-sm-5">
+                        <img src="{{ url_for('static', filename='assets/post_view.png') }}" alt="Maxes Page" class="img-thumbnail" width="600">
                     </div>
                 </div>
             </div>
@@ -33,18 +29,16 @@
     </div>
     <br>
     <div class="content-section">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-5">
-                            <img src="{{ url_for('static', filename='assets/logging.gif') }}" alt="Maxes Page" class="img-thumbnail" width="600">
-                        </div>
-                        <div class="col-lg-6 col-sm-5">
-                            <h1>Intuitive user interface for quickly adding workouts to your log.
-                                Spend more time training, less time logging.
-                            </h1>
-                        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-5">
+                        <img src="{{ url_for('static', filename='assets/logging.gif') }}" alt="Maxes Page" class="img-thumbnail" height="800">
+                    </div>
+                    <div class="col-lg-6 col-sm-5">
+                        <h1>Intuitive user interface for quickly adding workouts to your log.
+                            Spend more time training, less time logging.
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -52,33 +46,29 @@
     </div>
     <br>
     <div class="content-section">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-5">
-                            <h1>Keep note of your personal records (PR's) to keep track of progess.</h1>
-                        </div>
-                        <div class="col-lg-6 col-sm-5">
-                            <img src="{{ url_for('static', filename='assets/prs.png') }}" alt="PR Page" class="img-thumbnail" width="500">
-                        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-5">
+                        <h1>Keep note of your personal records (PR's) to keep track of progess.</h1>
                     </div>
-                </div>    
-            </div>        
-        </div>
+                    <div class="col-lg-6 col-sm-5">
+                        <img src="{{ url_for('static', filename='assets/prs.png') }}" alt="PR Page" class="img-thumbnail" width="500">
+                    </div>
+                </div>
+            </div>    
+        </div>        
     </div>
     <br>
     <div class="content-section">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-5">
-                            <img src="{{ url_for('static', filename='assets/maxes.png') }}" alt="Maxes Page" class="img-thumbnail" width="400">
-                        </div>
-                        <div class="col-lg-6 col-sm-5">
-                            <h1>Track your progress over time with the training max tracker and interactive charts.</h1>
-                        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-5">
+                        <img src="{{ url_for('static', filename='assets/maxes.png') }}" alt="Maxes Page" class="img-thumbnail" width="400">
+                    </div>
+                    <div class="col-lg-6 col-sm-5">
+                        <h1>Track your progress over time with the training max tracker and interactive charts.</h1>
                     </div>
                 </div>
             </div>
@@ -86,21 +76,18 @@
     </div>
     <br>
     <div class="content-section">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-5">
-                            <h1>Strength Log is mobile friendly.</h1>
-                        </div>
-                        <div class="col-lg-6 col-sm-5">
-                            <img src="{{ url_for('static', filename='assets/mobile.png') }}" alt="Mobile" class="img-thumbnail" width="200">
-                        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-5">
+                        <h1>Strength Log is mobile friendly.</h1>
+                    </div>
+                    <div class="col-lg-6 col-sm-5">
+                        <img src="{{ url_for('static', filename='assets/mobile.png') }}" alt="Mobile" class="img-thumbnail" width="200">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
     <br>
 {% endblock %}

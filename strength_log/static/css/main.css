@@ -6,3 +6,26 @@
 .lift-label {
     margin-right: 20px;
 }
+
+
+/* Modify the backgorund color */ 
+.navbar-custom { 
+    background-color: rgb(59, 85, 30); 
+}
+
+
+/* Modify brand and text color */ 
+.navbar-custom .navbar-brand, 
+.navbar-custom .navbar-text, 
+nav .navbar-nav li a { 
+    color: white !important; 
+}
+
+canvas {
+    display: block;
+    height: 500px;
+}
+
+body { 
+    background: rgba(219, 219, 219, 0.2) !important; 
+}

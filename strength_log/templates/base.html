@@ -1,11 +1,17 @@
 {% extends 'bootstrap/base.html' %}
 
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
 {% block title %}
   {% if title %}{{ title }} - Strength Log{% else %}Welcome to Strength Log{% endif %}
 {% endblock %}
 
 {% block navbar %}
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default navbar-custom">
     <div class="container">
       <div class="navbar-header">
         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -17,7 +23,7 @@
         <a href="{{ url_for('main.index') }}" class="navbar-brand">Strength Log</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-custom">
           {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('main.home') }}">Home</a></li>
           <li><a href="{{ url_for('posts.new_post') }}">Log Workout</a></li>
@@ -52,9 +58,14 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-
-    {% block app_content %}{% endblock %}
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {% block app_content %}{% endblock %}
+        </div>
+      </div>
   </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

@@ -1,86 +1,78 @@
 {% extends "base.html" %}
 {% block app_content %}
-<div class="content-section">
-	<div class="container">
-        <div>
-            <h1>One-Rep Max Calculator</h1>
-        </div>
-        <br>
-        <div class="row">
-            <div class="form-group">
-                <label for="weightLifted">Weight (lbs)</label>
-                <input type="text" class="form-control" id="weightLifted" placeholder="Weight" required>
-            </div>
-            <div class="form-group">
-                <label for="repsCompleted">Reps Completed</label>
-                <select name="repsCompleted" id="repsCompleted" class="form-control">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" onclick="calculateMax()">Calculate</button><br>
-                <small id="calculatorTip" class="form-text text-muted">Accuracy may very depending on the athletes experience.</small>
-            </div>
-        </div>
-        <div class="text-center">
-            <h2 id="one-rep-max"></h2>
-        </div>
-        <br>
-        <div class="row">
-            <table class="table" id="max-rep-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Reps</th>
-                    <th scope="col">Weight (lbs)</th>
-                    <th scope="col">Percentage of One-Rep Max</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>100%</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>97%</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>0</td>
-                    <td>94%</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>92%</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>0</td>
-                    <td>89%</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-        <br>
-        <br>
-        <div class="row">
-            <h4>The One-Rep Max Calculator uses the Epley formula for calculations.</h4><br>
-            <img src="{{url_for('static', filename='assets/epley_formula.png')}}" alt="Epley Formula">
-        </div>
-    </div>
-</div>
+  <div>
+      <h1>One-Rep Max Calculator</h1>
+  </div>
+  <br>
+  <div class="form-group">
+      <label for="weightLifted">Weight (lbs)</label>
+      <input type="text" class="form-control" id="weightLifted" placeholder="Weight" required>
+  </div>
+  <div class="form-group">
+      <label for="repsCompleted">Reps Completed</label>
+      <select name="repsCompleted" id="repsCompleted" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+      </select>
+  </div>
+  <div class="form-group">
+      <button type="submit" class="btn btn-primary" onclick="calculateMax()">Calculate</button><br>
+      <small id="calculatorTip" class="form-text text-muted">Accuracy may very depending on the athletes experience.</small>
+  </div>
+  <div class="text-center">
+      <h2 id="one-rep-max"></h2>
+  </div>
+  <br>
+  <table class="table" id="max-rep-table">
+    <thead>
+      <tr>
+        <th scope="col">Reps</th>
+        <th scope="col">Weight (lbs)</th>
+        <th scope="col">Percentage of One-Rep Max</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>100%</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>0</td>
+        <td>97%</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>0</td>
+        <td>94%</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>0</td>
+        <td>92%</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>0</td>
+        <td>89%</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <div>
+      <h4>The One-Rep Max Calculator uses the Epley formula for calculations.</h4><br>
+      <img src="{{url_for('static', filename='assets/epley_formula.png')}}" alt="Epley Formula">
+  </div>
 {% endblock %}
 {% block scripts %}
 <script src="{{url_for('static', filename='js/max_calculator.js')}}"></script>

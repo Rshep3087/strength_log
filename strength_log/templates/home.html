@@ -2,84 +2,80 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-<div class="content-section">
-	<div class="container">
-		<h1>{{ filter_type }} Workouts</h1>
-		<form class="form" method="POST" action="">
-			{{ form.hidden_tag() }}
-			<div class="form-inline">
-				{{ wtf.form_field(form.submit) }}
-				{{ wtf.form_field(form.main_lift) }}
+	<h1>{{ filter_type }} Workouts</h1>
+	<form class="form" method="POST" action="">
+		{{ form.hidden_tag() }}
+		<div class="form-inline">
+			{{ wtf.form_field(form.submit) }}
+			{{ wtf.form_field(form.main_lift) }}
+		</div>
+	</form>
+		<br>
+		{% for post in posts.items %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a class="card-link" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+				<h5 class="pull-right">{{ moment(post.timestamp).fromNow() }}</h5>
 			</div>
-		</form>
-			<br>
-			{% for post in posts.items %}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<a class="card-link" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
-					<h5 class="pull-right">{{ moment(post.timestamp).fromNow() }}</h5>
-				</div>
-				<div class="panel-body">
-					<h3>Warm Up</h3>
-					<h5>{{ post.warm_up }}</h5>
-					<h3>Main Lift</h3>
-					<h5>{{ post.main_lift.capitalize() }}</h5>
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Set</th>
-								<th scope="col">Reps</th>
-								<th scope="col">Weight</th>
-							</tr>
-						</thead>
-					<tbody>
-						{% for set in post.sets %}
+			<div class="panel-body">
+				<h3>Warm Up</h3>
+				<h5>{{ post.warm_up }}</h5>
+				<h3>Main Lift</h3>
+				<h5>{{ post.main_lift.capitalize() }}</h5>
+				<table class="table">
+					<thead>
 						<tr>
-							<td>{{ loop.index }}</td>
-							<td>{{ set["reps"] }}</td>
-							<td>{{ set["weight"] }}</td>
+							<th scope="col">Set</th>
+							<th scope="col">Reps</th>
+							<th scope="col">Weight</th>
 						</tr>
-						{% endfor %}
-					</tbody>
-					</table>
-					<h3>Accessory Lifts</h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Lift</th>
-								<th scope="col">Sets</th>
-								<th scope="col">Reps</th>
-								<th scope="col">Weight</th>
-							</tr>
-						</thead>
-					<tbody>
-						{% for lift in post.accessories %}
+					</thead>
+				<tbody>
+					{% for set in post.sets %}
+					<tr>
+						<td>{{ loop.index }}</td>
+						<td>{{ set["reps"] }}</td>
+						<td>{{ set["weight"] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+				<h3>Accessory Lifts</h3>
+				<table class="table">
+					<thead>
 						<tr>
-							<td>{{ lift["lift"] }}</td>
-							<td>{{ lift["sets"] }}</td>
-							<td>{{ lift["reps"] }}</td>
-							<td>{{ lift["weight"] }}</td>
+							<th scope="col">Lift</th>
+							<th scope="col">Sets</th>
+							<th scope="col">Reps</th>
+							<th scope="col">Weight</th>
 						</tr>
-						{% endfor %}
-					</tbody>
-					</table>
-					<h3>Conditioning</h3>
-					<h5>{{ post.conditioning }}</h5>
-				</div>
+					</thead>
+				<tbody>
+					{% for lift in post.accessories %}
+					<tr>
+						<td>{{ lift["lift"] }}</td>
+						<td>{{ lift["sets"] }}</td>
+						<td>{{ lift["reps"] }}</td>
+						<td>{{ lift["weight"] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+				<h3>Conditioning</h3>
+				<h5>{{ post.conditioning }}</h5>
 			</div>
-		{% endfor %}
-		{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-			{% if page_num %}
-				{% if posts.page == page_num %}
-				<a class="btn btn-default mb-4 active" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-				{% else %}
-				<a class="btn btn-default mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-				{% endif %}
+		</div>
+	{% endfor %}
+	{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+		{% if page_num %}
+			{% if posts.page == page_num %}
+			<a class="btn btn-default mb-4 active" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
 			{% else %}
-			...
+			<a class="btn btn-default mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
 			{% endif %}
-		{% endfor %}
-	</div>
-</div>
+		{% else %}
+		...
+		{% endif %}
+	{% endfor %}
 <br>
 {% endblock %}
