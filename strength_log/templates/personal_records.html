@@ -2,11 +2,11 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-<div class="mui-container">
     <h1>{{title}}</h1>
-    <form class="mui-form" method="POST" action="">
+    <form method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="form-group">
+            <div class="table-responsive">
             <table class="table">
                 <tbody>
                         <tr>
@@ -25,9 +25,8 @@
                         </tr>
                 </tbody>
             </table>
+            </div>
         </div>
         {{ wtf.form_field(form.submit) }}
     </form>
-</div>
-
 {% endblock %}
