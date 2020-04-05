@@ -51,6 +51,11 @@ def new_max():
 
     settings = GeneralSetting.query.filter_by(user_id=user.id).first()
 
+    if not settings:
+        unit = "lbs"
+    else:
+        unit = settings.unit
+
     squat_maxes = [squat_max.squat for squat_max in user_maxes]
     bench_maxes = [bench_max.bench for bench_max in user_maxes]
     deadlift_maxes = [deadlift_max.deadlift for deadlift_max in user_maxes]
@@ -99,5 +104,5 @@ def new_max():
         deadlift_values=deadlift_maxes[::-1],
         press_values=press_maxes[::-1],
         labels=timestamp[::-1],
-        unit=settings.unit,
+        unit=unit,
     )

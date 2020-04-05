@@ -27,6 +27,10 @@ def home():
         .paginate(page=page, per_page=5)
     )
     settings = GeneralSetting.query.filter_by(user=current_user).first()
+    if not settings:
+        unit = "lbs"
+    else:
+        unit = settings.unit
 
     form = FilterForm()
 
@@ -41,12 +45,7 @@ def home():
         return redirect(url_for("posts.new_post"))
 
     return render_template(
-        "home.html",
-        posts=posts,
-        title="Home",
-        form=form,
-        filter_type="All",
-        unit=settings.unit,
+        "home.html", posts=posts, title="Home", form=form, filter_type="All", unit=unit,
     )
 
 
@@ -64,6 +63,10 @@ def main_lift(lift):
     )
     form = FilterForm()
     settings = GeneralSetting.query.filter_by(user=current_user).first()
+    if not settings:
+        unit = "lbs"
+    else:
+        unit = settings.unit
 
     capital_lift = lift.capitalize()
 
@@ -86,7 +89,7 @@ def main_lift(lift):
         title=capital_lift,
         form=form,
         filter_type=capital_lift,
-        unit=settings.unit,
+        unit=unit,
     )
 
 

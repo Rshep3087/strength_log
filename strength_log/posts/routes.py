@@ -50,10 +50,16 @@ def new_post():
 @posts.route("/post/<int:post_id>", methods=["GET", "POST"])
 def post(post_id):
     form = DeleteForm()
-    post = Post.query.get_or_404(post_id)
-    settings = GeneralSetting.query.filter_by(user=current_user).first()
 
-    return render_template("post.html", post=post, form=form, unit=settings.unit)
+    post = Post.query.get_or_404(post_id)
+
+    settings = GeneralSetting.query.filter_by(user=current_user).first()
+    if not settings:
+        unit = "lbs"
+    else:
+        unit = settings.unit
+
+    return render_template("post.html", post=post, form=form, unit=unit)
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
@@ -65,6 +71,7 @@ def update_post(post_id):
 
     if post.author != current_user:
         abort(403)
+
     form = PostForm()
     if form.validate_on_submit():
         post.title = form.title.data

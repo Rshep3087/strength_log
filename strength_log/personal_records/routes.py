@@ -96,6 +96,10 @@ def new_personal_records():
         press=user_press_records,
     )
     settings = GeneralSetting.query.filter_by(user=current_user).first()
+    if not settings:
+        unit = "lbs"
+    else:
+        unit = settings.unit
 
     if not user_press_records:
         """If the user has not submitted PR's, share a tip with a info message."""
@@ -105,5 +109,5 @@ def new_personal_records():
         )
 
     return render_template(
-        "personal_records.html", form=form, title="Personal Records", unit=settings.unit
+        "personal_records.html", form=form, title="Personal Records", unit=unit
     )
