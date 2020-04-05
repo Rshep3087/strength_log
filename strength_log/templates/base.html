@@ -1,4 +1,8 @@
 {% extends 'bootstrap/base.html' %}
+{% block head %}
+{{super()}}
+<link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+{% endblock %}
 
 {% block styles %}
 {{super()}}
