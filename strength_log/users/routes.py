@@ -19,8 +19,9 @@ from strength_log.users.forms import (
     ResendEmailConfirmationForm,
     AddAccessoryLiftForm,
     RemoveAccessoryLiftForm,
+    GeneralSettingsForm,
 )
-from strength_log.models import User, AccessoryLift
+from strength_log.models import User, AccessoryLift, GeneralSetting
 from strength_log import db, mail
 
 users = Blueprint("users", __name__)
@@ -70,23 +71,43 @@ def login():
     return render_template("login.html", form=form, title="Login")
 
 
-@users.route("/settings")
+@users.route("/settings", methods=["GET", "POST"])
 def settings():
     add_accessory_form = AddAccessoryLiftForm()
     remove_accessory_form = RemoveAccessoryLiftForm()
-    accessory_lifts = AccessoryLift.query.filter_by(lifter=current_user)
+    general_settings_form = GeneralSettingsForm()
 
-    logger.debug(type(accessory_lifts))
+    if request.method == "GET":
+        user_settings = GeneralSetting.query.filter_by(user=current_user).first()
+        if user_settings:
+            general_settings_form.unit.default = user_settings.unit
+            general_settings_form.process()
+
+    if request.method == "POST":
+        if general_settings_form.validate():
+            settings = GeneralSetting(
+                unit=general_settings_form.unit.data, user=current_user
+            )
+            db.session.add(settings)
+            db.session.commit()
+
+            flash("Settings updated.", "success")
+        else:
+            flash("Unable to update settings", "danger")
+
+    accessory_lifts = AccessoryLift.query.filter_by(lifter=current_user).order_by(
+        AccessoryLift.lift
+    )
 
     remove_accessory_form.accessory_lift.choices = [
         (accessory_lift.id, accessory_lift.lift) for accessory_lift in accessory_lifts
     ]
-    logger.debug(remove_accessory_form.accessory_lift.choices)
 
     return render_template(
         "settings.html",
         add_accessory_form=add_accessory_form,
         remove_accessory_form=remove_accessory_form,
+        general_settings_form=general_settings_form,
         title="Settings",
     )
 

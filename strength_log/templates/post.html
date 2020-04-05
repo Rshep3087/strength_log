@@ -10,13 +10,13 @@
 {% block app_content %}
 	{% if post.author == current_user %}
 		<div>
-			<a class="btn" id="update_post" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+			<a class="btn" id="update_post" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update Post</a>
 		</div>
 		<br>
 		<div>
 			<form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
 				{{ form.hidden_tag() }}
-				<input class="btn btn-danger" type="submit" value="Delete">
+				<input class="btn btn-danger" type="submit" value="Delete Post">
 			</form>
 		</div>
 		<br>
@@ -28,12 +28,12 @@
 				<h5>{{ post.warm_up }}</h5>
 				<h3>Main Lift</h3>
 				<h5>{{ post.main_lift.capitalize() }}</h5>
-				<table class="table">
+				<table class="table table-condensed table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Set</th>
 							<th scope="col">Reps</th>
-							<th scope="col">Weight</th>
+							<th scope="col">Weight ({{ unit }})</th>
 						</tr>
 					</thead>
 				<tbody>
@@ -47,13 +47,13 @@
 				</tbody>
 				</table>
 				<h3>Accessory Lifts</h3>
-				<table class="table">
+				<table class="table table-condensed table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Lift</th>
 							<th scope="col">Sets</th>
 							<th scope="col">Reps</th>
-							<th scope="col">Weight</th>
+							<th scope="col">Weight ({{ unit }})</th>
 						</tr>
 					</thead>
 				<tbody>

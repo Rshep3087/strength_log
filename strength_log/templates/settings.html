@@ -4,28 +4,58 @@
 {% block app_content %}
     <h1>{{ title }}</h1>
     <br>
-    <button type="button" class="btn" data-toggle="collapse" data-target="#accessory-settings">Accessory Lifts</button>
-    <br>
-    <div id="accessory-settings" class="collapse">
+    <div class="panel-group" id="accordian">
         <div class="panel panel-default">
-            <div class="panel-body">
-                <form class="form" method="post" role="form" action="{{ url_for('users.add_accessory') }}">
-                    {{ add_accessory_form.hidden_tag() }}
-                    {{ wtf.form_errors(add_accessory_form, hiddens="only") }}
-                
-                    {{ wtf.form_field(add_accessory_form.accessory_lift, placeholder="Enter in a New Accessory Lift") }}
-                    {{ wtf.form_field(add_accessory_form.submit) }}
-                </form>
-                <br>
-                <form class="form" method="post" role="form" action="{{ url_for('users.remove_accessory') }}">
-                    {{ remove_accessory_form.hidden_tag() }}
-                    {{ wtf.form_errors(remove_accessory_form, hiddens="only") }}
-                
-                    {{ wtf.form_field(remove_accessory_form.accessory_lift) }}
-                    {{ wtf.form_field(remove_accessory_form.submit, class="btn btn-danger") }}
-                </form>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordian" href="#accessoryLift">
+                        Accessory Lifts
+                    </a>
+                </h4>
+            </div>
+            <div id="accessoryLift" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <form class="form" method="post" role="form" action="{{ url_for('users.add_accessory') }}">
+                        {{ add_accessory_form.hidden_tag() }}
+                        {{ wtf.form_errors(add_accessory_form, hiddens="only") }}
+                    
+                        {{ wtf.form_field(add_accessory_form.accessory_lift, placeholder="Enter in a New Accessory Lift") }}
+                        {{ wtf.form_field(add_accessory_form.submit) }}
+                    </form>
+                    <br>
+                    <form class="form" method="post" role="form" action="{{ url_for('users.remove_accessory') }}">
+                        {{ remove_accessory_form.hidden_tag() }}
+                        {{ wtf.form_errors(remove_accessory_form, hiddens="only") }}
+                    
+                        {{ wtf.form_field(remove_accessory_form.accessory_lift) }}
+                        {{ wtf.form_field(remove_accessory_form.submit, class="btn btn-danger") }}
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
+    <div>
+        <form action="" class="form" method="POST">
+            {{ general_settings_form.hidden_tag() }}
+            <div class="panel-group" id="generalAccordian">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#generalAccordian" href="#settingsUnits">
+                                Units (lbs/kgs)
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="settingsUnits" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ wtf.form_field(general_settings_form.unit) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {{ wtf.form_field(general_settings_form.submit) }}
+        </form>
     </div>
 
 {% endblock %}

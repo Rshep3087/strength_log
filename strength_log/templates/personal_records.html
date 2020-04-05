@@ -7,24 +7,64 @@
         {{ form.hidden_tag() }}
         <div class="form-group">
             <div class="table-responsive">
-            <table class="table">
-                <tbody>
+                <table class="table table-condensed table-bordered">
+                    <tbody>
                         <tr>
                             <td>
-                                {{ wtf.form_field(form.squat) }}
+                                <fieldset>
+                                    <legend>
+                                        {{ form.squat.label(class="control-label")}} <strong>({{ unit }})</strong>
+                                    </legend>
+                                    {% for field in form.squat if field.widget.input_type != 'hidden'%}
+                                    <div class="form-group">
+                                        {{ field.label(class="control-label")}}
+                                        {{ field(class="form-control") }}
+                                    </div>
+                                    {% endfor %}
+                                </fieldset>
                             </td>
                             <td>
-                                {{ wtf.form_field(form.bench) }}
+                                <fieldset>
+                                    <legend>
+                                        {{ form.bench.label(class="control-label")}} <strong>({{ unit }})</strong>
+                                    </legend>
+                                    {% for field in form.bench if field.widget.input_type != 'hidden'%}
+                                    <div class="form-group">
+                                        {{ field.label(class="control-label")}}
+                                        {{ field(class="form-control") }}
+                                    </div>
+                                    {% endfor %}
+                                </fieldset>
                             </td>
                             <td>
-                                {{ wtf.form_field(form.deadlift) }}
+                                <fieldset>
+                                    <legend>
+                                        {{ form.deadlift.label(class="control-label")}} <strong>({{ unit }})</strong>
+                                    </legend>
+                                    {% for field in form.deadlift if field.widget.input_type != 'hidden'%}
+                                    <div class="form-group">
+                                        {{ field.label(class="control-label")}}
+                                        {{ field(class="form-control") }}
+                                    </div>
+                                    {% endfor %}
+                                </fieldset>
                             </td>
                             <td>
-                                {{ wtf.form_field(form.press) }}
+                                <fieldset>
+                                    <legend>
+                                        {{ form.press.label(class="control-label")}} <strong>({{ unit }})</strong>
+                                    </legend>
+                                    {% for field in form.press if field.widget.input_type != 'hidden'%}
+                                    <div class="form-group">
+                                        {{ field.label(class="control-label")}}
+                                        {{ field(class="form-control") }}
+                                    </div>
+                                    {% endfor %}
+                                </fieldset>
                             </td>
                         </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </div>
         {{ wtf.form_field(form.submit) }}

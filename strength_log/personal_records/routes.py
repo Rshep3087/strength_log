@@ -6,10 +6,11 @@ from strength_log.models import (
     DeadliftPersonalRecord,
     PressPersonalRecord,
     User,
+    GeneralSetting,
 )
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import current_user
+from flask_login import current_user, login_required
 from loguru import logger
 
 
@@ -17,6 +18,7 @@ personal_records = Blueprint("user_personal_records", __name__)
 
 
 @personal_records.route("/personal_records", methods=["GET", "POST"])
+@login_required
 def new_personal_records():
     user = User.query.get(current_user.id)
 
@@ -93,11 +95,15 @@ def new_personal_records():
         deadlift=user_deadlift_records,
         press=user_press_records,
     )
+    settings = GeneralSetting.query.filter_by(user=current_user).first()
 
     if not user_press_records:
+        """If the user has not submitted PR's, share a tip with a info message."""
         flash(
             "Tip: Use Personal Records to track your all-time best lifts on reps 1-5. This is usually not the values you base your programming on, track that in the training max tab.",
             "info",
         )
 
-    return render_template("personal_records.html", form=form, title="Personal Records")
+    return render_template(
+        "personal_records.html", form=form, title="Personal Records", unit=settings.unit
+    )

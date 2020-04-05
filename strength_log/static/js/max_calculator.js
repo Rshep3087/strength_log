@@ -9,6 +9,7 @@ function calculateMax() {
     const table = document.getElementById("max-rep-table");
 
     const oneRepDisplay = document.getElementById("one-rep-max");
+    const oneRepDisplayUnit = document.getElementById("units");
 
     oneRepMax = weight * (1 + (reps / 30));
     twoRepMax = oneRepMax * 0.97
@@ -22,5 +23,6 @@ function calculateMax() {
     table.rows[4].cells[1].innerHTML = precise(fourRepMax);
     table.rows[5].cells[1].innerHTML = precise(fiveRepMax);
 
-    oneRepDisplay.innerHTML = `Your One-Rep Max: ${precise(oneRepMax)} lbs`;
+    oneRepDisplay.innerHTML = `Your One-Rep Max: ${precise(oneRepMax)}`;
+    oneRepDisplayUnit.classList.remove('invisible');
 }

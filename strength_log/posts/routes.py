@@ -1,7 +1,8 @@
-from flask import render_template, redirect, url_for, Blueprint, flash, request, abort
 from strength_log import db
 from strength_log.posts.forms import PostForm, DeleteForm
-from strength_log.models import Post, AccessoryLift
+from strength_log.models import Post, AccessoryLift, GeneralSetting
+
+from flask import render_template, redirect, url_for, Blueprint, flash, request, abort
 from flask_login import current_user, login_required
 from loguru import logger
 
@@ -39,7 +40,10 @@ def new_post():
             flash("Workout failed to submit, check fields for missing data.", "danger")
 
     return render_template(
-        "create_post.html", form=form, title="New Post", accessory_lifts=accessory_lifts
+        "create_post.html",
+        form=form,
+        title="New Post",
+        accessory_lifts=accessory_lifts,
     )
 
 
@@ -47,8 +51,9 @@ def new_post():
 def post(post_id):
     form = DeleteForm()
     post = Post.query.get_or_404(post_id)
-    logger.info(post)
-    return render_template("post.html", post=post, form=form)
+    settings = GeneralSetting.query.filter_by(user=current_user).first()
+
+    return render_template("post.html", post=post, form=form, unit=settings.unit)
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])

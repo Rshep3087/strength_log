@@ -22,12 +22,12 @@
 				<h5>{{ post.warm_up }}</h5>
 				<h3>Main Lift</h3>
 				<h5>{{ post.main_lift.capitalize() }}</h5>
-				<table class="table">
+				<table class="table table-condensed table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Set</th>
 							<th scope="col">Reps</th>
-							<th scope="col">Weight</th>
+							<th scope="col">Weight ({{ unit }})</th>
 						</tr>
 					</thead>
 				<tbody>
@@ -41,13 +41,13 @@
 				</tbody>
 				</table>
 				<h3>Accessory Lifts</h3>
-				<table class="table">
+				<table class="table table-condensed table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Lift</th>
 							<th scope="col">Sets</th>
 							<th scope="col">Reps</th>
-							<th scope="col">Weight</th>
+							<th scope="col">Weight ({{ unit }})</th>
 						</tr>
 					</thead>
 				<tbody>

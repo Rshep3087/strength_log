@@ -1,7 +1,7 @@
 from strength_log.models import User
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, RadioField
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 
 
@@ -53,3 +53,12 @@ class AddAccessoryLiftForm(FlaskForm):
 class RemoveAccessoryLiftForm(FlaskForm):
     accessory_lift = SelectField("Your Accessory Lifts", coerce=int)
     submit = SubmitField("Remove Accessory")
+
+
+class GeneralSettingsForm(FlaskForm):
+    unit = RadioField(
+        label="Units",
+        choices=[("lbs", "lbs"), ("kgs", "kgs")],
+        validators=[DataRequired()],
+    )
+    submit = SubmitField("Submit Settings")

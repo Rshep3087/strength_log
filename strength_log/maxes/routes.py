@@ -1,5 +1,5 @@
 from strength_log import db
-from strength_log.models import Max, User
+from strength_log.models import Max, User, GeneralSetting
 from strength_log.maxes.forms import MaxesForm
 
 from flask import render_template, url_for, redirect, request, Blueprint, jsonify, flash
@@ -49,6 +49,8 @@ def new_max():
         .limit(10)
     )
 
+    settings = GeneralSetting.query.filter_by(user_id=user.id).first()
+
     squat_maxes = [squat_max.squat for squat_max in user_maxes]
     bench_maxes = [bench_max.bench for bench_max in user_maxes]
     deadlift_maxes = [deadlift_max.deadlift for deadlift_max in user_maxes]
@@ -82,6 +84,7 @@ def new_max():
             form = MaxesForm(obj=max)
 
     if not timestamp:
+        """If the user has not submitted training max data, share a tip with a info message."""
         flash(
             "Tip: You have no Training Max data. Submit your training maxes that your programming is currently based on to start tracking.",
             "info",
@@ -89,10 +92,12 @@ def new_max():
 
     return render_template(
         "max.html",
+        title="Training Max",
         form=form,
         squat_values=squat_maxes[::-1],
         bench_values=bench_maxes[::-1],
         deadlift_values=deadlift_maxes[::-1],
         press_values=press_maxes[::-1],
         labels=timestamp[::-1],
+        unit=settings.unit,
     )

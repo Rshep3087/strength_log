@@ -5,7 +5,7 @@
   </div>
   <br>
   <div class="form-group">
-      <label for="weightLifted">Weight (lbs)</label>
+      <label for="weightLifted">Weight ({{ unit }})</label>
       <input type="text" class="form-control" id="weightLifted" placeholder="Weight" required>
   </div>
   <div class="form-group">
@@ -28,14 +28,15 @@
       <small id="calculatorTip" class="form-text text-muted">Accuracy may very depending on the athlete's experience.</small>
   </div>
   <div class="text-center">
-      <h2 id="one-rep-max"></h2>
-  </div>
+      <h2 id="one-rep-max" style="text-align:left;float:left;"></h2><h2 id="units" class="invisible" style="text-align:left;float:left;">&nbsp;{{ unit }}</h2>
+      <hr style="clear:both;"/>
+    </div>
   <br>
-  <table class="table" id="max-rep-table">
+  <table class="table table-condensed table-striped" id="max-rep-table">
     <thead>
       <tr>
         <th scope="col">Reps</th>
-        <th scope="col">Weight (lbs)</th>
+        <th scope="col">Weight ({{ unit }})</th>
         <th scope="col">Percentage of One-Rep Max</th>
       </tr>
     </thead>

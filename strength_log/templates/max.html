@@ -7,11 +7,22 @@
         {{ form.hidden_tag() }}
         {{ wtf.form_errors(form, hiddens="only") }}
 
-        {{ wtf.form_field(form.squat)}}
-        {{ wtf.form_field(form.bench)}}
-        {{ wtf.form_field(form.deadlift)}}
-        {{ wtf.form_field(form.press)}}
-
+        <div class="form-group required">
+            {{ form.squat.label(class="control-label") }} <strong>({{ unit }})</strong>
+            {{ form.squat(class="form-control") }}
+        </div>
+        <div class="form-group required">
+            {{ form.bench.label(class="control-label") }} <strong>({{ unit }})</strong>
+            {{ form.bench(class="form-control") }}
+        </div>
+        <div class="form-group required">
+            {{ form.deadlift.label(class="control-label") }} <strong>({{ unit }})</strong>
+            {{ form.deadlift(class="form-control") }}
+        </div>
+        <div class="form-group required">
+            {{ form.press.label(class="control-label") }} <strong>({{ unit }})</strong>
+            {{ form.press(class="form-control") }}
+        </div>
         {{ wtf.form_field(form.submit)}}
     </form>
     <br>
@@ -162,7 +173,7 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "LBS",
+                        labelString: "{{unit}}",
                         fontSize: 18
                     },
                     ticks: {
@@ -172,7 +183,7 @@
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "DATE",
+                        labelString: "Date",
                         fontSize: 18
                     }
                 }]
@@ -192,7 +203,7 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "LBS",
+                        labelString: "{{unit}}",
                         fontSize: 18
                     },
                     ticks: {
@@ -202,7 +213,7 @@
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "DATE",
+                        labelString: "Date",
                         fontSize: 18
                     }
                 }]
@@ -222,7 +233,7 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "LBS",
+                        labelString: "{{unit}}",
                         fontSize: 18
                     },
                     ticks: {
@@ -232,7 +243,7 @@
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "DATE",
+                        labelString: "Date",
                         fontSize: 18
                     }
                 }]
@@ -252,7 +263,7 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "LBS",
+                        labelString: "{{unit}}",
                         fontSize: 18
                     },
                     ticks: {
@@ -262,7 +273,7 @@
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "DATE",
+                        labelString: "Date",
                         fontSize: 18
                     }
                 }]

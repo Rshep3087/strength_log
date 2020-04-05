@@ -41,6 +41,8 @@ class User(db.Model, UserMixin):
         "PressPersonalRecord", backref="lifter", uselist=False
     )
 
+    general_settings = db.relationship("GeneralSetting", backref="user", uselist=False)
+
     accessory_lifts = db.relationship("AccessoryLift", backref="lifter", lazy="dynamic")
 
     def __init__(self, email, password):
@@ -197,3 +199,12 @@ class AccessoryLift(db.Model):
     user_id = db.Column(
         db.Integer, db.ForeignKey("users.id"), nullable=True, default=None
     )
+
+
+class GeneralSetting(db.Model):
+    __tablename__ = "general_settings"
+
+    id = db.Column(db.Integer, primary_key=True)
+    unit = db.Column(db.String(20), nullable=False, default="lbs")
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

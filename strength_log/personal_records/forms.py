@@ -3,11 +3,11 @@ from wtforms import SubmitField, DecimalField, FieldList, FormField
 
 
 class RepForm(FlaskForm):
-    one_rep = DecimalField("1", default=0)
-    two_reps = DecimalField("2", default=0)
-    three_reps = DecimalField("3", default=0)
-    four_reps = DecimalField("4", default=0)
-    five_reps = DecimalField("5", default=0)
+    one_rep = DecimalField("One Rep", default=0)
+    two_reps = DecimalField("Two Reps", default=0)
+    three_reps = DecimalField("Three Reps", default=0)
+    four_reps = DecimalField("Four Reps", default=0)
+    five_reps = DecimalField("Five Reps", default=0)
 
 
 class PersonalRecordForm(FlaskForm):
