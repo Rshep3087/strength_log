@@ -29,6 +29,8 @@ users = Blueprint("users", __name__)
 
 @users.route("/register", methods=["GET", "POST"])
 def register():
+    """Register the user. Add a default settings for the user."""
+
     # Do not allow user to re-register
     if current_user.is_authenticated:
         logger.debug("User already registered")
@@ -39,7 +41,10 @@ def register():
 
     if request.method == "POST" and form.validate_on_submit():
         user = User(email=form.email.data, password=form.password.data)
+        settings = GeneralSetting(user=user)
+
         db.session.add(user)
+        db.session.add(settings)
         db.session.commit()
 
         send_account_confirmation_email(user)
