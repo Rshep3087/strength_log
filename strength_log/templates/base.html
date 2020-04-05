@@ -38,6 +38,7 @@
           <li><a href="{{ url_for('users.register') }}">Register</a></li>
           {% else %}
           <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+          <li><a href="{{ url_for('users.settings') }}">Settings</a></li>
           {% endif %}
           <li><a href="{{ url_for('main.about') }}">About</a></li>
 

@@ -1,7 +1,7 @@
 from strength_log.models import User
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 
 
@@ -43,3 +43,13 @@ class ResetPasswordForm(FlaskForm):
 class ResendEmailConfirmationForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     submit = SubmitField("Request Password Reset")
+
+
+class AddAccessoryLiftForm(FlaskForm):
+    accessory_lift = StringField("Accessory Lift to Add", validators=[DataRequired()])
+    submit = SubmitField("Add Accessory")
+
+
+class RemoveAccessoryLiftForm(FlaskForm):
+    accessory_lift = SelectField("Your Accessory Lifts", coerce=int)
+    submit = SubmitField("Remove Accessory")

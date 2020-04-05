@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-    <h1 class="text-center">Welcome to Strength Log</h1>
-    <br>
     <div class="content-section">
-        <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="text-center">Welcome to Strength Log</h1>
+                <br>            
                 <div class="col-lg-6 col-sm-5">
                     <h2>What is Strength Log?</h2>
                     <h4>Strength log is the simple way to track your strength workouts.</h4>
                 </div>
-                <div class="col-lg-6 col-sm-5"></div>
+                <div class="col-lg-6 col-sm-5">
+                    <h2>How to use Strength Log?</h2>
+                    <h4>Use the One-Rep Max Calculator without an account! To access other features please
+                        <a href="{{ url_for('users.register') }}">register here.</a></h4>
+                </div>
+            </div>
         </div>
     </div>
     <br>

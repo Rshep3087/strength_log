@@ -17,8 +17,10 @@ from strength_log.users.forms import (
     ResetPasswordRequestForm,
     ResetPasswordForm,
     ResendEmailConfirmationForm,
+    AddAccessoryLiftForm,
+    RemoveAccessoryLiftForm,
 )
-from strength_log.models import User
+from strength_log.models import User, AccessoryLift
 from strength_log import db, mail
 
 users = Blueprint("users", __name__)
@@ -48,7 +50,6 @@ def register():
     return render_template("register.html", form=form, title="Register")
 
 
-@logger.catch
 @users.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -62,12 +63,89 @@ def login():
             user = User.query.filter_by(email=form.email.data).first()
             if user and user.is_correct_password(form.password.data):
                 login_user(user)
-                logger.debug(user.authenticated)
                 return redirect(url_for("main.home"))
             else:
                 flash("Login unsuccessful. Please double check credentials.", "danger")
 
     return render_template("login.html", form=form, title="Login")
+
+
+@users.route("/settings")
+def settings():
+    add_accessory_form = AddAccessoryLiftForm()
+    remove_accessory_form = RemoveAccessoryLiftForm()
+    accessory_lifts = AccessoryLift.query.filter_by(lifter=current_user)
+
+    logger.debug(type(accessory_lifts))
+
+    remove_accessory_form.accessory_lift.choices = [
+        (accessory_lift.id, accessory_lift.lift) for accessory_lift in accessory_lifts
+    ]
+    logger.debug(remove_accessory_form.accessory_lift.choices)
+
+    return render_template(
+        "settings.html",
+        add_accessory_form=add_accessory_form,
+        remove_accessory_form=remove_accessory_form,
+        title="Settings",
+    )
+
+
+@users.route("/add_accessory", methods=["POST"])
+def add_accessory():
+    add_accessory_form = AddAccessoryLiftForm()
+    remove_accessory_form = RemoveAccessoryLiftForm()
+
+    if add_accessory_form.validate_on_submit():
+        logger.debug(f"Adding {add_accessory_form.accessory_lift.data}.")
+        accessory_lift = AccessoryLift(
+            lift=add_accessory_form.accessory_lift.data, lifter=current_user
+        )
+        db.session.add(accessory_lift)
+        db.session.commit()
+        flash(f"{add_accessory_form.accessory_lift.data} added!", "success")
+        return redirect(url_for("users.settings"))
+
+    flash(f"Unable to add {add_accessory_form.accessory_lift.data}", "danger")
+
+    return render_template(
+        "settings.html",
+        add_accessory_form=add_accessory_form,
+        remove_accessory_form=remove_accessory_form,
+        title="Settings",
+    )
+
+
+@users.route("/remove_accessory", methods=["POST"])
+def remove_accessory():
+    add_accessory_form = AddAccessoryLiftForm()
+    remove_accessory_form = RemoveAccessoryLiftForm()
+    accessory_lifts = AccessoryLift.query.filter_by(lifter=current_user)
+
+    remove_accessory_form.accessory_lift.choices = [
+        (accessory_lift.id, accessory_lift.lift) for accessory_lift in accessory_lifts
+    ]
+
+    if remove_accessory_form.validate_on_submit():
+        logger.debug(f"Removing {remove_accessory_form.accessory_lift.data}")
+
+        accessory_lift = AccessoryLift.query.get(
+            remove_accessory_form.accessory_lift.data
+        )
+        db.session.delete(accessory_lift)
+        db.session.commit()
+
+        flash("Accessory lift removed!", "success")
+        return redirect(url_for("users.settings"))
+
+    flash("Unable to remove accessory lift.", "danger")
+
+    return render_template(
+        "settings.html",
+        add_accessory_form=add_accessory_form,
+        remove_accessory_form=remove_accessory_form,
+        title="Settings",
+    )
 
 
 @users.route("/logout")

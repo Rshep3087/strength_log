@@ -41,6 +41,8 @@ class User(db.Model, UserMixin):
         "PressPersonalRecord", backref="lifter", uselist=False
     )
 
+    accessory_lifts = db.relationship("AccessoryLift", backref="lifter", lazy="dynamic")
+
     def __init__(self, email, password):
         """Create instance."""
         self.email = email
@@ -190,4 +192,8 @@ class AccessoryLift(db.Model):
     __tablename__ = "accessory_lifts"
 
     id = db.Column(db.Integer, primary_key=True)
-    lift = db.Column(db.String(60))
+    lift = db.Column(db.String(60), nullable=False)
+
+    user_id = db.Column(
+        db.Integer, db.ForeignKey("users.id"), nullable=True, default=None
+    )

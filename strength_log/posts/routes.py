@@ -13,7 +13,10 @@ posts = Blueprint("posts", __name__)
 def new_post():
     form = PostForm()
     accessory_lifts = [
-        a.lift for a in AccessoryLift.query.order_by(AccessoryLift.lift).all()
+        a.lift
+        for a in AccessoryLift.query.filter(
+            (AccessoryLift.user_id == None) | (AccessoryLift.user_id == current_user.id)
+        ).order_by(AccessoryLift.lift)
     ]
 
     if request.method == "POST":
