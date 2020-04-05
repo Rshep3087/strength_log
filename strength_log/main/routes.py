@@ -106,7 +106,11 @@ def max_calculator():
         unit = "lbs"
     else:
         settings = GeneralSetting.query.filter_by(user=current_user).first()
-        unit = settings.unit
+        if not settings:
+            unit = "lbs"
+        else:
+            unit = settings.unit
+
     return render_template(
         "max_calculator.html", title="One-Rep Max Calculator", unit=unit
     )
