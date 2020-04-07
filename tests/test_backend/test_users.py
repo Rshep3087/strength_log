@@ -57,7 +57,6 @@ class TestUsers:
             follow_redirects=True,
         )
         assert r.status_code == 200
-        assert b"Posts" in r.data
         assert b"Login" not in r.data
         """
         GIVEN a Flask application
@@ -72,7 +71,9 @@ class TestUsers:
     def test_invalid_login(self, test_client, init_database):
         r = test_client.post(
             "/login",
-            data=dict(email="ryan.sheppard@gmail.com", password="strengthnotlog"),
+            data=dict(
+                email="ryan.sheppard@gmail.com", password="strengthnotlogpassword"
+            ),
             follow_redirects=True,
         )
         assert r.status_code == 200

@@ -5,7 +5,7 @@ from strength_log.config import Config
 from helium import start_firefox, kill_browser, click, Link, write
 import pytest
 
-HOME_PAGE = "http://rshep3087.pythonanywhere.com/"
+HOME_PAGE = "https://www.strengthlog.app/"
 
 
 class TestConfig(Config):
