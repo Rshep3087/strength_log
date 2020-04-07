@@ -1,7 +1,14 @@
 from strength_log.models import User
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, RadioField
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    SelectField,
+    RadioField,
+    BooleanField,
+)
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 
 
@@ -17,6 +24,7 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
+    keep_logged_in = BooleanField("Keep Me Logged In?")
     submit = SubmitField("Submit")
 
 

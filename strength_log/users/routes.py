@@ -1,11 +1,12 @@
 from flask import (
-    render_template,
-    request,
-    flash,
-    redirect,
-    url_for,
     Blueprint,
     current_app,
+    flash,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
 )
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -58,6 +59,12 @@ def register():
 
 @users.route("/login", methods=["GET", "POST"])
 def login():
+    """
+    Log the user into Strength Log. If the user is already logged in, redirect to home page.
+    Allow user to ask if they want to stay logged in. If yes, session is set to permanent,
+    which last 31 days.
+    If the credentials are incorrect, do not login the user, keep them on the login page.
+    """
     if current_user.is_authenticated:
         # User already logged in
         return redirect(url_for("main.home"))
@@ -69,6 +76,7 @@ def login():
             user = User.query.filter_by(email=form.email.data).first()
             if user and user.is_correct_password(form.password.data):
                 login_user(user)
+                session.permanent = form.keep_logged_in.data
                 return redirect(url_for("main.home"))
             else:
                 flash("Login unsuccessful. Please double check credentials.", "danger")
@@ -78,6 +86,11 @@ def login():
 
 @users.route("/settings", methods=["GET", "POST"])
 def settings():
+    """
+    View for the general settings page.
+    User has three forms, two for accessory lift addition and subtraction. One for general settings.
+    Show user their current additional accessory lifts.
+    """
     add_accessory_form = AddAccessoryLiftForm()
     remove_accessory_form = RemoveAccessoryLiftForm()
     general_settings_form = GeneralSettingsForm()
@@ -119,11 +132,13 @@ def settings():
 
 @users.route("/add_accessory", methods=["POST"])
 def add_accessory():
+    """
+    Add the accessory to the database. Inform user if it was successful or not.
+    """
     add_accessory_form = AddAccessoryLiftForm()
     remove_accessory_form = RemoveAccessoryLiftForm()
 
     if add_accessory_form.validate_on_submit():
-        logger.debug(f"Adding {add_accessory_form.accessory_lift.data}.")
         accessory_lift = AccessoryLift(
             lift=add_accessory_form.accessory_lift.data, lifter=current_user
         )
@@ -144,6 +159,9 @@ def add_accessory():
 
 @users.route("/remove_accessory", methods=["POST"])
 def remove_accessory():
+    """
+    Remove the accessory from the database. Inform user if it was successful or not.
+    """
     add_accessory_form = AddAccessoryLiftForm()
     remove_accessory_form = RemoveAccessoryLiftForm()
     accessory_lifts = AccessoryLift.query.filter_by(lifter=current_user)
