@@ -7,6 +7,12 @@
     margin-right: 20px;
 }
 
+.jumbotron {
+    background-image: url('https://www.strengthlog.app/static/assets/jumbotron_bg.png');
+    background-size: cover;
+    height: 100%;
+}
+
 
 /* Modify the backgorund color */ 
 .navbar-custom { 
