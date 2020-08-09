@@ -1,6 +1,6 @@
 {
     "python.terminal.activateEnvInCurrentTerminal": true,
-    "python.pythonPath": "c:\\Developer\\strength_log\\venv\\Scripts\\python.exe",
+    "python.pythonPath": "venv/bin/python",
     "python.testing.pytestArgs": [
         "tests"
     ],
@@ -10,4 +10,5 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
+    "python.formatting.provider": "black",
 }
