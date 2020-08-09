@@ -43,8 +43,15 @@ To fix a bug or add a feature, follow these steps:
 
 - Fork the repo
 - Create a Python virtual environment (`python -m venv venv`)
-- Install the dependencies from the requirements.txt file (`python -m pip install -r requirements.txt`)
-- A development database is required
+- Activate the new virtual environment (`source venv/bin/activate`)
+- Install the dependencies from the requirements.txt file (`python -m pip install -r dev-requirements.txt`)
+- Create a database in MySQL `database_name`
+- Create a .env file in the top level directory
+  - `export SQLALCHEMY_DATABASE_URI=mysql://username:password@server/db` replacing username, password, server and db
+- A development database is required using mysql
+  - Set the revision in the database (`flask db stamp head`)
+  - Apply the migration to the database by running (`flask db upgrade`)
+  - Check to see if Strength Log runs (`flask run`)
 - Create a new branch
 - Make the appropriate changes to the project
 - Commit your changes
