@@ -2,45 +2,53 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <h1>Training Max</h1>
-    <form class="form" method="POST" action="">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_errors(form, hiddens="only") }}
+<h1>Training Max</h1>
+<form class="form" method="POST" action="">
+    {{ max_form.hidden_tag() }}
+    {{ wtf.form_errors(max_form, hiddens="only") }}
 
-        <div class="form-group required">
-            {{ form.squat.label(class="control-label") }} <strong>({{ unit }})</strong>
-            {{ form.squat(class="form-control") }}
-        </div>
-        <div class="form-group required">
-            {{ form.bench.label(class="control-label") }} <strong>({{ unit }})</strong>
-            {{ form.bench(class="form-control") }}
-        </div>
-        <div class="form-group required">
-            {{ form.deadlift.label(class="control-label") }} <strong>({{ unit }})</strong>
-            {{ form.deadlift(class="form-control") }}
-        </div>
-        <div class="form-group required">
-            {{ form.press.label(class="control-label") }} <strong>({{ unit }})</strong>
-            {{ form.press(class="form-control") }}
-        </div>
-        {{ wtf.form_field(form.submit)}}
-    </form>
-    <br>
-    <h1>Charts</h1>
-    <br>
-    <!-- bar chart canvas element -->
-    <div class="chart-container">
-        <canvas id="squatChart" width="800" height="400"></canvas>
+    <div class="form-group required">
+        {{ max_form.squat.label(class="control-label") }} <strong>({{ unit }})</strong>
+        {{ max_form.squat(class="form-control") }}
     </div>
-    <div class="chart-container">
-        <canvas id="benchChart" width="800" height="400"></canvas>
+    <div class="form-group required">
+        {{ max_form.bench.label(class="control-label") }} <strong>({{ unit }})</strong>
+        {{ max_form.bench(class="form-control") }}
     </div>
-    <div class="chart-container">
-        <canvas id="deadliftChart" width="800" height="400"></canvas>
+    <div class="form-group required">
+        {{ max_form.deadlift.label(class="control-label") }} <strong>({{ unit }})</strong>
+        {{ max_form.deadlift(class="form-control") }}
     </div>
-    <div class="chart-container">
-        <canvas id="pressChart" width="800" height="400"></canvas>
+    <div class="form-group required">
+        {{ max_form.press.label(class="control-label") }} <strong>({{ unit }})</strong>
+        {{ max_form.press(class="form-control") }}
     </div>
+    {{ wtf.form_field(max_form.submit)}}
+</form>
+<br>
+<h1>Charts</h1>
+<form class="form" method="POST" action="">
+    {{ date_form.hidden_tag() }}
+    {{ date_form.start_date.label(class="control-label")  }}
+    {{ date_form.start_date  }}
+    {{ date_form.end_date.label(class="control-label")  }}
+    {{ date_form.end_date  }}
+    {{ wtf.form_field(date_form.date_submit) }}
+</form>
+<br>
+<!-- bar chart canvas element -->
+<div class="chart-container">
+    <canvas id="squatChart" width="800" height="400"></canvas>
+</div>
+<div class="chart-container">
+    <canvas id="benchChart" width="800" height="400"></canvas>
+</div>
+<div class="chart-container">
+    <canvas id="deadliftChart" width="800" height="400"></canvas>
+</div>
+<div class="chart-container">
+    <canvas id="pressChart" width="800" height="400"></canvas>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -65,22 +73,22 @@
     // define the squat data
     var squatData = {
         labels: [{% for item in labels %}"{{ item }}", {% endfor %}],
-        datasets: [{
-            label: 'Squat',
-            fill: false,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "#0509E4",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBackgroundColor: "#fff",
-            pointHoverBackgroundColor: "#0509E4",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            data: [
-                {% for item in squat_values %}
+    datasets: [{
+        label: 'Squat',
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "#0509E4",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBackgroundColor: "#fff",
+        pointHoverBackgroundColor: "#0509E4",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        data: [
+            {% for item in squat_values %}
                 {{ item }},
-                {% endfor %}],}]
+    {% endfor %}],}]
     };
     var benchData = {
         labels:
