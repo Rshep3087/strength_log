@@ -1,6 +1,6 @@
 {
     "python.terminal.activateEnvInCurrentTerminal": true,
-    "python.pythonPath": "venv/bin/python",
+    "python.pythonPath": "venv\\Scripts\\python.exe",
     "python.testing.pytestArgs": [
         "tests"
     ],

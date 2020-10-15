@@ -18,8 +18,11 @@
 				<h5 class="pull-right">{{ moment(post.timestamp).fromNow() }}</h5>
 			</div>
 			<div class="panel-body">
-				<h3>Warm Up</h3>
-				<h5>{{ post.warm_up }}</h5>
+				{% if post.warm_up == "No warm up" %}
+				{% else %}
+					<h3>Warm Up</h3>
+					<h5>{{ post.warm_up }}</h5>
+				{% endif %}
 				<h3>Main Lift</h3>
 				<h5>{{ post.main_lift.capitalize() }}</h5>
 				<table class="table table-condensed table-striped">
@@ -52,17 +55,22 @@
 					</thead>
 				<tbody>
 					{% for lift in post.accessories %}
-					<tr>
-						<td>{{ lift["lift"] }}</td>
-						<td>{{ lift["sets"] }}</td>
-						<td>{{ lift["reps"] }}</td>
-						<td>{{ lift["weight"] }}</td>
-					</tr>
+						{% if lift["sets"] %}
+							<tr>
+								<td>{{ lift["lift"] }}</td>
+								<td>{{ lift["sets"] }}</td>
+								<td>{{ lift["reps"] }}</td>
+								<td>{{ lift["weight"] }}</td>
+							</tr>
+						{% else %}
+						{% endif %}
 					{% endfor %}
 				</tbody>
 				</table>
-				<h3>Conditioning</h3>
-				<h5>{{ post.conditioning }}</h5>
+				{% if post.conditioning %}
+					<h3>Conditioning</h3>
+					<h5>{{ post.conditioning }}</h5>
+				{% endif %}
 			</div>
 		</div>
 	{% endfor %}
