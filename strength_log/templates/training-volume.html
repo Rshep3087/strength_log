@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<h1>Training Volume</h1>
+<br>
+<!-- bar chart canvas element -->
+<div class="chart-container">
+    <canvas id="squatChart" width="800" height="400"></canvas>
+</div>
+<div class="chart-container">
+    <canvas id="benchChart" width="800" height="400"></canvas>
+</div>
+<div class="chart-container">
+    <canvas id="deadliftChart" width="800" height="400"></canvas>
+</div>
+<div class="chart-container">
+    <canvas id="pressChart" width="800" height="400"></canvas>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
+<script>
+    // define global variables
+    Chart.defaults.global.responsive = true;
+    Chart.defaults.global.maintainAspectRatio = false;
+    Chart.defaults.global.layout.padding.top = 15;
+    Chart.defaults.global.elements.point.radius = 10;
+    Chart.defaults.global.elements.point.hoverRadius = 10;
+    Chart.defaults.global.elements.point.borderWidth = 1;
+    Chart.defaults.global.elements.point.hitRadius = 10;
+    Chart.defaults.global.elements.point.hoverBorderWidth = 2;
+    Chart.defaults.global.spanGaps = false;
+    Chart.defaults.global.legend.display = false;
+
+    Chart.defaults.global.elements.point.pointStyle = "triangle";
+
+    Chart.defaults.global.elements.line.borderWidth = 6;
+
+    // define the squat data
+    var squatData = {
+    labels: [
+        {% for item in squat_volume %}
+            "{{ item.date }}",
+        {% endfor %}
+    ],
+    datasets: [{
+        label: 'Squat',
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "#0509E4",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBackgroundColor: "#fff",
+        pointHoverBackgroundColor: "#0509E4",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        data: [
+    {% for item in squat_volume %}
+        {{ item.volume }},
+    {% endfor %}],}]};
+
+    var benchData = {
+        labels: [
+            {% for item in bench_volume %}
+                "{{ item.date }}",
+            {% endfor %}
+        ],
+    datasets: [{
+        label: 'Bench',
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "#04BA04",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBackgroundColor: "#fff",
+        pointHoverBackgroundColor: "#04BA04",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        data:
+            [{% for item in bench_volume %}
+                {{ item.volume }},
+            {% endfor %}],
+        }]
+    };
+
+    var deadliftData = {
+        labels:
+            [{% for item in deadlift_volume %}
+                "{{ item.date }}",
+            {% endfor %}],
+    datasets: [{
+        label: 'Deadlift',
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "#E45502",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBackgroundColor: "#fff",
+        pointHoverBackgroundColor: "#E45502",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        data:
+            [{% for week in deadlift_volume %}
+                {{ week.volume }},
+            {% endfor %}],
+        }]
+    };
+    var pressData = {
+        labels: [
+            {% for week in press_volume %}
+                "{{ week.date }}",
+            {% endfor %}],
+    datasets: [{
+        label: 'Press',
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(145, 61, 136, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBackgroundColor: "#fff",
+        pointHoverBackgroundColor: "rgba(145, 61, 136, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        data: [
+            {% for week in press_volume %}
+                {{ week.volume }},
+            {% endfor %}],
+        }]
+    };
+
+    // get squat canvas
+    var ctxSquat = document.getElementById("squatChart").getContext("2d");
+    var ctxBench = document.getElementById("benchChart").getContext("2d");
+    var ctxDeadlift = document.getElementById("deadliftChart").getContext("2d");
+    var ctxPress = document.getElementById("pressChart").getContext("2d");
+
+    // create the chart using the chart canvas
+    var squatChart = new Chart(ctxSquat, {
+        // The type of chart to create
+        type: 'line',
+        // Data for the chart
+        data: squatData,
+        // Configuraition options
+        options: {
+            title: {
+                display: true,
+                fontSize: 24,
+                text: "Squat"
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "{{unit}}",
+                        fontSize: 18
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date",
+                        fontSize: 18
+                    }
+                }]
+            }
+        }
+    });
+    var benchChart = new Chart(ctxBench, {
+        type: 'line',
+        data: benchData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 24,
+                text: "Bench"
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "{{unit}}",
+                        fontSize: 18
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date",
+                        fontSize: 18
+                    }
+                }]
+            }
+        }
+    });
+    var deadliftChart = new Chart(ctxDeadlift, {
+        type: 'line',
+        data: deadliftData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 24,
+                text: "Deadlift"
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "{{unit}}",
+                        fontSize: 18
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date",
+                        fontSize: 18
+                    }
+                }]
+            }
+        }
+    });
+    var pressChart = new Chart(ctxPress, {
+        type: 'line',
+        data: pressData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 24,
+                text: "Press"
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "{{unit}}",
+                        fontSize: 18
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date",
+                        fontSize: 18
+                    }
+                }]
+            }
+        }
+    });
+</script>
+{{super()}}
+{% endblock %}
