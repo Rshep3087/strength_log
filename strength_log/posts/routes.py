@@ -4,7 +4,6 @@ from strength_log.models import Post, AccessoryLift, GeneralSetting
 
 from flask import render_template, redirect, url_for, Blueprint, flash, request, abort
 from flask_login import current_user, login_required
-from loguru import logger
 
 posts = Blueprint("posts", __name__)
 

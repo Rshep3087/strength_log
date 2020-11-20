@@ -15,4 +15,4 @@ class FilterForm(FlaskForm):
             ("press", "Press"),
         ],
     )
-    submit = SubmitField("Filter By")
+    submit = SubmitField("Filter")

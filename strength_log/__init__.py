@@ -47,12 +47,14 @@ def register_blueprints(app):
     from strength_log.maxes.routes import maxes
     from strength_log.personal_records.routes import personal_records
     from strength_log.errors.routes import errors
+    from strength_log.training_volume.routes import training_volume
 
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(maxes)
     app.register_blueprint(personal_records)
+    app.register_blueprint(training_volume)
     app.register_blueprint(errors)
 
 

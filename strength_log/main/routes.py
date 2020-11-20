@@ -15,10 +15,8 @@ def index():
     posts = Post.query.all()
     total_reps = 0
     for post in posts:
-        logger.debug(post.sets)
         for single_set in post.sets:
             total_reps += single_set["reps"]
-    logger.debug(total_reps)
 
     return render_template("index.html", posts_count=posts_count, total_reps=total_reps)
 
