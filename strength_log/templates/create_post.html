@@ -57,10 +57,12 @@
         <div class="panel-body">
             <label class="control-label">Accessories</label>
             <div>
-                <button type="button" class="btn btn-primary" value="Add" onclick="add_accessory();">Add
-                    Accessory</button>
-                <button type="button" class="btn btn-secondary" value="Remove" onclick="remove_accessory();">Remove
-                    Accessory</button>
+                <button type="button" class="btn btn-primary" value="Add" onclick="add_accessory();">
+                    Add Accessory
+                </button>
+                <button type="button" class="btn btn-secondary" value="Remove" onclick="remove_accessory();">
+                    Remove Accessory
+                </button>
                 <div>
                     <label id="accesory-label" class="control-label lift-label">Accessory to Add</label>
                     <select name="accessory-lift" class="form-control" id="accessory-lift">
@@ -75,9 +77,7 @@
             <br>
             <div id="accessories-subform-container" class="form-inline">
                 {% for subform in form.accessories %}
-                <div id="accessories-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-
-                </div>
+                <div id="accessories-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}"></div>
                 {% endfor %}
             </div>
         </div>
@@ -86,11 +86,9 @@
         <input id="accessories-_-lift" class="form-control" name="accessories-_-lift" readonly>
         <input class="form-control" id="accessories-_-sets" name="accessories-_-sets" type="text" placeholder="Sets">
         <input class="form-control" id="accessories-_-reps" name="accessories-_-reps" type="text" placeholder="Reps">
-        <input class="form-control" id="accessories-_-weight" name="accessories-_-weight" type="text"
-            placeholder="Weight">
+        <input class="form-control" id="accessories-_-weight" name="accessories-_-weight" type="text" placeholder="Weight">
     </div>
     <br>
-
     {{ wtf.form_field(form.conditioning) }}
     {{ wtf.form_field(form.submit) }}
 </form>
