@@ -34,6 +34,7 @@ function add() {
     for (i = 0; i < inputElements.length; i++) {
         inputElements[i].setAttribute("id", inputElements[i].getAttribute("id").replace("_", main_sets_id));
         inputElements[i].setAttribute("name", inputElements[i].getAttribute("name").replace("_", main_sets_id));
+        inputElements[i].setAttribute("type", "number");
     }
 
     newForm.setAttribute("class", "subform")

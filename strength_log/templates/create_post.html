@@ -39,8 +39,8 @@
                 {% for subform in form.sets %}
                 <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
                     <label id="sets-0-label" class="control-label lift-label">Set: {{loop.index}}</label>
-                    {{ subform.reps(class="form-control", placeholder="Reps") }}
-                    {{ subform.weight(class="form-control", placeholder="Weight") }}
+                    {{ subform.reps(class="form-control", type="number", placeholder="Reps") }}
+                    {{ subform.weight(class="form-control", type="number", placeholder="Weight") }}
                 </div>
                 {% endfor %}
             </div>
