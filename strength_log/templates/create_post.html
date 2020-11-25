@@ -61,22 +61,15 @@
         <div class="panel-body">
             <label class="control-label">Accessories</label>
             <div>
-                <button type="button" class="btn btn-primary" value="Add" onclick="add_accessory();">
+                <button type="button" class="btn btn-primary" value="Add" onclick="add_accessory({{ accessory_lifts|safe }});">
                     Add Accessory
                 </button>
                 <button type="button" class="btn btn-secondary" value="Remove" onclick="remove_accessory();">
                     Remove Accessory
                 </button>
-                <div>
-                    <label id="accesory-label" class="control-label lift-label">Accessory to Add</label>
-                    <select name="accessory-lift" class="form-control" id="accessory-lift">
-                        {% for accessory_lift in accessory_lifts %}
-                        <option value="{{ accessory_lift }}">{{ accessory_lift }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <br>
                 <small>
-                    <a href="{{ url_for('users.settings') }}">Don't see an accessory you performed? Add it here!</a>
+                    Don't see an accessory you performed? <a href="{{ url_for('users.settings') }}">Add it here!</a>
                 </small>
             </div>
             <br>
@@ -84,10 +77,11 @@
         </div>
     </div>
     <div id="accessories-_-form" class="hidden" data-index="_">
-        <input id="accessories-_-lift" class="form-control" name="accessories-_-lift" readonly>
+        <select class="form-control" id="accessories-_-lift" name="accessories-_-lift" ></select>
         <input class="form-control" id="accessories-_-sets" name="accessories-_-sets" type="number" placeholder="Sets">
         <input class="form-control" id="accessories-_-reps" name="accessories-_-reps" type="number" placeholder="Reps">
         <input class="form-control" id="accessories-_-weight" name="accessories-_-weight" type="number" placeholder="Weight">
+        <br>
     </div>
     <br>
     {{ wtf.form_field(form.conditioning) }}

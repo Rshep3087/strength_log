@@ -65,7 +65,7 @@ function remove_accessory() {
     }
 }
 
-function add_accessory() {
+function add_accessory(accessoryLifts) {
     let accessorySetsID = 0;
 
     try {
@@ -83,19 +83,24 @@ function add_accessory() {
     newForm.setAttribute("id", newForm.getAttribute("id").replace("_", accessorySetsID));
     newForm.setAttribute("data-index", accessorySetsID);
 
+    let accessoryLiftsElement = newForm.getElementsByTagName("select")[0];
+    for (let index = 0; index < accessoryLifts.length; ++index) {
+        let currentAccessory = accessoryLifts[index];
+        let option = document.createElement("option");
+
+        option.text = currentAccessory;
+        option.value = currentAccessory;
+
+        accessoryLiftsElement.add(option);
+        accessoryLiftsElement.setAttribute("id", accessoryLiftsElement.getAttribute("id").replace("_", accessorySetsID));
+        accessoryLiftsElement.setAttribute("name", accessoryLiftsElement.getAttribute("name").replace("_", accessorySetsID));
+    }
+
     let inputElements = newForm.getElementsByTagName("input");
-    let accessoryToAdd = document.getElementById("accessory-lift");
-
-    // let accessoryLifts = document.getElementById("accessory-lift").options
-
-    inputElements[0].value = accessoryToAdd.value;
-
     for (i = 0; i < inputElements.length; i++) {
         inputElements[i].setAttribute("id", inputElements[i].getAttribute("id").replace("_", accessorySetsID));
         inputElements[i].setAttribute("name", inputElements[i].getAttribute("name").replace("_", accessorySetsID));
-        if (inputElements[i].readOnly != true) {
-            inputElements[i].setAttribute("type", "number");
-        }
+        inputElements[i].setAttribute("type", "number");
     }
 
     newForm.setAttribute("class", "subform");
