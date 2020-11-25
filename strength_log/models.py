@@ -1,4 +1,5 @@
 import datetime as dt
+from datetime import datetime
 
 from strength_log import db, login, bcrypt
 
@@ -104,8 +105,8 @@ class Max(db.Model):
     squat = db.Column(db.Float)
     bench = db.Column(db.Float)
     deadlift = db.Column(db.Float)
-    press = db.Column(db.Float)
-    timestamp = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
+    press: float = db.Column(db.Float)
+    timestamp: datetime = db.Column(db.DateTime, index=True, default=dt.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 

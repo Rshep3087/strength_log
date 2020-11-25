@@ -18,6 +18,9 @@
     {{ form.hidden_tag() }}
     {{ wtf.form_errors(form, hiddens="only") }}
 
+    {{ form.date.label }}<br>
+    {{ form.date(value=workout_date) }}<br>
+
     {% if form.title.errors %}
     {{ wtf.form_field(form.title) }}
     <div class="invalid-feedback">
@@ -40,11 +43,11 @@
             </div>
             <br>
             <div id="main-subform-container" class="form-inline">
-                {% for subform in form.sets %}
+                {% for set in main_sets %}
                 <div id="set-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-                    <label id="sets-0-label" class="control-label lift-label">Set: {{loop.index}}</label>
-                    {{ subform.reps(class="form-control", type="number", placeholder="Reps") }}
-                    {{ subform.weight(class="form-control", type="number", placeholder="Weight") }}
+                    <label id="sets-{{ loop.index0 }}-label" class="control-label lift-label">Set: {{loop.index}}</label>
+                    <input class="form-control" id="sets-{{ loop.index0 }}-reps" name="sets-{{ loop.index0 }}-reps" type="number" value="{{set.reps}}">
+                    <input class="form-control" id="sets-{{ loop.index0 }}-weight" name="sets-{{ loop.index0 }}-weight" type="number" value="{{set.weight}}">
                 </div>
                 {% endfor %}
             </div>
@@ -70,8 +73,8 @@
                 <div>
                     <label id="accesory-label" class="control-label lift-label">Accessory to Add</label>
                     <select name="accessory-lift" class="form-control" id="accessory-lift">
-                        {% for accessory_lift in accessory_lifts %}
-                        <option value="{{ accessory_lift }}">{{ accessory_lift }}</option>
+                        {% for accessory_lift_option in accessory_lifts_options %}
+                        <option value="{{ accessory_lift_option }}">{{ accessory_lift_option }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -80,7 +83,16 @@
                 </small>
             </div>
             <br>
-            <div id="accessories-subform-container" class="form-inline"></div>
+            <div id="accessories-subform-container" class="form-inline">
+                {% for accessory in accessory_lifts %}
+                <div id="accessories-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                    <input id="accessories-{{ loop.index0 }}-lift" class="form-control" name="accessories-{{ loop.index0 }}-lift" readonly value="{{ accessory.lift }}">
+                    <input class="form-control" id="accessories-{{ loop.index0 }}-sets" name="accessories-{{ loop.index0 }}-sets" type="number" value="{{ accessory.sets }}" placeholder="Sets">
+                    <input class="form-control" id="accessories-{{ loop.index0 }}-reps" name="accessories-{{ loop.index0 }}-reps" type="number" value="{{ accessory.reps }}" placeholder="Reps">
+                    <input class="form-control" id="accessories-{{ loop.index0 }}-weight" name="accessories-{{ loop.index0 }}-weight" type="number" value="{{ accessory.weight }}" placeholder="Weight">
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
     <div id="accessories-_-form" class="hidden" data-index="_">

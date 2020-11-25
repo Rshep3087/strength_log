@@ -3,8 +3,11 @@ let accessorySetsID = 0;
 
 
 function remove() {
+    let mainSetsID = document.getElementById("main-subform-container").lastElementChild.getAttribute("data-index");
+
     if (mainSetsID >= 1) {
-        let set = document.getElementById("main-" + mainSetsID + "-form");
+        let set = document.getElementById("set-" + mainSetsID + "-form");
+        console.log(set)
         set.remove();
         mainSetsID--;
     }
@@ -12,9 +15,11 @@ function remove() {
 
 
 function add() {
+    let mainSetsID = document.getElementById("main-subform-container").lastElementChild.getAttribute("data-index");
     mainSetsID++; // increment mainSetsID to get a unique ID for the new element
+    console.log(mainSetsID)
 
-    let templateForm = document.getElementById("main-_-form");
+    let templateForm = document.getElementById("set-_-form");
     let newForm = templateForm.cloneNode(true);
 
     newForm.setAttribute("id", newForm.getAttribute("id").replace("_", mainSetsID));
@@ -41,14 +46,34 @@ function add() {
 }
 
 function remove_accessory() {
-    if (accessorySetsID >= 1) {
-        let set = document.getElementById("accessories-" + accessorySetsID + "-form");
-        set.remove();
-        accessorySetsID--;
+    let accessorySetsID = 0;
+    try {
+        accessorySetsID = document.getElementById("accessories-subform-container").lastElementChild.getAttribute("data-index");
+    }
+    catch (e) {
+        console.log(e)
+        accessorySetsID = -1
+    }
+    finally {
+        console.log(accessorySetsID)
+
+        if (accessorySetsID > -1) {
+            let set = document.getElementById("accessories-" + accessorySetsID + "-form");
+            set.remove();
+            accessorySetsID--;
+        }
     }
 }
 
 function add_accessory() {
+    let accessorySetsID = 0;
+
+    try {
+        accessorySetsID = document.getElementById("accessories-subform-container").lastElementChild.getAttribute("data-index");
+    }
+    catch (error) {
+        accessorySetsID = -1;
+    }
     accessorySetsID++; // increment accessorySetsID to get a unique ID for the new element
 
     let templateForm = document.getElementById("accessories-_-form");

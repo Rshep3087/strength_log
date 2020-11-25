@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask_wtf import FlaskForm
 from wtforms import (
     Form,
@@ -12,6 +10,7 @@ from wtforms import (
     FloatField,
 )
 from wtforms.validators import DataRequired, Length, Optional
+from wtforms.fields.html5 import DateField
 
 
 class SetForm(Form):
@@ -57,6 +56,10 @@ class PostForm(FlaskForm):
     conditioning = StringField("Conditioning", validators=[Optional()])
 
     submit = SubmitField("Submit")
+
+
+class UpdateForm(PostForm):
+    date = DateField("Date", validators=[DataRequired()])
 
 
 class DeleteForm(FlaskForm):
