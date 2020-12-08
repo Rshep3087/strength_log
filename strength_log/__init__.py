@@ -8,7 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_migrate import Migrate
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_wtf import CSRFProtect
@@ -18,7 +17,6 @@ from loguru import logger
 # configuration
 
 db = SQLAlchemy()
-migrate = Migrate()
 bcrypt = Bcrypt()
 mail = Mail()
 login = LoginManager()
@@ -37,7 +35,6 @@ def initialize_extensions(app):
     csrf.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
-    migrate.init_app(app, db=db)
 
 
 def register_blueprints(app):
