@@ -97,6 +97,15 @@ class User(db.Model, UserMixin):
             return None
         return User.query.filter_by(email=email).first()
 
+    @classmethod
+    def find_by_email(cls, email):
+        return User.query.filter(User.email == email).first()
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
 
 class Max(db.Model):
     __tablename__ = "maxes"
