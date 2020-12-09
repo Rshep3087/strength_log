@@ -210,6 +210,11 @@ class AccessoryLift(db.Model):
         db.Integer, db.ForeignKey("users.id"), nullable=True, default=None
     )
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
 
 class GeneralSetting(db.Model):
     __tablename__ = "general_settings"
