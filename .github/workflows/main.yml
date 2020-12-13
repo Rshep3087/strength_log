@@ -30,7 +30,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install packages
-        run: pip3 install -r dev-requirements.txt
+        run: pip install -r dev-requirements.txt
 
       # Check to see if Strength Log runs
       - name: Run Application
