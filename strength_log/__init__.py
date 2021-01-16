@@ -1,7 +1,8 @@
 import logging
 from logging.handlers import SMTPHandler
+import os
 
-from strength_log.config import Config
+from strength_log.config import Config, config
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -10,6 +11,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_wtf import CSRFProtect
 from loguru import logger
 
@@ -23,6 +25,7 @@ login = LoginManager()
 csrf = CSRFProtect()
 bootstrap = Bootstrap()
 moment = Moment()
+toolbar = DebugToolbarExtension()
 login.login_view = "users.login"
 login.login_message_category = "info"
 
@@ -35,6 +38,7 @@ def initialize_extensions(app):
     csrf.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
+    toolbar.init_app(app)
 
 
 def register_blueprints(app):
@@ -58,7 +62,8 @@ def register_blueprints(app):
 # app factory
 def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    config_env = os.getenv("FLASK_CONFIG", "default")
+    app.config.from_object(config[config_env])
     logger.info("App init")
 
     initialize_extensions(app)
