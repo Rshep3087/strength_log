@@ -23,7 +23,7 @@ Flask-WTF==0.14.2
 helium==3.0.2
 importlib-metadata==1.5.0
 itsdangerous==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 loguru==0.4.1
 Mako==1.1.1
 MarkupSafe==1.1.1
